@@ -2,4 +2,7 @@
 
 class Player {
 
+public:
+	void Move();
+
 };
