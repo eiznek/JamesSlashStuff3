@@ -88,14 +88,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CapsuleCollider.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="graphics.cpp" />
     <ClCompile Include="input.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="spacewar.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CapsuleCollider.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameError.h" />
