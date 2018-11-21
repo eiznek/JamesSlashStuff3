@@ -1,5 +1,5 @@
 #include "Player.h"
-#include "input.h" //is this right??
+#include "Entity.h"
 
 Player::Player() {
 
