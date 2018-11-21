@@ -5,6 +5,8 @@ CapsuleCollider::CapsuleCollider()
 {
 }
 
+//CapsuleCollider::CapsuleCollider()
+
 
 CapsuleCollider::~CapsuleCollider()
 {
