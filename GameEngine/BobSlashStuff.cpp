@@ -1,8 +1,4 @@
-// Programming 2D Games
-// Copyright (c) 2011 by: 
-// Charles Kelly
-// Draw animated spaceships with collision and shield
-// Chapter 6 spacewar.cpp v1.0
+//BobSlashStuff
 // This class is the core of the game
 
 #include "BobSlashStuff.h"
