@@ -1,7 +1,6 @@
 #include "Player.h"
-#include "Entity.h"
 
-Player::Player() {
+Player::Player() : Entity() {
 
 }
 
