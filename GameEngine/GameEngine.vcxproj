@@ -88,6 +88,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bob.cpp" />
     <ClCompile Include="BobSlashStuff.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="game.cpp" />
@@ -98,9 +99,12 @@
     <ClCompile Include="ship.cpp" />
     <ClCompile Include="spacewar.cpp" />
     <ClCompile Include="textureManager.cpp" />
+    <ClCompile Include="tile.cpp" />
+    <ClCompile Include="transform.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bob.h" />
     <ClInclude Include="BobSlashStuff.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="entity.h" />
@@ -113,6 +117,8 @@
     <ClInclude Include="ship.h" />
     <ClInclude Include="spacewar.h" />
     <ClInclude Include="textureManager.h" />
+    <ClInclude Include="tile.h" />
+    <ClInclude Include="transform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

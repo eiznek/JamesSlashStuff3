@@ -39,9 +39,6 @@
     <ClCompile Include="BobSlashStuff.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="entity.cpp">
-      <Filter>Source Files\SpaceWar</Filter>
-    </ClCompile>
     <ClCompile Include="ship.cpp">
       <Filter>Source Files\SpaceWar</Filter>
     </ClCompile>
@@ -50,6 +47,18 @@
     </ClCompile>
     <ClCompile Include="planet.cpp">
       <Filter>Source Files\SpaceWar</Filter>
+    </ClCompile>
+    <ClCompile Include="entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="transform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bob.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +96,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BobSlashStuff.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bob.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
