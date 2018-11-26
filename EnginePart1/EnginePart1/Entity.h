@@ -16,6 +16,7 @@ class Entity
 protected:
 	std::string Tag;
 
+	void CircleCollision();
 
 public:
 	Entity();
