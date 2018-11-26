@@ -9,7 +9,7 @@ using namespace bobSlashStuffNS;
 //=============================================================================
 BobSlashStuff::BobSlashStuff()
 {
-	mapX = 0;
+
 }
 
 //=============================================================================
@@ -28,12 +28,15 @@ void BobSlashStuff::initialize(HWND hwnd)
 {
 	Game::initialize(hwnd); // throws GameError
 
-	// tile image
-	if (!tile.initialize(graphics, TEXTURE_SIZE, TEXTURE_SIZE, TEXTURE_COLS, &tileTextures))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing tile"));
-	tile.setFrames(0, 0);
-	tile.setCurrentFrame(0);
+	if (playerSprites.initialize(graphics, PLAYER_IMAGE) == false) {
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error loading player sprite sheet"));
+	}
 
+	if (player.initialize(this, TEXTURE_SIZE, TEXTURE_SIZE, 4, &playerSprites) == false) {
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing player"));
+	}
+
+	player.setHealth = STARTING_HEALTH;
 
 	return;
 }
@@ -43,22 +46,6 @@ void BobSlashStuff::initialize(HWND hwnd)
 //=============================================================================
 void BobSlashStuff::update()
 {
-	if (input->isKeyDown(PLAYER_UP_KEY)) {
-		player.Move(UP);
-	}
-
-	else if (input->isKeyDown(PLAYER_DOWN_KEY)) {
-		player.Move(DOWN);
-	}
-
-	if (input->isKeyDown(PLAYER_LEFT_KEY)) {
-		player.Move(LEFT);
-	}
-
-	else if (input->isKeyDown(PLAYER_RIGHT_KEY)) {
-		player.Move(RIGHT);
-	}
-
 	player.update(frameTime);
 
 }
@@ -86,21 +73,6 @@ void BobSlashStuff::render()
 {
 	graphics->spriteBegin();                // begin drawing sprites
 
-	for (int row = 0; row<MAP_HEIGHT; row++)       // for each row of map
-	{
-		tile.setY((float)(row*TEXTURE_SIZE)); // set tile Y
-		for (int col = 0; col<MAP_WIDTH; col++)    // for each column of map
-		{
-			if (tileMap[row][col] >= 0)          // if tile present
-			{
-				tile.setCurrentFrame(tileMap[row][col]);    // set tile texture
-				tile.setX((float)(col*TEXTURE_SIZE) + mapX);   // set tile X
-															   // if tile on screen
-				if (tile.getX() > -TEXTURE_SIZE && tile.getX() < GAME_WIDTH)
-					tile.draw();                // draw tile
-			}
-		}
-	}
 
 	graphics->spriteEnd();                  // end drawing sprites
 }
