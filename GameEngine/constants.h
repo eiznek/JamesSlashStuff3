@@ -58,10 +58,15 @@ const char TEXTURES_IMAGE[] = "pictures\\textures.png";  // game textures
 const UCHAR ESC_KEY      = VK_ESCAPE;       // escape key
 const UCHAR ALT_KEY      = VK_MENU;         // Alt key
 const UCHAR ENTER_KEY    = VK_RETURN;       // Enter key
+const UCHAR PLAYER_UP_KEY = VK_UP;
+const UCHAR PLAYER_LEFT_KEY = VK_LEFT;
+const UCHAR PLAYER_DOWN_KEY = VK_DOWN;
+const UCHAR PLAYER_RIGHT_KEY = VK_UP;
 
 
 //spacewar
 // weapon types
 enum WEAPON {TORPEDO, SHIP, PLANET};
+enum DIRECTION { UP, DOWN, LEFT, RIGHT };
 
 #endif

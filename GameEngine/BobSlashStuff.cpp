@@ -33,6 +33,23 @@ void BobSlashStuff::initialize(HWND hwnd)
 //=============================================================================
 void BobSlashStuff::update()
 {
+	if (input->isKeyDown(PLAYER_UP_KEY)) {
+		player.Move(UP);
+	}
+
+	else if (input->isKeyDown(PLAYER_DOWN_KEY)) {
+		player.Move(DOWN);
+	}
+
+	if (input->isKeyDown(PLAYER_LEFT_KEY)) {
+		player.Move(LEFT);
+	}
+
+	else if (input->isKeyDown(PLAYER_RIGHT_KEY)) {
+		player.Move(RIGHT);
+	}
+
+	player.update(frameTime);
 
 }
 

@@ -5,9 +5,14 @@
 #include "game.h"
 #include "textureManager.h"
 #include "image.h"
+#include "player.h"
 
 class BobSlashStuff : public Game
 {
+private:
+	TextureManager gameTextures;
+	Player player;
+
 public:
 	//Constructor
 	BobSlashStuff();
