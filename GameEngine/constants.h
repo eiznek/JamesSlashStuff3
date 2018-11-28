@@ -37,6 +37,8 @@ const UINT GAME_HEIGHT = 480;               // height of game in pixels
 const int TEXTURE_SIZE = 32;
 const int SCREEN_WIDTH = GAME_WIDTH / TEXTURE_SIZE + 2;
 const int SCREEN_HEIGHT = GAME_HEIGHT / TEXTURE_SIZE + 2;
+const int PLAYER_X_OFFSET = (GAME_WIDTH / 2 - TEXTURE_SIZE) / 32;
+const int PLAYER_Y_OFFSET = (GAME_HEIGHT / 2 - TEXTURE_SIZE) / 32;
 
 // game
 const double PI = 3.14159265;
@@ -61,7 +63,10 @@ const float MASS_SHIP = 5.0f;
 const char NEBULA_IMAGE[] =   "pictures\\orion.jpg";     // photo source NASA/courtesy of nasaimages.org 
 const char TEXTURES_IMAGE[] = "pictures\\textures.png";  // game textures
 //bobslashstuff
+const char TILE_MAP_IMAGE[] = "pictures\\tilemap.png";
 const char PLAYER_IMAGE[] = "pictures\\playerSprites.png";
+
+const int TEXTURE_SHEET_COLS = 8;
 
 // key mappings
 // In this game simple constants are used for key mappings. If variables were used

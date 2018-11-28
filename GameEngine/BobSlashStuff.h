@@ -16,7 +16,7 @@ namespace bobSlashStuffNS {
 class BobSlashStuff : public Game
 {
 private:
-	TextureManager tileTextures;
+	TextureManager spriteSheet;
 	Image tile;
 	Image menu;
 	TextureManager playerSprites;

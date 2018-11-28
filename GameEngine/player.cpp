@@ -23,7 +23,7 @@ Player::Player() : Entity() {
 	collisionType = entityNS::BOX;
 	worldX = 0;
 	worldY = 0;
-	distance = 0; //Distance to travel. May be replaced by grid based movement in the future (after tile system is working)
+	movement = 0; //Distance to travel. May be replaced by grid based movement in the future (after tile system is working)
 	direction = 0; //Last direction player was facing.
 	mana = 0; //May be moved to Entity class.
 	sanity = 0; //Low priority
@@ -42,62 +42,60 @@ bool Player::initialize(Game *gamePtr, int width, int height, int ncols, Texture
 void Player::update(float frameTime) {
 
 	Entity::update(frameTime);
-	if (xMovement == 0 && yMovement == 0) {
+	yMovement = 0;
+	xMovement = 0;
 		//Move Up
-		if (input->isKeyDown(UP_KEY || UP_KEY_2)) {
+		if (input->isKeyDown(UP_KEY)) {
+			if (spriteData.y <= 0) {
+				xMovement = 0;
+				return;
+			}
 			yMovement = MOVE_LENGTH;
-			distance = MOVE_SPEED;
+			movement = -MOVE_SPEED;
 			direction = UP;
 
 		}
 		//Move Down
-		else if (input->isKeyDown(DOWN_KEY || DOWN_KEY_2)) {
+		else if (input->isKeyDown(DOWN_KEY)) {
+			if (spriteData.y >= GAME_HEIGHT - SCREEN_HEIGHT) {
+				xMovement = 0;
+				return;
+			}
 			yMovement = MOVE_LENGTH;
-			distance = -MOVE_SPEED;
+			movement = MOVE_SPEED;
 			direction = DOWN;
 
 		}
 		//Move Left
-		else if (input->isKeyDown(LEFT_KEY || LEFT_KEY_2)) {
+		else if (input->isKeyDown(LEFT_KEY)) {
+			if (spriteData.x <= 0){
+				xMovement = 0;
+				return;
+			}
+
 			xMovement = MOVE_LENGTH;
-			distance = MOVE_SPEED;
+			movement = -MOVE_SPEED;
 			direction = LEFT;
 
 		}
 		//Move Right
-		else if (input->isKeyDown(RIGHT_KEY || RIGHT_KEY_2)) {
+		else if (input->isKeyDown(RIGHT_KEY)) {
+			if (spriteData.x >= GAME_WIDTH - SCREEN_WIDTH) {
+				xMovement = 0;
+				return;
+			}
 			xMovement = MOVE_LENGTH;
-			distance = -MOVE_SPEED;
+			movement = MOVE_SPEED;
 			direction = RIGHT;
 
 		}
+		spriteData.x += xMovement * movement;
+		spriteData.y += yMovement * movement;
 		setCurrentFrame(0);
 		setFrames(0, 0);
 
 	}
-	else {
-		if (xMovement != 0) {
-			xMovement -= 1;
-			worldX += distance;
-		}
-		if (yMovement != 0) {
-			yMovement -= 1;
-			worldY += distance;
-		}
-		if (xMovement == 0 && yMovement == 0) {
-			setFrames(0, 0);
-			setCurrentFrame(0);
 
-		}
-
-	}
-
-}
-
-//take damage
-void Player::damage(int weapon) {
-	setHealth(health -= weapon);
-}
 
 //Player Attacking
 //Could be unnecessary and most suitably implemented elsewhere instead. i.e. "BobSlashStuff.cpp"

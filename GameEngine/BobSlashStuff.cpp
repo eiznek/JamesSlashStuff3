@@ -28,6 +28,15 @@ void BobSlashStuff::initialize(HWND hwnd)
 {
 	Game::initialize(hwnd); // throws GameError
 
+							// Init Tile Sheet
+	if (spriteSheet.initialize(graphics, TILE_MAP_IMAGE) == false)
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error loading tile sheet"));
+
+
+	if (tile.initialize(graphics, TEXTURE_SIZE, TEXTURE_SIZE, TEXTURE_SHEET_COLS, &spriteSheet) == false) {
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing tile"));
+	}
+
 	if (playerSprites.initialize(graphics, PLAYER_IMAGE) == false) {
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error loading player sprite sheet"));
 	}
@@ -36,7 +45,7 @@ void BobSlashStuff::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing player"));
 	}
 
-	player.setHealth = STARTING_HEALTH;
+	player.setHealth(STARTING_HEALTH);
 
 	return;
 }
@@ -72,7 +81,20 @@ void BobSlashStuff::collisions()
 void BobSlashStuff::render()
 {
 	graphics->spriteBegin();                // begin drawing sprites
+	int tileX = player.worldX / 32 * -1;
+	int tileY = player.worldY / 32 * -1;
 
+	for (int x = tileX - 1; x < tileX + SCREEN_WIDTH; x++) {
+		tile.setX(x*TEXTURE_SIZE + player.worldX);
+		for (int y = tileY - 1; y < tileY + SCREEN_HEIGHT; y++) {
+			tile.setY(y * TEXTURE_SIZE + player.worldY);
+			tile.setCurrentFrame(0);
+			tile.draw();
+
+		}
+	}
+
+	player.draw();
 
 	graphics->spriteEnd();                  // end drawing sprites
 }

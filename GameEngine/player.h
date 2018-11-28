@@ -19,7 +19,7 @@ class Player: public Entity {
 
 private:
 	int direction;
-	int distance;
+	int movement;
 	int mana;
 	int sanity;
 	int xMovement;
@@ -43,7 +43,7 @@ public:
 	void setPlayerX(int x) { worldX = x * 32 * -1; }
 	void setPlayerY(int y) { worldY = y * 32 * -1; }
 	void damage(int weapon) {};
-	int getDistance() { return distance; }
+	int getDistance() { return movement; }
 	int getDirection() { return direction; }
 	int getMana() { return mana; }
 	int getSanity() { return sanity; }
