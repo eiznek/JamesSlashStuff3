@@ -80,7 +80,7 @@ void Player::update(float frameTime) {
 		}
 		//Move Right
 		else if (input->isKeyDown(RIGHT_KEY)) {
-			if (spriteData.x >= GAME_WIDTH - SCREEN_WIDTH) {
+			if (spriteData.x >= GAME_WIDTH - SCREEN_WIDTH - spriteData.width) {
 				xMovement = 0;
 				return;
 			}
@@ -89,8 +89,8 @@ void Player::update(float frameTime) {
 			direction = RIGHT;
 
 		}
-		spriteData.x += xMovement * movement;
-		spriteData.y += yMovement * movement;
+		spriteData.x += xMovement/30 * movement;
+		spriteData.y += yMovement/30 * movement;
 		setCurrentFrame(0);
 		setFrames(0, 0);
 
