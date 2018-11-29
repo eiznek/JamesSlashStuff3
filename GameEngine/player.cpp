@@ -54,8 +54,9 @@ void Player::update(float frameTime) {
 				return;
 			}
 
+			move_state = MOVE_STATE::Moving;
 			if (move_state == MOVE_STATE::Moving) {
-
+				
 			}
 			yMovement = MOVE_LENGTH;
 			movement = -MOVE_SPEED;
