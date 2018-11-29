@@ -32,6 +32,9 @@ Player::Player() : Entity() {
 	moveTimer = 0; //
 	moveSpeed = 1; //num tiles per second
 	move_state = MOVE_STATE::NotMoving;
+
+	//WORD gamepadbtn = input->getGamepadButtons(0);
+	//WORD gamepadUP = input->getGamepadDPadUp(0);
 }
 
 Player::~Player() {
@@ -40,7 +43,7 @@ Player::~Player() {
 bool Player::initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM) 
 {
 	return (Entity::initialize(gamePtr, width, height, ncols, textureM));
-	//input->checkControllers(); this is already called in init input
+	//input->checkControllers(); //this is already called in init input
 }
 
 
@@ -49,8 +52,15 @@ void Player::update(float frameTime) {
 	Entity::update(frameTime);
 	yMovement = 0;
 	xMovement = 0;
+
+	input->vibrateControllers(frameTime);
+	std::cout << input->getControllerState(0);
+	std::cout << input->getControllerState(1);
+	std::cout << "hi";
+	std::cout << input->getControllerState(2);
+	std::cout << input->getControllerState(3);
 		//Move Up
-		if (input->isKeyDown(UP_KEY) || input->isKeyDown(GAMEPAD_DPAD_UP)) {
+		if (input->isKeyDown(UP_KEY) || input->isKeyDown(VK_GAMEPAD_DPAD_UP)) {
 			if (spriteData.y <= 0) {
 				xMovement = 0;
 				return;
