@@ -1,113 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="bob.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BobSlashStuff.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="image.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="input.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="planet.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ship.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="spacewar.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="textureManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="transform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="winmain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="bob.cpp" />
+    <ClCompile Include="BobSlashStuff.cpp" />
+    <ClCompile Include="entity.cpp" />
+    <ClCompile Include="game.cpp" />
+    <ClCompile Include="graphics.cpp" />
+    <ClCompile Include="image.cpp" />
+    <ClCompile Include="input.cpp" />
+    <ClCompile Include="planet.cpp" />
+    <ClCompile Include="player.cpp" />
+    <ClCompile Include="ship.cpp" />
+    <ClCompile Include="spacewar.cpp" />
+    <ClCompile Include="textureManager.cpp" />
+    <ClCompile Include="tile.cpp" />
+    <ClCompile Include="transform.cpp" />
+    <ClCompile Include="winmain.cpp" />
+    <ClCompile Include="playerAttack.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="bob.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BobSlashStuff.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="constants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="gameError.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="image.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="input.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="planet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ship.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="spacewar.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="textureManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="transform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="rapidxml-1.13\rapidxml.hpp">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Projectile.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{803e21cc-0ae0-4fac-881b-737f2105241f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{3eb6440a-ce55-481a-b887-c9f2c5a549b3}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="bob.h" />
+    <ClInclude Include="BobSlashStuff.h" />
+    <ClInclude Include="constants.h" />
+    <ClInclude Include="entity.h" />
+    <ClInclude Include="game.h" />
+    <ClInclude Include="gameError.h" />
+    <ClInclude Include="graphics.h" />
+    <ClInclude Include="image.h" />
+    <ClInclude Include="input.h" />
+    <ClInclude Include="planet.h" />
+    <ClInclude Include="player.h" />
+    <ClInclude Include="rapidxml-1.13\rapidxml.hpp" />
+    <ClInclude Include="ship.h" />
+    <ClInclude Include="spacewar.h" />
+    <ClInclude Include="textureManager.h" />
+    <ClInclude Include="tile.h" />
+    <ClInclude Include="transform.h" />
+    <ClInclude Include="playerAttack.h" />
   </ItemGroup>
 </Project>

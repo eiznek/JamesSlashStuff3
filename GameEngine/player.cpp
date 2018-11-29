@@ -36,7 +36,7 @@ Player::Player() : Entity() {
 Player::~Player() {
 }
 
-bool Player::initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM) 
+bool Player::initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM)
 {
 	return (Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
@@ -149,13 +149,13 @@ void Player::stopMoving() {
 
 //Player Attacking
 //Could be unnecessary and most suitably implemented elsewhere instead. i.e. "BobSlashStuff.cpp"
-void Player::Attack() { 
+void Player::Attack() {
 	//Method 1, check for entity in tile
 
 	/* pseudo code
 	tile = getTile(direction); //get tile in the direction that player is facing
 	setFrames(FRAME_START_ATTACK, FRAME_END_ATTACK); //set animation frames for attacking
-	setCurrentFrame(FRAME_START_ATTACK); 
+	setCurrentFrame(FRAME_START_ATTACK);
 
 	if (tile.containsEntity()){
 		Entity target = tile.getEntity();
