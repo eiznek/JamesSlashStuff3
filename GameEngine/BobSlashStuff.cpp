@@ -57,8 +57,6 @@ void BobSlashStuff::initialize(HWND hwnd)
 void BobSlashStuff::update()
 {
 	player.update(frameTime);
-	if (input->isKeyDown(LEFT_KEY))
-		mapX -= 1;
 
 }
 
@@ -86,12 +84,12 @@ void BobSlashStuff::render()
 	graphics->spriteBegin();                // begin drawing sprites
 
 	for (int col = 0; col < MAP_WIDTH; col++) {
-		tile.setX((col * TEXTURE_SIZE) + mapX);
+		tile.setX((col * TEXTURE_SIZE));
 
 		for (int row = 0; row < MAP_HEIGHT; row++) {
 
 			if (tileMap[row][col] >= 0){
-				tile.setY((row * TEXTURE_SIZE) + mapY);
+				tile.setY((row * TEXTURE_SIZE));
 				tile.setCurrentFrame(tileMap[row][col]);
 				tile.draw();
 
