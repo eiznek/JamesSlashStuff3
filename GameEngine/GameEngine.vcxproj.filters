@@ -113,5 +113,11 @@
     <ClInclude Include="player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
+=======
+    <ClInclude Include="rapidxml-1.13\rapidxml.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+>>>>>>> 2e303da8e06491c3e21a215f8d01ceeceb6135d4
   </ItemGroup>
 </Project>

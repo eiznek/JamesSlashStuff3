@@ -81,16 +81,19 @@ void BobSlashStuff::collisions()
 void BobSlashStuff::render()
 {
 	graphics->spriteBegin();                // begin drawing sprites
-	int tileX = player.worldX / 32 * -1;
-	int tileY = player.worldY / 32 * -1;
 
-	for (int x = tileX - 1; x < tileX + SCREEN_WIDTH; x++) {
-		tile.setX(x*TEXTURE_SIZE + player.worldX);
-		for (int y = tileY - 1; y < tileY + SCREEN_HEIGHT; y++) {
-			tile.setY(y * TEXTURE_SIZE + player.worldY);
-			tile.setCurrentFrame(0);
-			tile.draw();
+	for (int x = 0; x < MAP_WIDTH; x++) {
+		tile.setX(x*GAME_WIDTH/MAP_WIDTH);
 
+		for (int y = 0; y < MAP_HEIGHT; y++) {
+
+			if (tileMap[y][x] > 0){
+				tile.setY((float)(y * GAME_HEIGHT/MAP_HEIGHT));
+				tile.setCurrentFrame(tileMap[y][x]);
+
+				tile.draw();
+
+			}
 		}
 	}
 

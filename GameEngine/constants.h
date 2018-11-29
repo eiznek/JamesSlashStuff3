@@ -63,10 +63,10 @@ const float MASS_SHIP = 5.0f;
 const char NEBULA_IMAGE[] =   "pictures\\orion.jpg";     // photo source NASA/courtesy of nasaimages.org 
 const char TEXTURES_IMAGE[] = "pictures\\textures.png";  // game textures
 //bobslashstuff
-const char TILE_MAP_IMAGE[] = "pictures\\tilemap.png";
+const char TILE_MAP_IMAGE[] = "pictures\\maintiles\\tileSheet.png";
 const char PLAYER_IMAGE[] = "pictures\\playerSprites.png";
 
-const int TEXTURE_SHEET_COLS = 8;
+const int TEXTURE_SHEET_COLS = 30;
 
 // key mappings
 // In this game simple constants are used for key mappings. If variables were used
@@ -85,10 +85,10 @@ const UCHAR LEFT_KEY_2 = 0x41; //A
 const UCHAR DOWN_KEY_2 = 0x53; //S
 const UCHAR RIGHT_KEY_2 = 0x44; //D
 //combat
-const UCHAR ATTACK_KEY = VK_SPACE; //may also be used to interact
+const UCHAR ATTACK_KEY = 0x43; // C; //may also be used to interact
 const UCHAR SPELL_KEY_1 = 0x5A; //Z
 const UCHAR SPELL_KEY_2 = 0x58; //X
-const UCHAR SPELL_KEY_3 = 0x43; // C
+//const UCHAR SPELL_KEY_3 = 
 const UCHAR ITEM_KEY_1 = VK_LCONTROL; //Left CTRL
 const UCHAR ITEM_KEY_2 = VK_LSHIFT; //Left SHIFT
 const UCHAR SPELL_KEY_1_ALT = 0x31; //1
