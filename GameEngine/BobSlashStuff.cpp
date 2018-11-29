@@ -9,7 +9,8 @@ using namespace bobSlashStuffNS;
 //=============================================================================
 BobSlashStuff::BobSlashStuff()
 {
-
+	mapX = 0;
+	mapY = 0;
 }
 
 //=============================================================================
@@ -56,6 +57,8 @@ void BobSlashStuff::initialize(HWND hwnd)
 void BobSlashStuff::update()
 {
 	player.update(frameTime);
+	if (input->isKeyDown(LEFT_KEY))
+		mapX -= 1;
 
 }
 
@@ -82,21 +85,19 @@ void BobSlashStuff::render()
 {
 	graphics->spriteBegin();                // begin drawing sprites
 
-	for (int x = 0; x < MAP_WIDTH; x++) {
-		tile.setX(x*GAME_WIDTH/MAP_WIDTH);
+	for (int col = 0; col < MAP_WIDTH; col++) {
+		tile.setX((col * TEXTURE_SIZE) + mapX);
 
-		for (int y = 0; y < MAP_HEIGHT; y++) {
+		for (int row = 0; row < MAP_HEIGHT; row++) {
 
-			if (tileMap[y][x] > 0){
-				tile.setY((float)(y * GAME_HEIGHT/MAP_HEIGHT));
-				tile.setCurrentFrame(tileMap[y][x]);
-
+			if (tileMap[row][col] >= 0){
+				tile.setY((row * TEXTURE_SIZE) + mapY);
+				tile.setCurrentFrame(tileMap[row][col]);
 				tile.draw();
 
 			}
 		}
 	}
-
 	player.draw();
 
 	graphics->spriteEnd();                  // end drawing sprites

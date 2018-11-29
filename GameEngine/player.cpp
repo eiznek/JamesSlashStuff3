@@ -44,8 +44,8 @@ bool Player::initialize(Game *gamePtr, int width, int height, int ncols, Texture
 void Player::update(float frameTime) {
 
 	Entity::update(frameTime);
-	//yMovement = 0;
-	//xMovement = 0;
+	yMovement = 0;
+	xMovement = 0;
 
 		//Move Up
 		if (input->isKeyDown(UP_KEY)) {
@@ -97,8 +97,8 @@ void Player::update(float frameTime) {
 			direction = RIGHT;
 
 		}
-		spriteData.x += xMovement/30 * movement;
-		spriteData.y += yMovement/30 * movement;
+		spriteData.x += (xMovement * movement) * frameTime * 10;
+		spriteData.y += ( yMovement * movement) * frameTime * 10;
 		setCurrentFrame(0);
 		setFrames(0, 0);
 
