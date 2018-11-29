@@ -17,19 +17,20 @@ Player::Player() : Entity() {
 	velocity.y = 0;
 	frameDelay = 0.1f;
 	startFrame = 0;     // first frame of animation
-	endFrame = 3;     // last frame of animation
+	endFrame = cols - 1;     // last frame of animation
 	currentFrame = startFrame;
 	radius = WIDTH / 2.0;
 	collisionType = entityNS::BOX;
-	worldX = 0;
-	worldY = 0;
+	xMovement = 0;
+	yMovement = 0;
 	movement = 0; //Distance to travel. May be replaced by grid based movement in the future (after tile system is working)
 	direction = 0; //Last direction player was facing.
 	mana = 0; //May be moved to Entity class.
 	sanity = 0; //Low priority
 	moveTimer = 0; //
 	moveSpeed = 1; //num tiles per second
-	//move_state = 
+	animFrame = 0;
+	move_state = MOVE_STATE::NotMoving;
 }
 
 Player::~Player() {
@@ -44,66 +45,106 @@ bool Player::initialize(Game *gamePtr, int width, int height, int ncols, Texture
 void Player::update(float frameTime) {
 
 	Entity::update(frameTime);
-	yMovement = 0;
-	xMovement = 0;
+
+	if (move_state == MOVE_STATE::NotMoving) {
 
 		//Move Up
 		if (input->isKeyDown(UP_KEY)) {
-			if (spriteData.y <= 0) {
-				xMovement = 0;
+			if (getY() <= 0 + TEXTURE_SIZE) {
+				yMovement = 0;
 				return;
 			}
 
 			move_state = MOVE_STATE::Moving;
-			if (move_state == MOVE_STATE::Moving) {
-				moveTimer = moveSpeed; //in tiles per second
-				//old_pos = new_pos
-			}
+			moveTimer = moveSpeed; //in tiles per second
+
 			yMovement = MOVE_LENGTH;
 			movement = -MOVE_SPEED;
+			animFrame = 12;
 			direction = UP;
 		}
+
 		//Move Down
 		else if (input->isKeyDown(DOWN_KEY)) {
-			if (spriteData.y >= GAME_HEIGHT - SCREEN_HEIGHT - PLAYER_Y_OFFSET) {
-				xMovement = 0;
+			if (getY() >= GAME_HEIGHT - TEXTURE_SIZE) {
+				yMovement = 0;
 				return;
 			}
+
 			yMovement = MOVE_LENGTH;
 			movement = MOVE_SPEED;
+			animFrame = 0;
 			direction = DOWN;
 
 		}
+
 		//Move Left
 		else if (input->isKeyDown(LEFT_KEY)) {
-			if (spriteData.x <= 0){
+			if (getX() <= 0 + TEXTURE_SIZE) {
 				xMovement = 0;
 				return;
 			}
 
 			xMovement = MOVE_LENGTH;
 			movement = -MOVE_SPEED;
+			animFrame = 4;
 			direction = LEFT;
 
 		}
+
 		//Move Right
 		else if (input->isKeyDown(RIGHT_KEY)) {
-			if (spriteData.x >= GAME_WIDTH - SCREEN_WIDTH - PLAYER_X_OFFSET) {
+			if (getX() >= GAME_WIDTH - TEXTURE_SIZE) {
 				xMovement = 0;
 				return;
 			}
+
 			xMovement = MOVE_LENGTH;
 			movement = MOVE_SPEED;
+			animFrame = 8;
 			direction = RIGHT;
 
 		}
-		setX(getX() + (xMovement * movement * frameTime));
-		setY(getY() + (yMovement * movement * frameTime));
-		
-		setCurrentFrame(0);
-		setFrames(0, 0);
+
+		if (!xMovement == 0 || !yMovement == 0) {
+			move_state = MOVE_STATE::Moving;
+			oldX = getX();
+			oldY = getY();
+
+		}
+
+		setCurrentFrame(animFrame);
+		setFrames(animFrame, animFrame + cols - 1);
 
 	}
+
+	if(move_state == MOVE_STATE::Moving) {
+
+		if (xMovement != 0) {
+			setX(getX() + (xMovement * movement) * frameTime);
+
+		}
+
+		if (yMovement != 0) {
+			setY(getY() + (yMovement * movement) * frameTime);
+
+		}
+
+		stopMoving();
+
+	}
+
+}
+
+void Player::stopMoving() {
+	xMovement = 0;
+	yMovement = 0;
+
+	setCurrentFrame(animFrame);
+	setFrames(animFrame, animFrame);
+
+	move_state = MOVE_STATE::NotMoving;
+}
 
 
 //Player Attacking
