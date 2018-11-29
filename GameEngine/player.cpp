@@ -56,7 +56,8 @@ void Player::update(float frameTime) {
 
 			move_state = MOVE_STATE::Moving;
 			if (move_state == MOVE_STATE::Moving) {
-				
+				moveTimer = moveSpeed; //in tiles per second
+				//old_pos = new_pos
 			}
 			yMovement = MOVE_LENGTH;
 			movement = -MOVE_SPEED;
