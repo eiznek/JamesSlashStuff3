@@ -1,5 +1,7 @@
 #include "player.h"
-
+#include <iostream>
+#include <string>
+using namespace std;
 using namespace PlayerNS;
 
 Player::Player() : Entity() {
@@ -29,7 +31,7 @@ Player::Player() : Entity() {
 	sanity = 0; //Low priority
 	moveTimer = 0; //
 	moveSpeed = 1; //num tiles per second
-	//move_state = 
+	move_state = MOVE_STATE::NotMoving;
 }
 
 Player::~Player() {
@@ -38,6 +40,7 @@ Player::~Player() {
 bool Player::initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM) 
 {
 	return (Entity::initialize(gamePtr, width, height, ncols, textureM));
+	//input->checkControllers(); this is already called in init input
 }
 
 
@@ -46,22 +49,23 @@ void Player::update(float frameTime) {
 	Entity::update(frameTime);
 	yMovement = 0;
 	xMovement = 0;
-
 		//Move Up
-		if (input->isKeyDown(UP_KEY)) {
+		if (input->isKeyDown(UP_KEY) || input->isKeyDown(GAMEPAD_DPAD_UP)) {
 			if (spriteData.y <= 0) {
 				xMovement = 0;
 				return;
 			}
 
+			//move_state = MOVE_STATE::Moving;
+			//if (move_state == MOVE_STATE::NotMoving) {
+			//	moveTimer = moveSpeed; //in tiles per second
+			//	//old_pos = new_pos
+			//}
 			move_state = MOVE_STATE::Moving;
-			if (move_state == MOVE_STATE::Moving) {
-				moveTimer = moveSpeed; //in tiles per second
-				//old_pos = new_pos
-			}
+			direction = UP;
+
 			yMovement = MOVE_LENGTH;
 			movement = -MOVE_SPEED;
-			direction = UP;
 		}
 		//Move Down
 		else if (input->isKeyDown(DOWN_KEY)) {
@@ -75,8 +79,8 @@ void Player::update(float frameTime) {
 
 		}
 		//Move Left
-		else if (input->isKeyDown(LEFT_KEY)) {
-			if (spriteData.x <= 0){
+		if (input->isKeyDown(LEFT_KEY)) {
+			if (spriteData.x <= 0) {
 				xMovement = 0;
 				return;
 			}
@@ -101,8 +105,8 @@ void Player::update(float frameTime) {
 		spriteData.y += ( yMovement * movement) * frameTime * 10;
 		setCurrentFrame(0);
 		setFrames(0, 0);
-
-	}
+	//}
+}
 
 
 //Player Attacking
