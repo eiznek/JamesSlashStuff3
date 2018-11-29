@@ -49,6 +49,7 @@ public:
 	int getPlayerY() { return(worldY / 32 * -1); }
 	void setPlayerX(int x) { worldX = x * 32 * -1; }
 	void setPlayerY(int y) { worldY = y * 32 * -1; }
+	void Move(int dir) {};
 	void damage(int weapon) {};
 	int getDistance() { return movement; }
 	int getDirection() { return direction; }

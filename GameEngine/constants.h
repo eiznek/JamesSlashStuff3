@@ -37,7 +37,7 @@ const UINT GAME_HEIGHT = 480;               // height of game in pixels
 const int TEXTURE_SIZE = 32;
 const int SCREEN_WIDTH = GAME_WIDTH / TEXTURE_SIZE + 2;
 const int SCREEN_HEIGHT = GAME_HEIGHT / TEXTURE_SIZE + 2;
-const int PLAYER_X_OFFSET = (GAME_WIDTH / 2 - TEXTURE_SIZE) / 32;
+const int PLAYER_X_OFFSET = (GAME_WIDTH / 2 - TEXTURE_SIZE) / TEXTURE_SIZE;
 const int PLAYER_Y_OFFSET = (GAME_HEIGHT / 2 - TEXTURE_SIZE) / (TEXTURE_SIZE / 2);
 
 // game
@@ -46,8 +46,8 @@ const float FRAME_RATE = 200.0f;                // the target frame rate (frames
 const float MIN_FRAME_RATE = 10.0f;             // the minimum frame rate
 const float MIN_FRAME_TIME = 1.0f/FRAME_RATE;   // minimum desired time for 1 frame
 const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calculations
-const int MOVE_SPEED = 1;
-const int MOVE_LENGTH = TEXTURE_SIZE/MOVE_SPEED;
+const int MOVE_SPEED = 3; //3 Tiles per second
+const int MOVE_LENGTH = TEXTURE_SIZE;
 const int STARTING_HEALTH = 100;
 const int STARTING_MANA = 100;
 const int STARTING_SANITY = 100;
