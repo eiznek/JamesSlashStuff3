@@ -97,6 +97,7 @@
     <ClCompile Include="input.cpp" />
     <ClCompile Include="planet.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="playerAttack.cpp" />
     <ClCompile Include="ship.cpp" />
     <ClCompile Include="spacewar.cpp" />
     <ClCompile Include="textureManager.cpp" />
@@ -116,6 +117,7 @@
     <ClInclude Include="input.h" />
     <ClInclude Include="planet.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="playerAttack.h" />
     <ClInclude Include="rapidxml-1.13\rapidxml.hpp" />
     <ClInclude Include="ship.h" />
     <ClInclude Include="spacewar.h" />
