@@ -44,8 +44,8 @@ bool Player::initialize(Game *gamePtr, int width, int height, int ncols, Texture
 void Player::update(float frameTime) {
 
 	Entity::update(frameTime);
-	//yMovement = 0;
-	//xMovement = 0;
+	yMovement = 0;
+	xMovement = 0;
 
 		//Move Up
 		if (input->isKeyDown(UP_KEY)) {
