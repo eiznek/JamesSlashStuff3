@@ -122,9 +122,6 @@
     <ClInclude Include="tile.h" />
     <ClInclude Include="transform.h" />
   </ItemGroup>
-  <ItemGroup>
-    <Xml Include="..\..\..\..\Desktop\NP stuff\Year 2-2\Gameplay Programming\bob.xml" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

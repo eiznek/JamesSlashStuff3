@@ -12,10 +12,14 @@ namespace PlayerNS
 	const int   HEIGHT = 128;               // image height
 	const int   X = GAME_WIDTH / 2 - TEXTURE_SIZE; // location on screen
 	const int   Y = GAME_HEIGHT / 2 - TEXTURE_SIZE;
-
+	enum MOVE_STATE {
+		Moving = 0, NotMoving
+	};
 }
 
 class Player: public Entity {
+
+
 
 private:
 	int direction;
@@ -24,6 +28,9 @@ private:
 	int sanity;
 	int xMovement;
 	int yMovement;
+	PlayerNS::MOVE_STATE move_state;
+	int moveTimer;
+	int moveSpeed;
 
 public:
 	Player();
@@ -47,7 +54,8 @@ public:
 	int getDirection() { return direction; }
 	int getMana() { return mana; }
 	int getSanity() { return sanity; }
-
+	bool getMoveState() { return move_state; }
+	//void setMoveState(MOVE_STATE state) { move_state = state; }
 };
 
 #endif // !_PLAYER_H

@@ -16,12 +16,6 @@
     <Filter Include="Source Files\SpaceWar">
       <UniqueIdentifier>{580a97bb-99ae-454f-aed9-fd30d0263915}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Assets">
-      <UniqueIdentifier>{2a41ff18-5b92-4cb4-be28-25299bf4ac89}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Assets\Map">
-      <UniqueIdentifier>{6a4313e6-72a4-453c-87dc-6850b8b5886e}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="game.cpp">
@@ -119,10 +113,5 @@
     <ClInclude Include="player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="..\..\..\..\Desktop\NP stuff\Year 2-2\Gameplay Programming\bob.xml">
-      <Filter>Assets\Map</Filter>
-    </Xml>
   </ItemGroup>
 </Project>

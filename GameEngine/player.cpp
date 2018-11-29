@@ -27,7 +27,9 @@ Player::Player() : Entity() {
 	direction = 0; //Last direction player was facing.
 	mana = 0; //May be moved to Entity class.
 	sanity = 0; //Low priority
-
+	moveTimer = 0; //
+	moveSpeed = 1; //num tiles per second
+	//move_state = 
 }
 
 Player::~Player() {
@@ -42,22 +44,26 @@ bool Player::initialize(Game *gamePtr, int width, int height, int ncols, Texture
 void Player::update(float frameTime) {
 
 	Entity::update(frameTime);
-	yMovement = 0;
-	xMovement = 0;
+	//yMovement = 0;
+	//xMovement = 0;
+
 		//Move Up
 		if (input->isKeyDown(UP_KEY)) {
 			if (spriteData.y <= 0) {
 				xMovement = 0;
 				return;
 			}
+
+			if (move_state == MOVE_STATE::Moving) {
+
+			}
 			yMovement = MOVE_LENGTH;
 			movement = -MOVE_SPEED;
 			direction = UP;
-
 		}
 		//Move Down
 		else if (input->isKeyDown(DOWN_KEY)) {
-			if (spriteData.y >= GAME_HEIGHT - SCREEN_HEIGHT) {
+			if (spriteData.y >= GAME_HEIGHT - SCREEN_HEIGHT - PLAYER_Y_OFFSET) {
 				xMovement = 0;
 				return;
 			}
@@ -80,7 +86,7 @@ void Player::update(float frameTime) {
 		}
 		//Move Right
 		else if (input->isKeyDown(RIGHT_KEY)) {
-			if (spriteData.x >= GAME_WIDTH - SCREEN_WIDTH - spriteData.width) {
+			if (spriteData.x >= GAME_WIDTH - SCREEN_WIDTH - PLAYER_X_OFFSET) {
 				xMovement = 0;
 				return;
 			}
