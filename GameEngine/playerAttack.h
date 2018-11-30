@@ -1,5 +1,7 @@
 #pragma once
-class playerAttack
+#include "entity.h"
+class playerAttack :
+	public Entity
 {
 public:
 	playerAttack();

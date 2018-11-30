@@ -29,6 +29,10 @@ private:
 	int moveTimer;
 	int moveSpeed;
 	int animFrame;
+	//controller
+	int leftTrigger, leftTriggerUndead, rightTrigger, rightTriggerUndead;
+	int leftThumbX, leftThumbXUndead, leftThumbY, leftThumbYUndead;
+	int rightThumbX, rightThumbXUndead, rightThumbY, rightThumbYUndead;
 
 public:
 	Player();
@@ -47,6 +51,9 @@ public:
 	int getSanity() { return sanity; }
 	bool getMoveState() { return move_state; }
 	//void setMoveState(MOVE_STATE state) { move_state = state; }
+
+	void drawController(int n);
+
 
 };
 
