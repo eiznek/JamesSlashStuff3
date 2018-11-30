@@ -125,16 +125,19 @@ void Player::update(float frameTime) {
 	else if(move_state == MOVE_STATE::Moving) {
 
 		if (xMovement != 0) {
-			setX(getX() + (xMovement * movement) * 2);
-			stopMoving();
+			setX(getX() + (xMovement * movement) * 2); //multiplied by 2 because it takes 2 frames to update movement once.
+			xMovement -= (1 /(FRAME_RATE * 2));
+
 		}
 
 		if (yMovement != 0) {
 			setY(getY() + (yMovement * movement) * 2);
-			stopMoving();
+			yMovement -= (1 /(FRAME_RATE * 2));
+
 		}
 
-		if (xMovement == 0 && yMovement == 0) {
+		if (xMovement <= 0 && yMovement <= 0) {
+			stopMoving();
 			setCurrentFrame(animFrame);
 			setFrames(animFrame, animFrame);
 		}
