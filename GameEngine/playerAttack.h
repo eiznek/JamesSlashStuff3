@@ -3,8 +3,13 @@
 class playerAttack :
 	public Entity
 {
+private:
+
+
 public:
 	playerAttack();
 	~playerAttack();
+
+	 void damage(int weapon);
 };
 

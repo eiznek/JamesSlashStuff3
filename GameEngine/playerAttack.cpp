@@ -10,3 +10,8 @@ playerAttack::playerAttack()
 playerAttack::~playerAttack()
 {
 }
+
+void playerAttack::damage(int weapon) 
+{
+
+}
