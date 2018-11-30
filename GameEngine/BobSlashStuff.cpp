@@ -46,6 +46,14 @@ void BobSlashStuff::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing player"));
 	}
 
+	if (npcSprites.initialize(graphics, NPC_IMAGE) == false) {
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error loading npc sprite sheet"));
+	}
+
+	if (npc.initialize(this, TEXTURE_SIZE, TEXTURE_SIZE, 4, &npcSprites) == false) {
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing NPC"));
+	}
+
 	player.setHealth(STARTING_HEALTH);
 
 	return;
@@ -72,7 +80,41 @@ void BobSlashStuff::ai()
 void BobSlashStuff::collisions()
 {
 	VECTOR2 collisionVector;
+	if (player.collidesWith(npc, collisionVector)) {
+		if (player.getMoveState() == MOVE_STATE::Moving) {
+			switch (player.getDirection()) {
+				case UP:
+					if (!(player.getY() > npc.getY()))
+						return;
+					player.stopMoving();
+					break;
+				case DOWN:
+					if (!(player.getY() < npc.getY()))
+						return;
+					player.stopMoving();
+					break;
+				case LEFT:
+					if (!(player.getX() > npc.getX()))
+						return;
+					player.stopMoving();
+					break;
+				case RIGHT:
+					if (!(player.getX() < npc.getX()))
+						return;
+					player.stopMoving();
+					break;
 
+				default:
+					break;
+			}
+
+		}
+		else if (input->wasKeyPressed(INTERACT_KEY)) {
+			npc.setX(999);
+		}
+		
+
+	}
 
 }
 
@@ -97,6 +139,7 @@ void BobSlashStuff::render()
 		}
 	}
 	player.draw();
+	npc.draw();
 
 	graphics->spriteEnd();                  // end drawing sprites
 }

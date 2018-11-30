@@ -46,8 +46,8 @@ const float FRAME_RATE = 200.0f;                // the target frame rate (frames
 const float MIN_FRAME_RATE = 10.0f;             // the minimum frame rate
 const float MIN_FRAME_TIME = 1.0f/FRAME_RATE;   // minimum desired time for 1 frame
 const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calculations
-const int MOVE_SPEED = 3; //3 Tiles per second
-const int MOVE_LENGTH = TEXTURE_SIZE;
+const int MOVE_SPEED = 3; //tiles per second
+const float MOVE_LENGTH = TEXTURE_SIZE/FRAME_RATE;
 const int STARTING_HEALTH = 100;
 const int STARTING_MANA = 100;
 const int STARTING_SANITY = 100;
@@ -65,6 +65,7 @@ const char TEXTURES_IMAGE[] = "pictures\\textures.png";  // game textures
 //bobslashstuff
 const char TILE_MAP_IMAGE[] = "pictures\\maintiles\\tileSheet.png";
 const char PLAYER_IMAGE[] = "pictures\\playerSprites.png";
+const char NPC_IMAGE[] = "pictures\\npcSprites.png";
 
 const int TEXTURE_SHEET_COLS = 30;
 
@@ -103,5 +104,8 @@ const UCHAR SWAP_SPELLBAR_KEY_2 = VK_TAB; //TAB
 // weapon types
 enum WEAPON {TORPEDO, SHIP, PLANET};
 enum DIRECTION { UP, DOWN, LEFT, RIGHT };
+enum MOVE_STATE {
+	Moving = 0, NotMoving
+};
 
 #endif
