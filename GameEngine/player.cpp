@@ -10,9 +10,9 @@ Player::Player() : Entity() {
 	spriteData.rect.bottom = HEIGHT;    // rectangle to select parts of an image
 	spriteData.rect.right = WIDTH;
 	edge.top = 0;             // ROTATED_BOX collision edges
-	edge.bottom = 32;
+	edge.bottom = HEIGHT;
 	edge.left = 0;
-	edge.right = 32;
+	edge.right = WIDTH;
 	velocity.x = 0;
 	velocity.y = 0;
 	frameDelay = 0.1f;
@@ -23,7 +23,7 @@ Player::Player() : Entity() {
 	collisionType = entityNS::BOX;
 	xMovement = 0;
 	yMovement = 0;
-	movement = 0; //Distance to travel. May be replaced by grid based movement in the future (after tile system is working)
+	movement = 0; 
 	direction = 0; //Last direction player was facing.
 	mana = 0; //May be moved to Entity class.
 	sanity = 0; //Low priority
@@ -118,25 +118,34 @@ void Player::update(float frameTime) {
 
 	}
 
-	if(move_state == MOVE_STATE::Moving) {
+	else if(move_state == MOVE_STATE::Moving) {
 
 		if (xMovement != 0) {
-			setX(getX() + (xMovement * movement) * frameTime);
-
+			setX(getX() + (xMovement * movement) * 2);
+			stopMoving();
 		}
 
 		if (yMovement != 0) {
-			setY(getY() + (yMovement * movement) * frameTime);
-
+			setY(getY() + (yMovement * movement) * 2);
+			stopMoving();
 		}
 
-		stopMoving();
+		if (xMovement == 0 && yMovement == 0) {
+			setCurrentFrame(animFrame);
+			setFrames(animFrame, animFrame);
+		}
 
+			 
 	}
 
 }
 
 void Player::stopMoving() {
+	//if (direction == LEFT || direction == RIGHT)
+	//	setX(getX() - movement);
+	//else if (direction == UP || direction == DOWN)
+	//	setY(getY() - movement);
+
 	xMovement = 0;
 	yMovement = 0;
 
@@ -146,6 +155,9 @@ void Player::stopMoving() {
 	move_state = MOVE_STATE::NotMoving;
 }
 
+//void Player::obstructed(float colX, float colY) {
+//
+//}
 
 //Player Attacking
 //Could be unnecessary and most suitably implemented elsewhere instead. i.e. "BobSlashStuff.cpp"
@@ -168,5 +180,7 @@ void Player::Attack() {
 		return;
 
 	*/
+
+	//Method 2, Collision
 
 }
