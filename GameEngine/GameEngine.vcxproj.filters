@@ -16,6 +16,7 @@
     <ClCompile Include="tile.cpp" />
     <ClCompile Include="transform.cpp" />
     <ClCompile Include="winmain.cpp" />
+    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="playerAttack.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -36,6 +37,7 @@
     <ClInclude Include="textureManager.h" />
     <ClInclude Include="tile.h" />
     <ClInclude Include="transform.h" />
+    <ClInclude Include="Projectile.h" />
     <ClInclude Include="playerAttack.h" />
   </ItemGroup>
 </Project>

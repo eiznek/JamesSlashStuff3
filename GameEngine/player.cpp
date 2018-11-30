@@ -45,11 +45,15 @@ bool Player::initialize(Game *gamePtr, int width, int height, int ncols, Texture
 void Player::update(float frameTime) {
 
 	Entity::update(frameTime);
+	drawController(0);
+	drawController(1);
+	drawController(2);
+	drawController(3);
 
 	if (move_state == MOVE_STATE::NotMoving) {
 
 		//Move Up
-		if (input->isKeyDown(UP_KEY)) {
+		if (input->isKeyDown(UP_KEY) || input->getGamepadDPadUp(0) || input->getGamepadThumbLY(0) > 20000) {
 			if (getY() <= 0 + TEXTURE_SIZE) {
 				yMovement = 0;
 				return;
@@ -65,7 +69,7 @@ void Player::update(float frameTime) {
 		}
 
 		//Move Down
-		else if (input->isKeyDown(DOWN_KEY)) {
+		else if (input->isKeyDown(DOWN_KEY) || input->getGamepadDPadDown(0) || input->getGamepadThumbLY(0) < -20000) {
 			if (getY() >= GAME_HEIGHT - TEXTURE_SIZE) {
 				yMovement = 0;
 				return;
@@ -79,7 +83,7 @@ void Player::update(float frameTime) {
 		}
 
 		//Move Left
-		else if (input->isKeyDown(LEFT_KEY)) {
+		else if (input->isKeyDown(LEFT_KEY) || input->getGamepadDPadLeft(0) || input->getGamepadThumbLX(0) < -20000) {
 			if (getX() <= 0 + TEXTURE_SIZE) {
 				xMovement = 0;
 				return;
@@ -93,7 +97,7 @@ void Player::update(float frameTime) {
 		}
 
 		//Move Right
-		else if (input->isKeyDown(RIGHT_KEY)) {
+		else if (input->isKeyDown(RIGHT_KEY) || input->getGamepadDPadRight(0) || input->getGamepadThumbLX(0) > 20000) {
 			if (getX() >= GAME_WIDTH - TEXTURE_SIZE) {
 				xMovement = 0;
 				return;
@@ -168,5 +172,43 @@ void Player::Attack() {
 		return;
 
 	*/
+
+}
+
+void Player::drawController(int n)
+{
+	//controller.draw();
+	// get trigger and thumbstick positions
+	leftTrigger = input->getGamepadLeftTrigger(n);
+	//leftTriggerUndead = input->getGamepadLeftTriggerUndead(n);
+	rightTrigger = input->getGamepadRightTrigger(n);
+	//rightTriggerUndead = input->getGamepadRightTriggerUndead(n);
+	leftThumbX = input->getGamepadThumbLX(n);
+	//leftThumbXUndead = input->getGamepadThumbLXUndead(n);
+	leftThumbY = input->getGamepadThumbLY(n);
+	//leftThumbYUndead = input->getGamepadThumbLYUndead(n);
+	rightThumbX = input->getGamepadThumbRX(n);
+	//rightThumbXUndead = input->getGamepadThumbRXUndead(n);
+	rightThumbY = input->getGamepadThumbRY(n);
+	//rightThumbYUndead = input->getGamepadThumbRYUndead(n);
+	input->gamePadVibrateLeft(n, leftTrigger << 8, 0.1f);   // vibrate left
+	input->gamePadVibrateRight(n, rightTrigger << 8, 0.1f); // vibtate right
+
+	// Display button states
+	//if (input->getGamepadStart(n))
+	//if (input->getGamepadRightShoulder(n))
+	//if (input->getGamepadA(n))
+	//if (input->getGamepadB(n))
+	//if (input->getGamepadX(n))
+	//if (input->getGamepadY(n))
+	if (input->getGamepadDPadUp(n))
+	{
+
+	}
+	//if (input->getGamepadDPadRight(n))
+	//if (input->getGamepadDPadDown(n))
+	//if (input->getGamepadDPadLeft(n))
+	//if (input->getGamepadLeftShoulder(n))
+	//if (input->getGamepadBack(n))
 
 }

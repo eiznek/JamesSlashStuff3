@@ -44,6 +44,7 @@ private:
 	float mapY;
 	bool menuOn;
 
+
 public:
 	//Constructor
 	BobSlashStuff();
@@ -60,6 +61,7 @@ public:
 	void render();      // "
 	void releaseAll();
 	void resetAll();
+
 
 };
 
