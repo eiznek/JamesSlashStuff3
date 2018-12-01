@@ -11,6 +11,7 @@ playerAttack::~playerAttack()
 {
 }
 
+
 void playerAttack::damage(int weapon) 
 {
 

@@ -83,39 +83,45 @@ void BobSlashStuff::collisions()
 	if (player.collidesWith(npc, collisionVector)) {
 		if (player.getMoveState() == MOVE_STATE::Moving) {
 			switch (player.getDirection()) {
-				case UP:
-					if (!(player.getY() > npc.getY()))
-						return;
-					player.stopMoving();
-					break;
-				case DOWN:
-					if (!(player.getY() < npc.getY()))
-						return;
-					player.stopMoving();
-					break;
-				case LEFT:
-					if (!(player.getX() > npc.getX()))
-						return;
-					player.stopMoving();
-					break;
-				case RIGHT:
-					if (!(player.getX() < npc.getX()))
-						return;
-					player.stopMoving();
-					break;
+			case UP:
+				if (!(player.getY() > npc.getY()))
+					return;
+				player.stopMoving();
+				break;
+			case DOWN:
+				if (!(player.getY() < npc.getY()))
+					return;
+				player.stopMoving();
+				break;
+			case LEFT:
+				if (!(player.getX() > npc.getX()))
+					return;
+				player.stopMoving();
+				break;
+			case RIGHT:
+				if (!(player.getX() < npc.getX()))
+					return;
+				player.stopMoving();
+				break;
 
-				default:
-					break;
+			default:
+				break;
 			}
 
 		}
 		else if (input->wasKeyPressed(INTERACT_KEY)) {
 			npc.setX(999);
+
 		}
-		
+
 
 	}
 
+	if(player.weapon.collideswith(npc,collisionVector){
+		if(input->wasKeyPressed(INTERACT_KEY)){
+			npc.setX(999);
+		}
+	}
 }
 
 //=============================================================================
