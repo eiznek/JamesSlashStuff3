@@ -103,6 +103,7 @@
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="ship.cpp" />
     <ClCompile Include="spacewar.cpp" />
+    <ClCompile Include="Text.cpp" />
     <ClCompile Include="textureManager.cpp" />
     <ClCompile Include="tile.cpp" />
     <ClCompile Include="transform.cpp" />
@@ -127,6 +128,7 @@
     <ClInclude Include="rapidxml-1.13\rapidxml.hpp" />
     <ClInclude Include="ship.h" />
     <ClInclude Include="spacewar.h" />
+    <ClInclude Include="Text.h" />
     <ClInclude Include="textureManager.h" />
     <ClInclude Include="tile.h" />
     <ClInclude Include="transform.h" />

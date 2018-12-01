@@ -29,6 +29,7 @@ void BobSlashStuff::initialize(HWND hwnd)
 {
 	Game::initialize(hwnd); // throws GameError
 
+	test.initialize(graphics, bobSlashStuffNS::FONT_SIZE, false, false, bobSlashStuffNS::FONT);
 							// Init Tile Sheet
 	if (spriteSheet.initialize(graphics, TILE_MAP_IMAGE) == false)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error loading tile sheet"));
@@ -183,6 +184,8 @@ void BobSlashStuff::render()
 	npc.draw();
 	fireball.draw();
 	sword.draw();
+
+	test.print("Bob", GAME_WIDTH/ 2, GAME_HEIGHT * 1/4);
 
 	graphics->spriteEnd();                  // end drawing sprites
 }

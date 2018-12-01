@@ -18,9 +18,9 @@
     <ClCompile Include="winmain.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Projectile.cpp" />
-    <ClCompile Include="playerAttack.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="PlayerWeapon.cpp" />
+    <ClCompile Include="Text.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="transform.h" />
@@ -43,8 +43,8 @@
     <ClInclude Include="NPC.h" />
     <ClInclude Include="transform.h" />
     <ClInclude Include="Projectile.h" />
-    <ClInclude Include="playerAttack.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="PlayerWeapon.h" />
+    <ClInclude Include="Text.h" />
   </ItemGroup>
 </Project>

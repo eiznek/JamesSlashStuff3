@@ -4,7 +4,7 @@ using namespace NpcNS;
 
 NPC::NPC() : Entity()
 {
-	spriteData.width = WIDTH;           // size of EntityPlayer
+	spriteData.width = WIDTH;           // size of Entity
 	spriteData.height = HEIGHT;
 	spriteData.x = X;                   // location on screen
 	spriteData.y = Y;
