@@ -54,6 +54,16 @@ void BobSlashStuff::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing NPC"));
 	}
 
+	if (fireballSprites.initialize(graphics, FIREBALL_IMAGE) == false) {
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error loading fireball sprite sheet"));
+	}
+
+	if (fireball.initialize(this, projectileNS::WIDTH, projectileNS::HEIGHT, projectileNS::TEXTURE_COLS, &fireballSprites) == false) {
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing NPC"));
+	}
+	fireball.setFrames(projectileNS::START_FRAME, projectileNS::END_FRAME);
+	fireball.setCurrentFrame(projectileNS::START_FRAME);
+
 	player.setHealth(STARTING_HEALTH);
 
 	return;
@@ -65,6 +75,10 @@ void BobSlashStuff::initialize(HWND hwnd)
 void BobSlashStuff::update()
 {
 	player.update(frameTime);
+	fireball.update(frameTime);
+	if (input->wasKeyPressed(ATTACK_KEY)) {
+		fireball.fire(&player);
+	}
 
 }
 
@@ -140,6 +154,7 @@ void BobSlashStuff::render()
 	}
 	player.draw();
 	npc.draw();
+	fireball.draw();
 
 	graphics->spriteEnd();                  // end drawing sprites
 }

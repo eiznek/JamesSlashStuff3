@@ -9,6 +9,7 @@
 #include "player.h"
 #include "NPC.h"
 #include "constants.h"
+#include "Projectile.h"
 
 namespace bobSlashStuffNS {
 	const int MAP_WIDTH = GAME_WIDTH/TEXTURE_SIZE;
@@ -43,6 +44,8 @@ private:
 	Image menu;
 	TextureManager playerSprites;
 	TextureManager npcSprites;
+	TextureManager fireballSprites;
+	Projectile fireball;
 	Player player;
 	NPC npc;
 	float mapX;
