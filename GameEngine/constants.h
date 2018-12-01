@@ -52,6 +52,7 @@ const int STARTING_HEALTH = 100;
 const int STARTING_MANA = 100;
 const int STARTING_SANITY = 100;
 const int PLAYER_BASE_ATTACK = 20;
+const int PROJECTILE_SPEED = 5;
 
 //spacewar
 const float GRAVITY = 6.67428e-11f;             // gravitational constant
@@ -66,6 +67,7 @@ const char TEXTURES_IMAGE[] = "pictures\\textures.png";  // game textures
 const char TILE_MAP_IMAGE[] = "pictures\\maintiles\\tileSheet.png";
 const char PLAYER_IMAGE[] = "pictures\\playerSprites.png";
 const char NPC_IMAGE[] = "pictures\\npcSprites.png";
+const char FIREBALL_IMAGE[] = "pictures\\fireball.png";
 
 const int TEXTURE_SHEET_COLS = 30;
 
@@ -103,7 +105,7 @@ const UCHAR SWAP_SPELLBAR_KEY_2 = VK_TAB; //TAB
 //spacewar
 // weapon types
 enum WEAPON {TORPEDO, SHIP, PLANET};
-enum DIRECTION { UP, DOWN, LEFT, RIGHT };
+enum DIRECTION { UP = -2, LEFT, DOWN = 1, RIGHT };
 enum MOVE_STATE {
 	Moving = 0, NotMoving
 };

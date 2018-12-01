@@ -126,13 +126,13 @@ void Player::update(float frameTime) {
 
 		if (xMovement != 0) {
 			setX(getX() + (xMovement * movement) * 2); //multiplied by 2 because it takes 2 frames to update movement once.
-			xMovement -= (1 /(FRAME_RATE * 2));
+			xMovement -= (1 /FRAME_RATE);
 
 		}
 
 		if (yMovement != 0) {
 			setY(getY() + (yMovement * movement) * 2);
-			yMovement -= (1 /(FRAME_RATE * 2));
+			yMovement -= (1 /FRAME_RATE);
 
 		}
 

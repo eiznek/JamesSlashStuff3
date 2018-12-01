@@ -1,22 +1,40 @@
-#pragma once
-#define VECTOR2 D3DXVECTOR2
+#ifndef _TORPEDO_H              // Prevent multiple definitions if this 
+#define _TORPEDO_H              // file is included in more than one place
+#define WIN32_LEAN_AND_MEAN
 
-#include <d3dx9math.h>
 #include "entity.h"
 #include "constants.h"
+#include "player.h"
+#include "d3dx9math.h"
+
+namespace projectileNS
+{
+	const int   WIDTH = 32;             // image width
+	const int   HEIGHT = 32;           // image height
+	const int   COLLISION_RADIUS = 4;   // for circular collision
+	const float SPEED = TEXTURE_SIZE * PROJECTILE_SPEED;            // pixels per second
+	const float MASS = 300.0f;          // mass
+	const float FIRE_DELAY = 2.0f;     
+	const int   TEXTURE_COLS = 4;
+	const int   START_FRAME = 0;
+	const int   END_FRAME = 3;
+	const float ANIMATION_DELAY = 0.1f; // time between frames
+}
 
 class Projectile : public Entity
 {
 private:
-	VECTOR2 direction;
-	int speed;
+	float fireTimer;
 
 public:
-	Projectile(VECTOR2 direction, int speed);
+	Projectile();
 	~Projectile();
 
-	bool Projectile::initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM);
 	void update(float frameTime);
+	float getMass()    const { return projectileNS::MASS; }
+
+	// new member functions
+	void fire(Player *player);                // fire torpedo from ship
 
 };
-
+#endif
