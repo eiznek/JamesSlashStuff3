@@ -11,5 +11,6 @@ public:
 	~playerAttack();
 
 	 void damage(int weapon);
+
 };
 
