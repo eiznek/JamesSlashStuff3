@@ -50,19 +50,15 @@ private:
 	Image tile;
 	Image menu;
 
-	TextureManager spriteSheet;
-	TextureManager playerSprites;
-	TextureManager npcSprites;
-	TextureManager fireballSprites;
-	TextureManager swordSprites;
+	TextureManager spriteSheet, playerSprites, npcSprites, fireballSprites, swordSprites;
+	Text npcText;
 
 	Item sword;
 	Projectile fireball;
 	Player player;
 	NPC npc;
-	Text test;
 
-	char buffer[bobSlashStuffNS::BUF_SIZE];
+	char buffer[bobSlashStuffNS::BUF_SIZE]; //text buffer
 	float mapX;
 	float mapY;
 	bool menuOn;

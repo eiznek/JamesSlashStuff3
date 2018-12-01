@@ -29,7 +29,8 @@ void BobSlashStuff::initialize(HWND hwnd)
 {
 	Game::initialize(hwnd); // throws GameError
 
-	test.initialize(graphics, bobSlashStuffNS::FONT_SIZE, false, false, bobSlashStuffNS::FONT);
+	npcText.initialize(graphics, bobSlashStuffNS::FONT_SIZE, false, false, bobSlashStuffNS::FONT);
+	npcText.setFontColor(SETCOLOR_ARGB(0, 255, 255, 255)); //Disable Text Visibility
 							// Init Tile Sheet
 	if (spriteSheet.initialize(graphics, TILE_MAP_IMAGE) == false)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error loading tile sheet"));
@@ -111,6 +112,7 @@ void BobSlashStuff::collisions()
 {
 	VECTOR2 collisionVector;
 	if (player.collidesWith(npc, collisionVector)) {
+		npcText.setFontColor(SETCOLOR_ARGB(255, 255, 255, 255)); //WHITE
 		if (player.getMoveState() == MOVE_STATE::Moving) {
 			switch (player.getDirection()) {
 			case UP:
@@ -185,7 +187,8 @@ void BobSlashStuff::render()
 	fireball.draw();
 	sword.draw();
 
-	test.print("Bob", GAME_WIDTH/ 2, GAME_HEIGHT * 1/4);
+	
+	npcText.print("herro" , npc.getX() - TEXTURE_SIZE, npc.getY() - TEXTURE_SIZE * 2);
 
 	graphics->spriteEnd();                  // end drawing sprites
 }
@@ -196,6 +199,13 @@ void BobSlashStuff::render()
 //=============================================================================
 void BobSlashStuff::releaseAll()
 {
+	playerSprites.onLostDevice();
+	spriteSheet.onLostDevice();
+	npcSprites.onLostDevice();
+	fireballSprites.onLostDevice();
+	swordSprites.onLostDevice();
+	npcText.onLostDevice();
+
 	Game::releaseAll();
 	return;
 }
@@ -206,6 +216,12 @@ void BobSlashStuff::releaseAll()
 //=============================================================================
 void BobSlashStuff::resetAll()
 {
+	playerSprites.onResetDevice();
+	spriteSheet.onResetDevice();
+	npcSprites.onResetDevice();
+	fireballSprites.onResetDevice();
+	swordSprites.onResetDevice();
+	npcText.onResetDevice();
 
 	Game::resetAll();
 	return;
