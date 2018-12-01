@@ -50,6 +50,7 @@ public:
 	int getDistance() { return movement; }
 	int getDirection() { return direction; }
 	int getMana() { return mana; }
+	void setMana(int amt) { mana = amt; }
 	//void obstructed(float colX, float colY);
 	int getSanity() { return sanity; }
 	bool getMoveState() { return move_state; }

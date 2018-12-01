@@ -51,6 +51,7 @@ const float MOVE_LENGTH = TEXTURE_SIZE/FRAME_RATE;
 const int STARTING_HEALTH = 100;
 const int STARTING_MANA = 100;
 const int STARTING_SANITY = 100;
+const int FIREBALL_COST_MANA = 10;
 const int PLAYER_BASE_ATTACK = 20;
 const int PROJECTILE_SPEED = 5;
 
@@ -68,6 +69,7 @@ const char TILE_MAP_IMAGE[] = "pictures\\maintiles\\tileSheet.png";
 const char PLAYER_IMAGE[] = "pictures\\playerSprites.png";
 const char NPC_IMAGE[] = "pictures\\npcSprites.png";
 const char FIREBALL_IMAGE[] = "pictures\\fireball.png";
+const char WOODEN_SWORD_IMAGE[] = "pictures\\Wooden_Sword.png";
 
 const int TEXTURE_SHEET_COLS = 30;
 

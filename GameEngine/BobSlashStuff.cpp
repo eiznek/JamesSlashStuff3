@@ -29,6 +29,8 @@ void BobSlashStuff::initialize(HWND hwnd)
 {
 	Game::initialize(hwnd); // throws GameError
 
+	npcText.initialize(graphics, bobSlashStuffNS::FONT_SIZE, false, false, bobSlashStuffNS::FONT);
+	npcText.setFontColor(SETCOLOR_ARGB(0, 255, 255, 255)); //Disable Text Visibility
 							// Init Tile Sheet
 	if (spriteSheet.initialize(graphics, TILE_MAP_IMAGE) == false)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error loading tile sheet"));
@@ -46,6 +48,8 @@ void BobSlashStuff::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing player"));
 	}
 
+	player.setHealth(STARTING_HEALTH);
+
 	if (npcSprites.initialize(graphics, NPC_IMAGE) == false) {
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error loading npc sprite sheet"));
 	}
@@ -59,12 +63,18 @@ void BobSlashStuff::initialize(HWND hwnd)
 	}
 
 	if (fireball.initialize(this, projectileNS::WIDTH, projectileNS::HEIGHT, projectileNS::TEXTURE_COLS, &fireballSprites) == false) {
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing NPC"));
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing projectile."));
 	}
 	fireball.setFrames(projectileNS::START_FRAME, projectileNS::END_FRAME);
 	fireball.setCurrentFrame(projectileNS::START_FRAME);
 
-	player.setHealth(STARTING_HEALTH);
+	if (swordSprites.initialize(graphics, WOODEN_SWORD_IMAGE) == false) {
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error loading sword sprites."));
+	}
+
+	if (sword.initialize(this, itemNS::WIDTH, itemNS::HEIGHT, itemNS::TEXTURE_COLS, &swordSprites) == false) {
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing sword."));
+	}
 
 	return;
 }
@@ -76,8 +86,20 @@ void BobSlashStuff::update()
 {
 	player.update(frameTime);
 	fireball.update(frameTime);
+<<<<<<< HEAD
 	if (input->wasKeyPressed(SPELL_KEY_1)) {
 		fireball.fire(&player);
+=======
+	sword.update(frameTime);
+	npc.update(frameTime);
+
+	if (input->wasKeyPressed(SPELL_KEY_1)) {
+		if (player.getMana() >= FIREBALL_COST_MANA && fireball.getActive() == false) {
+			fireball.fire(&player);
+			player.setMana(player.getMana() - FIREBALL_COST_MANA);
+		}
+
+>>>>>>> caa21f70cd5530bce4374c2e967102428be6769f
 	}
 
 }
@@ -95,6 +117,7 @@ void BobSlashStuff::collisions()
 {
 	VECTOR2 collisionVector;
 	if (player.collidesWith(npc, collisionVector)) {
+		npcText.setFontColor(SETCOLOR_ARGB(255, 255, 255, 255)); //WHITE
 		if (player.getMoveState() == MOVE_STATE::Moving) {
 			switch (player.getDirection()) {
 			case UP:
@@ -123,11 +146,17 @@ void BobSlashStuff::collisions()
 			}
 
 		}
-		else if (input->wasKeyPressed(INTERACT_KEY)) {
-			npc.setX(999);
+		else if (input->wasKeyPressed(INTERACT_KEY) && npc.getActive() == true) {
+			sword.Drop(&npc);
+			npc.setActive(false);
+			npc.setVisible(false);
+			return;
 
 		}
+	}
 
+	if (player.collidesWith(sword, collisionVector) && input->wasKeyPressed(INTERACT_KEY)) {
+		sword.PickUp(&player);
 
 	}
 
@@ -136,7 +165,10 @@ void BobSlashStuff::collisions()
 	//		npc.setX(999);
 	//	}
 	//}
+<<<<<<< HEAD
 
+=======
+>>>>>>> caa21f70cd5530bce4374c2e967102428be6769f
 }
 
 //=============================================================================
@@ -162,6 +194,10 @@ void BobSlashStuff::render()
 	player.draw();
 	npc.draw();
 	fireball.draw();
+	sword.draw();
+
+	
+	npcText.print("herro" , npc.getX() - TEXTURE_SIZE, npc.getY() - TEXTURE_SIZE * 2);
 
 	graphics->spriteEnd();                  // end drawing sprites
 }
@@ -172,6 +208,13 @@ void BobSlashStuff::render()
 //=============================================================================
 void BobSlashStuff::releaseAll()
 {
+	playerSprites.onLostDevice();
+	spriteSheet.onLostDevice();
+	npcSprites.onLostDevice();
+	fireballSprites.onLostDevice();
+	swordSprites.onLostDevice();
+	npcText.onLostDevice();
+
 	Game::releaseAll();
 	return;
 }
@@ -182,6 +225,12 @@ void BobSlashStuff::releaseAll()
 //=============================================================================
 void BobSlashStuff::resetAll()
 {
+	playerSprites.onResetDevice();
+	spriteSheet.onResetDevice();
+	npcSprites.onResetDevice();
+	fireballSprites.onResetDevice();
+	swordSprites.onResetDevice();
+	npcText.onResetDevice();
 
 	Game::resetAll();
 	return;
