@@ -68,6 +68,7 @@ const char TILE_MAP_IMAGE[] = "pictures\\maintiles\\tileSheet.png";
 const char PLAYER_IMAGE[] = "pictures\\playerSprites.png";
 const char NPC_IMAGE[] = "pictures\\npcSprites.png";
 const char FIREBALL_IMAGE[] = "pictures\\fireball.png";
+const char WOODEN_SWORD_IMAGE[] = "pictures\\Wooden_Sword.png";
 
 const int TEXTURE_SHEET_COLS = 30;
 

@@ -46,6 +46,8 @@ void BobSlashStuff::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing player"));
 	}
 
+	player.setHealth(STARTING_HEALTH);
+
 	if (npcSprites.initialize(graphics, NPC_IMAGE) == false) {
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error loading npc sprite sheet"));
 	}
@@ -59,12 +61,18 @@ void BobSlashStuff::initialize(HWND hwnd)
 	}
 
 	if (fireball.initialize(this, projectileNS::WIDTH, projectileNS::HEIGHT, projectileNS::TEXTURE_COLS, &fireballSprites) == false) {
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing NPC"));
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing projectile."));
 	}
 	fireball.setFrames(projectileNS::START_FRAME, projectileNS::END_FRAME);
 	fireball.setCurrentFrame(projectileNS::START_FRAME);
 
-	player.setHealth(STARTING_HEALTH);
+	if (swordSprites.initialize(graphics, WOODEN_SWORD_IMAGE) == false) {
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error loading sword sprites."));
+	}
+
+	if (sword.initialize(this, itemNS::WIDTH, itemNS::HEIGHT, itemNS::TEXTURE_COLS, &swordSprites) == false) {
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing sword."));
+	}
 
 	return;
 }
@@ -76,6 +84,9 @@ void BobSlashStuff::update()
 {
 	player.update(frameTime);
 	fireball.update(frameTime);
+	sword.update(frameTime);
+	npc.update(frameTime);
+
 	if (input->wasKeyPressed(ATTACK_KEY)) {
 		fireball.fire(&player);
 	}
@@ -123,10 +134,17 @@ void BobSlashStuff::collisions()
 			}
 
 		}
-		else if (input->wasKeyPressed(INTERACT_KEY)) {
-			npc.setX(999);
+		else if (input->wasKeyPressed(INTERACT_KEY) && npc.getActive() == true) {
+			sword.Drop(&npc);
+			npc.setActive(false);
+			npc.setVisible(false);
+			return;
+
 		}
-		
+	}
+
+	if (player.collidesWith(sword, collisionVector) && input->wasKeyPressed(INTERACT_KEY)) {
+		sword.PickUp(&player);
 
 	}
 
@@ -155,6 +173,7 @@ void BobSlashStuff::render()
 	player.draw();
 	npc.draw();
 	fireball.draw();
+	sword.draw();
 
 	graphics->spriteEnd();                  // end drawing sprites
 }

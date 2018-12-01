@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Spell.cpp" />
-    <ClCompile Include="Fireball.cpp" />
     <ClCompile Include="bob.cpp" />
     <ClCompile Include="BobSlashStuff.cpp" />
     <ClCompile Include="entity.cpp" />
@@ -22,10 +20,9 @@
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="playerAttack.cpp" />
+    <ClCompile Include="Item.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Spell.h" />
-    <ClInclude Include="Fireball.h" />
     <ClInclude Include="transform.h" />
     <ClInclude Include="bob.h" />
     <ClInclude Include="BobSlashStuff.h" />
@@ -48,5 +45,6 @@
     <ClInclude Include="transform.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="playerAttack.h" />
+    <ClInclude Include="Item.h" />
   </ItemGroup>
 </Project>
