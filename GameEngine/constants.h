@@ -51,6 +51,7 @@ const float MOVE_LENGTH = TEXTURE_SIZE/FRAME_RATE;
 const int STARTING_HEALTH = 100;
 const int STARTING_MANA = 100;
 const int STARTING_SANITY = 100;
+const int FIREBALL_COST_MANA = 10;
 const int PLAYER_BASE_ATTACK = 20;
 const int PROJECTILE_SPEED = 5;
 

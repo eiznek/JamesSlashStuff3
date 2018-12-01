@@ -24,9 +24,9 @@ Player::Player() : Entity() {
 	xMovement = 0;
 	yMovement = 0;
 	movement = 0; 
-	direction = 0; //Last direction player was facing.
-	mana = 0; //May be moved to Entity class.
-	sanity = 0; //Low priority
+	direction = DOWN; //Last direction player was facing.
+	mana = STARTING_MANA; //May be moved to Entity class.
+	sanity = STARTING_SANITY; //Low priority
 	moveTimer = 0; //
 	moveSpeed = 1; //num tiles per second
 	animFrame = 0;

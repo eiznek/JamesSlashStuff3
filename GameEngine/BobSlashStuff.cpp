@@ -87,8 +87,12 @@ void BobSlashStuff::update()
 	sword.update(frameTime);
 	npc.update(frameTime);
 
-	if (input->wasKeyPressed(ATTACK_KEY)) {
-		fireball.fire(&player);
+	if (input->wasKeyPressed(SPELL_KEY_1)) {
+		if (player.getMana() >= FIREBALL_COST_MANA && fireball.getActive() == false) {
+			fireball.fire(&player);
+			player.setMana(player.getMana() - FIREBALL_COST_MANA);
+		}
+
 	}
 
 }
@@ -148,11 +152,11 @@ void BobSlashStuff::collisions()
 
 	}
 
-	if(player.weapon.collideswith(npc,collisionVector){
-		if(input->wasKeyPressed(INTERACT_KEY)){
-			npc.setX(999);
-		}
-	}
+	//if(player.weapon.collideswith(npc,collisionVector){
+	//	if(input->wasKeyPressed(INTERACT_KEY)){
+	//		npc.setX(999);
+	//	}
+	//}
 }
 
 //=============================================================================
