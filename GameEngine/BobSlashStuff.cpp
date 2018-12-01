@@ -76,7 +76,7 @@ void BobSlashStuff::update()
 {
 	player.update(frameTime);
 	fireball.update(frameTime);
-	if (input->wasKeyPressed(ATTACK_KEY)) {
+	if (input->wasKeyPressed(SPELL_KEY_1)) {
 		fireball.fire(&player);
 	}
 
@@ -131,11 +131,12 @@ void BobSlashStuff::collisions()
 
 	}
 
-	if(player.weapon.collideswith(npc,collisionVector){
-		if(input->wasKeyPressed(INTERACT_KEY)){
-			npc.setX(999);
-		}
-	}
+	//if(player.weapon.collideswith(npc,collisionVector){
+	//	if(input->wasKeyPressed(INTERACT_KEY)){
+	//		npc.setX(999);
+	//	}
+	//}
+
 }
 
 //=============================================================================

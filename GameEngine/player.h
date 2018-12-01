@@ -4,6 +4,7 @@
 
 #include "entity.h"
 #include "constants.h"
+#include "PlayerWeapon.h"
 #include <math.h>
 
 namespace PlayerNS
@@ -33,6 +34,8 @@ private:
 	int leftTrigger, leftTriggerUndead, rightTrigger, rightTriggerUndead;
 	int leftThumbX, leftThumbXUndead, leftThumbY, leftThumbYUndead;
 	int rightThumbX, rightThumbXUndead, rightThumbY, rightThumbYUndead;
+
+	PlayerWeapon weapon;
 
 public:
 	Player();
