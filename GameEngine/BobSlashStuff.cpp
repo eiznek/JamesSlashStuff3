@@ -86,10 +86,8 @@ void BobSlashStuff::update()
 {
 	player.update(frameTime);
 	fireball.update(frameTime);
-<<<<<<< HEAD
 	if (input->wasKeyPressed(SPELL_KEY_1)) {
 		fireball.fire(&player);
-=======
 	sword.update(frameTime);
 	npc.update(frameTime);
 
@@ -99,7 +97,6 @@ void BobSlashStuff::update()
 			player.setMana(player.getMana() - FIREBALL_COST_MANA);
 		}
 
->>>>>>> caa21f70cd5530bce4374c2e967102428be6769f
 	}
 
 }
@@ -140,7 +137,6 @@ void BobSlashStuff::collisions()
 					return;
 				player.stopMoving();
 				break;
-
 			default:
 				break;
 			}
@@ -165,10 +161,10 @@ void BobSlashStuff::collisions()
 	//		npc.setX(999);
 	//	}
 	//}
-<<<<<<< HEAD
-
-=======
->>>>>>> caa21f70cd5530bce4374c2e967102428be6769f
+//<<<<<<< HEAD
+//
+//=======
+//>>>>>>> caa21f70cd5530bce4374c2e967102428be6769f
 }
 
 //=============================================================================
