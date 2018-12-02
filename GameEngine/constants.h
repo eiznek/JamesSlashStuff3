@@ -70,8 +70,15 @@ const char PLAYER_IMAGE[] = "pictures\\playerSprites.png";
 const char NPC_IMAGE[] = "pictures\\npcSprites.png";
 const char FIREBALL_IMAGE[] = "pictures\\fireball.png";
 const char WOODEN_SWORD_IMAGE[] = "pictures\\Wooden_Sword.png";
-
 const int TEXTURE_SHEET_COLS = 30;
+
+// audio files required by audio.cpp
+// WAVE_BANK must be location of .xwb file.
+const char WAVE_BANK[] = "audio\\Win\\waveBank.xwb";
+// SOUND_BANK must be location of .xsb file.
+const char SOUND_BANK[] = "audio\\Win\\soundBank.xsb";
+// XGS_FILE must be location of .xgs file.
+const char XGS_FILE[] = "audio\\Win\\SpaceWar.xgs";
 
 // key mappings
 // In this game simple constants are used for key mappings. If variables were used
@@ -80,6 +87,7 @@ const UCHAR ESC_KEY      = VK_ESCAPE;       // escape key
 const UCHAR ALT_KEY      = VK_MENU;         // Alt key
 const UCHAR ENTER_KEY    = VK_RETURN;       // Enter key
 const UCHAR INTERACT_KEY = 'F';
+
 //movement
 const UCHAR UP_KEY = VK_UP; //UP ARROW
 const UCHAR LEFT_KEY = VK_LEFT; //LEFT ARROW
@@ -89,10 +97,12 @@ const UCHAR UP_KEY_2 = 0x57; //W
 const UCHAR LEFT_KEY_2 = 0x41; //A
 const UCHAR DOWN_KEY_2 = 0x53; //S
 const UCHAR RIGHT_KEY_2 = 0x44; //D
+
 //combat
 const UCHAR ATTACK_KEY = 0x43; // C; //may also be used to interact
 const UCHAR SPELL_KEY_1 = 0x5A; //Z
 const UCHAR SPELL_KEY_2 = 0x58; //X
+
 //const UCHAR SPELL_KEY_3 = 
 const UCHAR ITEM_KEY_1 = VK_LCONTROL; //Left CTRL
 const UCHAR ITEM_KEY_2 = VK_LSHIFT; //Left SHIFT
@@ -107,6 +117,8 @@ const UCHAR SWAP_SPELLBAR_KEY_2 = VK_TAB; //TAB
 //spacewar
 // weapon types
 enum WEAPON {TORPEDO, SHIP, PLANET};
+
+//bobslashstuff
 enum DIRECTION { UP = -2, LEFT, DOWN = 1, RIGHT };
 enum MOVE_STATE {
 	Moving = 0, NotMoving

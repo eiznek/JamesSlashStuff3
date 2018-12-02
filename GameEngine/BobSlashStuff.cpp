@@ -187,12 +187,13 @@ void BobSlashStuff::render()
 			}
 		}
 	}
+
 	player.draw();
 	npc.draw();
 	fireball.draw();
 	sword.draw();
 
-	
+	//npcText.print(buffer, npc.getX() - TEXTURE_SIZE, npc.getY() - TEXTURE_SIZE * 2);
 	npcText.print("herro" , npc.getX() - TEXTURE_SIZE, npc.getY() - TEXTURE_SIZE * 2);
 
 	graphics->spriteEnd();                  // end drawing sprites
