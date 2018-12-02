@@ -76,6 +76,8 @@ void BobSlashStuff::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing sword."));
 	}
 
+	//healthBar.initialize(graphics, &spriteSheet, 0, bobSlashStuffNS::HEALTHBAR_Y, 2.0f, graphicsNS::WHITE);
+
 	return;
 }
 
@@ -187,6 +189,10 @@ void BobSlashStuff::render()
 	npc.draw();
 	fireball.draw();
 	sword.draw();
+
+	//healthBar.setX((float)bobSlashStuffNS::PLAYER_HEALTH_BAR_X);
+	//healthBar.set(player.getHealth());
+	//healthBar.draw(graphicsNS::RED);
 
 	//npcText.print(buffer, npc.getX() - TEXTURE_SIZE, npc.getY() - TEXTURE_SIZE * 2);
 	npcText.print("herro" , npc.getX() - TEXTURE_SIZE, npc.getY() - TEXTURE_SIZE * 2);

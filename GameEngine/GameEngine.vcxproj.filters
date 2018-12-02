@@ -64,9 +64,9 @@
     <ClCompile Include="winmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="HUD.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="transform.h" />
     <ClInclude Include="audio.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -136,6 +136,10 @@
     <ClInclude Include="transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

@@ -116,7 +116,7 @@ const UCHAR SWAP_SPELLBAR_KEY_2 = VK_TAB; //TAB
 
 //spacewar
 // weapon types
-enum WEAPON {TORPEDO, SHIP, PLANET};
+enum WEAPON {SWORD, TORPEDO, SHIP, PLANET};
 
 //bobslashstuff
 enum DIRECTION { UP = -2, LEFT, DOWN = 1, RIGHT };

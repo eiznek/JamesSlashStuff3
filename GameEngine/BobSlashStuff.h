@@ -12,12 +12,15 @@
 #include "Projectile.h"
 #include "Item.h"
 #include "Text.h"
+#include "HUD.h"
 
 namespace bobSlashStuffNS {
 	const char FONT[] = "Arial Bold";  // font
 	const int FONT_SIZE = 48;     // font height
 	const COLOR_ARGB FONT_COLOR = graphicsNS::YELLOW;
 	const int BUF_SIZE = 20;
+	const int HEALTHBAR_Y = 30;
+	const int PLAYER_HEALTH_BAR_X = 30;
 
 	const int MAP_WIDTH = GAME_WIDTH/TEXTURE_SIZE;
 	const int MAP_HEIGHT = GAME_HEIGHT/TEXTURE_SIZE;
@@ -49,6 +52,8 @@ class BobSlashStuff : public Game
 private:
 	Image tile;
 	Image menu;
+
+	HealthBar healthBar;
 
 	TextureManager spriteSheet, playerSprites, npcSprites, fireballSprites, swordSprites;
 	Text npcText;
