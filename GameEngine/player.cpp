@@ -145,6 +145,10 @@ void Player::update(float frameTime) {
 			 
 	}
 
+	if (input->wasKeyPressed(ATTACK_KEY)) {
+		Attack();
+	}
+
 }
 
 void Player::stopMoving() {
@@ -169,6 +173,7 @@ void Player::stopMoving() {
 //Player Attacking
 //Could be unnecessary and most suitably implemented elsewhere instead. i.e. "BobSlashStuff.cpp"
 void Player::Attack() {
+	weapon.damage();
 	//Method 1, check for entity in tile
 
 	/* pseudo code

@@ -1,6 +1,7 @@
 #pragma once
 #include "entity.h"
 #include "NPC.h" //change this to enemy
+#include "player.h"
 
 namespace PlayerWepNS
 {
@@ -8,7 +9,11 @@ namespace PlayerWepNS
 	const int   HEIGHT = 32;               // image height
 	const int   X = TEXTURE_SIZE * 10; // location on screen
 	const int   Y = TEXTURE_SIZE * 10;
-
+	const float ATTACK_DELAY = 2.0f;
+	const int   TEXTURE_COLS = 4;
+	const int   START_FRAME = 0;
+	const int   END_FRAME = 3;
+	const float ANIMATION_DELAY = 0.1f; // time between frames
 }
 
 class PlayerWeapon :
@@ -16,12 +21,14 @@ class PlayerWeapon :
 {
 private:
 	NPC npc;
+	float attackTimer;
 
 public:
 	PlayerWeapon();
 	~PlayerWeapon();
 
-	void damage();
+	void update(float frameTime);
+	void damage(Player *player);
 
 };
 
