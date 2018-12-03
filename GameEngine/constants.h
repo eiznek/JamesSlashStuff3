@@ -53,7 +53,7 @@ const int STARTING_MANA = 100;
 const int STARTING_SANITY = 100;
 const int FIREBALL_COST_MANA = 10;
 const int PLAYER_BASE_ATTACK = 20;
-const int PROJECTILE_SPEED = 5;
+const int PROJECTILE_SPEED = 10;
 
 //spacewar
 const float GRAVITY = 6.67428e-11f;             // gravitational constant

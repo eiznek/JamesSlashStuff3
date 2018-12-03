@@ -39,9 +39,14 @@ void PlayerWeapon::update(float frameTime)
 			active = false;
 		}
 
+<<<<<<< HEAD
+=======
+	if (attackTimer <= 0)                           // if ready to fire
+	{
+		visible = false;                        // old torpedo off
+		active = false;
+>>>>>>> bfa2c45512260250461d23e9393f6a7f0af7f7b9
 	}
 	Image::update(frameTime);
 
 }
-
-

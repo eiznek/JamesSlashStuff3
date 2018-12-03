@@ -13,6 +13,7 @@
 #include "Item.h"
 #include "Text.h"
 #include "HUD.h"
+#include <vector>
 
 namespace bobSlashStuffNS {
 	const char FONT[] = "Arial Bold";  // font
@@ -63,6 +64,8 @@ private:
 	Projectile fireball;
 	Player player;
 	NPC npc;
+
+	std::vector<NPC*> NPCList;
 
 	char buffer[bobSlashStuffNS::BUF_SIZE]; //text buffer
 	float mapX;
