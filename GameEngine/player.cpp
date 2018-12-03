@@ -70,7 +70,7 @@ void Player::update(float frameTime) {
 
 		//Move Down
 		else if (input->isKeyDown(DOWN_KEY) || input->getGamepadDPadDown(0) || input->getGamepadThumbLY(0) < -20000) {
-			if (getY() >= GAME_HEIGHT - TEXTURE_SIZE) {
+			if (getY() >= GAME_HEIGHT - TEXTURE_SIZE * 2) {
 				yMovement = 0;
 				return;
 			}
@@ -98,7 +98,7 @@ void Player::update(float frameTime) {
 
 		//Move Right
 		else if (input->isKeyDown(RIGHT_KEY) || input->getGamepadDPadRight(0) || input->getGamepadThumbLX(0) > 20000) {
-			if (getX() >= GAME_WIDTH - TEXTURE_SIZE) {
+			if (getX() >= GAME_WIDTH - TEXTURE_SIZE * 2) {
 				xMovement = 0;
 				return;
 			}
@@ -126,21 +126,22 @@ void Player::update(float frameTime) {
 
 		if (xMovement != 0) {
 			setX(getX() + (xMovement * movement) * 2); //multiplied by 2 because it takes 2 frames to update movement once.
-			xMovement -= (1 /FRAME_RATE);
+			//xMovement -= (1 /FRAME_RATE);
 
 		}
 
 		if (yMovement != 0) {
 			setY(getY() + (yMovement * movement) * 2);
-			yMovement -= (1 /FRAME_RATE);
+			//yMovement -= (1 /FRAME_RATE);
 
 		}
 
-		if (xMovement <= 0 && yMovement <= 0) {
-			stopMoving();
-			setCurrentFrame(animFrame);
-			setFrames(animFrame, animFrame);
-		}
+		stopMoving();
+		//if (xMovement <= 0 && yMovement <= 0) {
+		//	stopMoving();
+		//	setCurrentFrame(animFrame);
+		//	setFrames(animFrame, animFrame);
+		//}
 
 			 
 	}

@@ -76,7 +76,7 @@ void BobSlashStuff::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing sword."));
 	}
 
-	//healthBar.initialize(graphics, &spriteSheet, 0, bobSlashStuffNS::HEALTHBAR_Y, 2.0f, graphicsNS::WHITE);
+	healthBar.initialize(graphics, &spriteSheet, 0, bobSlashStuffNS::HEALTHBAR_Y, 3.0f, graphicsNS::WHITE);
 
 	return;
 }
@@ -88,17 +88,19 @@ void BobSlashStuff::update()
 {
 	player.update(frameTime);
 	fireball.update(frameTime);
+	sword.update(frameTime);
+	npc.update(frameTime);
+
+	if (player.getHealth() <= 0) {
+		player.setActive(false);
+		player.setVisible(false);
+	}
+
 	if (input->wasKeyPressed(SPELL_KEY_1)) {
-		fireball.fire(&player);
-		sword.update(frameTime);
-		npc.update(frameTime);
-
-		if (input->wasKeyPressed(SPELL_KEY_1)) {
-			if (player.getMana() >= FIREBALL_COST_MANA && fireball.getActive() == false) {
-				fireball.fire(&player);
-				player.setMana(player.getMana() - FIREBALL_COST_MANA);
-			}
-
+		player.setHealth(player.getHealth() - 10);
+		if (player.getMana() >= FIREBALL_COST_MANA && fireball.getActive() == false) {
+			fireball.fire(&player);
+			player.setMana(player.getMana() - FIREBALL_COST_MANA);
 		}
 
 	}
@@ -153,6 +155,10 @@ void BobSlashStuff::collisions()
 			return;
 
 		}
+
+	}
+	else {
+		npcText.setFontColor(SETCOLOR_ARGB(0, 255, 255, 255));
 	}
 
 	if (player.collidesWith(sword, collisionVector) && input->wasKeyPressed(INTERACT_KEY)) {
@@ -160,15 +166,6 @@ void BobSlashStuff::collisions()
 
 	}
 
-	//if(player.weapon.collideswith(npc,collisionVector){
-	//	if(input->wasKeyPressed(INTERACT_KEY)){
-	//		npc.setX(999);
-	//	}
-	//}
-//<<<<<<< HEAD
-//
-//=======
-//>>>>>>> caa21f70cd5530bce4374c2e967102428be6769f
 }
 
 //=============================================================================
@@ -197,9 +194,9 @@ void BobSlashStuff::render()
 	fireball.draw();
 	sword.draw();
 
-	//healthBar.setX((float)bobSlashStuffNS::PLAYER_HEALTH_BAR_X);
-	//healthBar.set(player.getHealth());
-	//healthBar.draw(graphicsNS::RED);
+	healthBar.setX((float)bobSlashStuffNS::PLAYER_HEALTH_BAR_X);
+	healthBar.set(player.getHealth());
+	healthBar.draw(graphicsNS::RED);
 
 	//npcText.print(buffer, npc.getX() - TEXTURE_SIZE, npc.getY() - TEXTURE_SIZE * 2);
 	npcText.print("herro" , npc.getX() - TEXTURE_SIZE, npc.getY() - TEXTURE_SIZE * 2);
