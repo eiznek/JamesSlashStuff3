@@ -56,7 +56,7 @@ void PlayerWeapon::update(float frameTime)
 	//	spriteData.y = GAME_HEIGHT;             // position off bottom screen edge
 }
 
-
+/*
 void PlayerWeapon::damage(Player *player)
 {
 	//VECTOR2 collisionvector;
@@ -83,6 +83,7 @@ void PlayerWeapon::damage(Player *player)
 		visible = true;                         // make torpedo visible
 		active = true;                          // enable collisions
 		attackTimer = PlayerWepNS::ATTACK_DELAY;      // delay firing
-
+	}
+	
 }
-
+*/

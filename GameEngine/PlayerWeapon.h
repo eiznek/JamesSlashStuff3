@@ -28,7 +28,7 @@ public:
 	~PlayerWeapon();
 
 	void update(float frameTime);
-	void damage(Player *player);
+	//void damage(Player *player);
 
 };
 

@@ -173,7 +173,7 @@ void Player::stopMoving() {
 //Player Attacking
 //Could be unnecessary and most suitably implemented elsewhere instead. i.e. "BobSlashStuff.cpp"
 void Player::Attack() {
-	weapon.damage();
+	//weapon.damage();
 	//Method 1, check for entity in tile
 
 	/* pseudo code
