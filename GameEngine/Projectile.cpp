@@ -43,15 +43,15 @@ void Projectile::update(float frameTime)
 	spriteData.x += frameTime * velocity.x;     // move along X 
 	spriteData.y += frameTime * velocity.y;     // move along Y
 
-												// Wrap around screen edge
-	if (spriteData.x > GAME_WIDTH)              // if off right screen edge
-		spriteData.x = -projectileNS::WIDTH;       // position off left screen edge
-	else if (spriteData.x < -projectileNS::WIDTH)  // else if off left screen edge
-		spriteData.x = GAME_WIDTH;              // position off right screen edge
-	if (spriteData.y > GAME_HEIGHT)             // if off bottom screen edge
-		spriteData.y = -projectileNS::HEIGHT;      // position off top screen edge
-	else if (spriteData.y < -projectileNS::HEIGHT) // else if off top screen edge
-		spriteData.y = GAME_HEIGHT;             // position off bottom screen edge
+	//											// Wrap around screen edge
+	//if (spriteData.x > GAME_WIDTH)              // if off right screen edge
+	//	spriteData.x = -projectileNS::WIDTH;       // position off left screen edge
+	//else if (spriteData.x < -projectileNS::WIDTH)  // else if off left screen edge
+	//	spriteData.x = GAME_WIDTH;              // position off right screen edge
+	//if (spriteData.y > GAME_HEIGHT)             // if off bottom screen edge
+	//	spriteData.y = -projectileNS::HEIGHT;      // position off top screen edge
+	//else if (spriteData.y < -projectileNS::HEIGHT) // else if off top screen edge
+	//	spriteData.y = GAME_HEIGHT;             // position off bottom screen edge
 }
 
 //=============================================================================
