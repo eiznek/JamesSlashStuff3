@@ -75,7 +75,10 @@ void BobSlashStuff::initialize(HWND hwnd)
 	if (sword.initialize(this, itemNS::WIDTH, itemNS::HEIGHT, itemNS::TEXTURE_COLS, &swordSprites) == false) {
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing sword."));
 	}
-
+	
+	if (playerWeapon.initialize(this, 32, 32, 1, &swordSprites) == false) {
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing weapon collider."));
+	}
 	//healthBar.initialize(graphics, &spriteSheet, 0, bobSlashStuffNS::HEALTHBAR_Y, 2.0f, graphicsNS::WHITE);
 
 	return;
@@ -88,22 +91,33 @@ void BobSlashStuff::update()
 {
 	player.update(frameTime);
 	fireball.update(frameTime);
+	sword.update(frameTime);
+	npc.update(frameTime);
+	playerWeapon.update(frameTime);
 	if (input->wasKeyPressed(SPELL_KEY_1)) {
 		fireball.fire(&player);
-		sword.update(frameTime);
-		npc.update(frameTime);
-
-		if (input->wasKeyPressed(SPELL_KEY_1)) {
-			if (player.getMana() >= FIREBALL_COST_MANA && fireball.getActive() == false) {
-				fireball.fire(&player);
-				player.setMana(player.getMana() - FIREBALL_COST_MANA);
-			}
-
+		if (player.getMana() >= FIREBALL_COST_MANA && fireball.getActive() == false) {
+			fireball.fire(&player);
+			player.setMana(player.getMana() - FIREBALL_COST_MANA);
+		}
 		}
 
-	}
+	if (input->wasKeyPressed(ATTACK_KEY) && playerWeapon.getReady() == true) {
+		playerWeapon.setActive(true);
+		playerWeapon.setVisible(true);
+		playerWeapon.setReady(false);
+		if(player.getDirection() == LEFT || player.getDirection() == RIGHT){
+			playerWeapon.setX(player.getX() + (TEXTURE_SIZE)* player.getDirection());
+			playerWeapon.setY(player.getY());
 
+		}
+		if (player.getDirection() == UP || player.getDirection() == DOWN) {
+			playerWeapon.setX(player.getX());
+			playerWeapon.setY(player.getY() + (TEXTURE_SIZE)* player.getDirection()/2);
+		}
+	}
 }
+
 
 //=============================================================================
 // Artificial Intelligence
@@ -160,6 +174,12 @@ void BobSlashStuff::collisions()
 
 	}
 
+	if (playerWeapon.collidesWith(npc, collisionVector)) {
+		npc.setActive(false);
+		npc.setVisible(false);
+		return;
+	}
+
 	//if(player.weapon.collideswith(npc,collisionVector){
 	//	if(input->wasKeyPressed(INTERACT_KEY)){
 	//		npc.setX(999);
@@ -196,6 +216,7 @@ void BobSlashStuff::render()
 	npc.draw();
 	fireball.draw();
 	sword.draw();
+	playerWeapon.draw();
 
 	//healthBar.setX((float)bobSlashStuffNS::PLAYER_HEALTH_BAR_X);
 	//healthBar.set(player.getHealth());

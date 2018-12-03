@@ -119,7 +119,7 @@ const UCHAR SWAP_SPELLBAR_KEY_2 = VK_TAB; //TAB
 enum WEAPON {SWORD, TORPEDO, SHIP, PLANET};
 
 //bobslashstuff
-enum DIRECTION { UP = -2, LEFT, DOWN = 1, RIGHT };
+enum DIRECTION { UP = -2, LEFT, RIGHT = 1, DOWN };
 enum MOVE_STATE {
 	Moving = 0, NotMoving
 };

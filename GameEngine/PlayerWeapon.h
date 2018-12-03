@@ -9,7 +9,7 @@ namespace PlayerWepNS
 	const int   HEIGHT = 32;               // image height
 	const int   X = TEXTURE_SIZE * 10; // location on screen
 	const int   Y = TEXTURE_SIZE * 10;
-	const float ATTACK_DELAY = 2.0f;
+	const float ATTACK_DELAY = 1.0f;
 	const int   TEXTURE_COLS = 4;
 	const int   START_FRAME = 0;
 	const int   END_FRAME = 3;
@@ -21,13 +21,17 @@ class PlayerWeapon :
 {
 private:
 	NPC npc;
-	float attackTimer;
+	bool isready;
+	float attacktimer;
 
 public:
 	PlayerWeapon();
 	~PlayerWeapon();
 
 	void update(float frameTime);
+	float getTimer() { return attacktimer; }
+	bool getReady() { return isready; }
+	void setReady(bool isr) { isready = isr; }
 	//void damage(Player *player);
 
 };

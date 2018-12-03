@@ -59,6 +59,7 @@ private:
 	Text npcText;
 
 	Item sword;
+	PlayerWeapon playerWeapon;
 	Projectile fireball;
 	Player player;
 	NPC npc;
