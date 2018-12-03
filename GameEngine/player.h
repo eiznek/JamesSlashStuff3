@@ -35,7 +35,7 @@ private:
 	int leftThumbX, leftThumbXUndead, leftThumbY, leftThumbYUndead;
 	int rightThumbX, rightThumbXUndead, rightThumbY, rightThumbYUndead;
 
-	PlayerWeapon weapon;
+	//PlayerWeapon weapon;
 
 public:
 	Player();

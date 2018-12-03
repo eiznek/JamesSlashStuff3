@@ -57,32 +57,3 @@ void PlayerWeapon::update(float frameTime)
 }
 
 
-void PlayerWeapon::damage(Player *player)
-{
-	//VECTOR2 collisionvector;
-	//if (this->collidesWith(npc, collisionvector)){
-	//	npc.setX(999);
-	//}
-
-	if (attackTimer <= 0.0f)                       // if ready to fire
-	{
-		if (player->getDirection() == LEFT || player->getDirection() == RIGHT)
-			velocity.x = player->getDirection();
-		else
-			velocity.x = 0;
-		if (player->getDirection() == UP || player->getDirection() == DOWN)
-			velocity.y = player->getDirection();
-		else
-			velocity.y = 0;
-
-		//D3DXVec2Normalize(&velocity, &velocity);
-		//velocity = velocity * PlayerWepNS::SPEED;
-
-		spriteData.x = player->getCenterX() - spriteData.width / 2;
-		spriteData.y = player->getCenterY() - spriteData.height / 2;
-		visible = true;                         // make torpedo visible
-		active = true;                          // enable collisions
-		attackTimer = PlayerWepNS::ATTACK_DELAY;      // delay firing
-
-}
-

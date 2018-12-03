@@ -90,13 +90,15 @@ void BobSlashStuff::update()
 	fireball.update(frameTime);
 	if (input->wasKeyPressed(SPELL_KEY_1)) {
 		fireball.fire(&player);
-	sword.update(frameTime);
-	npc.update(frameTime);
+		sword.update(frameTime);
+		npc.update(frameTime);
 
-	if (input->wasKeyPressed(SPELL_KEY_1)) {
-		if (player.getMana() >= FIREBALL_COST_MANA && fireball.getActive() == false) {
-			fireball.fire(&player);
-			player.setMana(player.getMana() - FIREBALL_COST_MANA);
+		if (input->wasKeyPressed(SPELL_KEY_1)) {
+			if (player.getMana() >= FIREBALL_COST_MANA && fireball.getActive() == false) {
+				fireball.fire(&player);
+				player.setMana(player.getMana() - FIREBALL_COST_MANA);
+			}
+
 		}
 
 	}
