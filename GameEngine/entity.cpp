@@ -391,7 +391,9 @@ bool Entity::outsideRect(RECT rect)
 // Override this function in the inheriting class.
 //=============================================================================
 void Entity::damage(int weapon)
-{}
+{
+	health -= weapon;
+}
 
 //=============================================================================
 // Entity bounces after collision with another entity

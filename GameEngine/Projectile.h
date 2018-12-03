@@ -11,10 +11,10 @@ namespace projectileNS
 {
 	const int   WIDTH = 32;             // image width
 	const int   HEIGHT = 32;           // image height
-	const int   COLLISION_RADIUS = 4;   // for circular collision
-	const float SPEED = TEXTURE_SIZE * PROJECTILE_SPEED;            // pixels per second
-	const float MASS = 300.0f;          // mass
-	const float FIRE_DELAY = 2.0f;     
+	const int   COLLISION_RADIUS = 3;   // for circular collision
+	const float SPEED = TEXTURE_SIZE * PROJECTILE_SPEED;            // tiles per second
+	const float MASS = 100.0f;          // mass
+	const float FIRE_DELAY = 1.0f;     
 	const int   TEXTURE_COLS = 4;
 	const int   START_FRAME = 0;
 	const int   END_FRAME = 3;

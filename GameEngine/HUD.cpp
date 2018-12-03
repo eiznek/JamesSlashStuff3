@@ -16,6 +16,7 @@ bool HealthBar::initialize(Graphics *graphics, TextureManager *textureM, int lef
 		spriteData.x = (float)left;
 		spriteData.y = (float)top;
 		spriteData.scale = scale;
+		spriteData.rect.bottom = hudNS::IMAGE_SIZE / spriteData.scale;
 		colorFilter = color;
 	}
 	catch (...)
