@@ -80,16 +80,13 @@ void BobSlashStuff::initialize(HWND hwnd)
 	if (sword.initialize(this, itemNS::WIDTH, itemNS::HEIGHT, itemNS::TEXTURE_COLS, &swordSprites) == false) {
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing sword."));
 	}
-<<<<<<< HEAD
 	
 	if (playerWeapon.initialize(this, 32, 32, 1, &swordSprites) == false) {
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing weapon collider."));
 	}
 	//healthBar.initialize(graphics, &spriteSheet, 0, bobSlashStuffNS::HEALTHBAR_Y, 2.0f, graphicsNS::WHITE);
-=======
 
 	healthBar.initialize(graphics, &spriteSheet, 0, bobSlashStuffNS::HEALTHBAR_Y, 3.0f, graphicsNS::WHITE);
->>>>>>> bfa2c45512260250461d23e9393f6a7f0af7f7b9
 
 	return;
 }
@@ -103,7 +100,6 @@ void BobSlashStuff::update()
 	fireball.update(frameTime);
 	sword.update(frameTime);
 	npc.update(frameTime);
-<<<<<<< HEAD
 	playerWeapon.update(frameTime);
 	if (input->wasKeyPressed(SPELL_KEY_1)) {
 		fireball.fire(&player);
@@ -120,8 +116,6 @@ void BobSlashStuff::update()
 		if(player.getDirection() == LEFT || player.getDirection() == RIGHT){
 			playerWeapon.setX(player.getX() + (TEXTURE_SIZE)* player.getDirection());
 			playerWeapon.setY(player.getY());
-=======
->>>>>>> bfa2c45512260250461d23e9393f6a7f0af7f7b9
 
 	if (player.getHealth() <= 0) {
 		player.setActive(false);
@@ -208,7 +202,6 @@ void BobSlashStuff::collisions()
 		
 	}
 
-<<<<<<< HEAD
 	if (playerWeapon.collidesWith(npc, collisionVector)) {
 		npc.setActive(false);
 		npc.setVisible(false);
@@ -220,12 +213,6 @@ void BobSlashStuff::collisions()
 	//		npc.setX(999);
 	//	}
 	//}
-//<<<<<<< HEAD
-//
-//=======
-//>>>>>>> caa21f70cd5530bce4374c2e967102428be6769f
-=======
->>>>>>> bfa2c45512260250461d23e9393f6a7f0af7f7b9
 }
 
 //=============================================================================
