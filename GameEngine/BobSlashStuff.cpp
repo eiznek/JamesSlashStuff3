@@ -52,11 +52,25 @@ void BobSlashStuff::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error loading enemy sprite sheet"));
 	}
 
+	if (mageSprites.initialize(graphics, MAGE_IMAGE) == false) {
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error loading enemy sprite sheet"));
+	}
+
 	if (enemy.initialize(this, EnemyNS::WIDTH, EnemyNS::HEIGHT, 13, &enemySprites) == false) {
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy")); 
 	}
 
-	enemy.setHealth(STARTING_HEALTH);
+	if (enemy2.initialize(this, EnemyNS::WIDTH, EnemyNS::HEIGHT, 13, &mageSprites) == false) {
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
+	}
+
+	enemy2.setX(GAME_WIDTH * 3 / 4);
+	enemy2.setY(GAME_HEIGHT / 2);
+
+	EnemyList.push_back(enemy);
+	EnemyList.push_back(enemy2);
+
+	//enemy.setHealth(STARTING_HEALTH);
 
 	player.setHealth(STARTING_HEALTH);
 	player.setMana(STARTING_MANA);
@@ -90,6 +104,17 @@ void BobSlashStuff::initialize(HWND hwnd)
 	if (sword.initialize(this, itemNS::WIDTH, itemNS::HEIGHT, itemNS::TEXTURE_COLS, &swordSprites) == false) {
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing sword."));
 	}
+
+	sword.ItemAdd(sword); //for the npc
+	for (std::vector<Enemy>::iterator it = EnemyList.begin(); it != EnemyList.end(); it++) {
+		sword.ItemAdd(sword);
+	}
+
+	//sword.setVisible(true);
+	//sword.ItemAdd(sword);
+	//sword.setX(GAME_WIDTH * 3 / 4);
+	//sword.setY(GAME_HEIGHT / 2);
+	//sword.ItemAdd(sword);
 	
 	if (playerWeapon.initialize(this, 32, 32, 1, &swordSprites) == false) {
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing weapon collider."));
@@ -108,10 +133,18 @@ void BobSlashStuff::update()
 {
 	player.update(frameTime);
 	fireball.update(frameTime);
-	sword.update(frameTime);
+	//sword.update(frameTime);
 	npc.update(frameTime);
-	enemy.update(frameTime);
+	//enemy.update(frameTime);
 	playerWeapon.update(frameTime);
+
+	for (std::vector<Enemy>::iterator it = EnemyList.begin(); it != EnemyList.end(); it++) {
+		(*it).update(frameTime);
+	}
+
+	for (std::vector<Item>::iterator it = sword.ItemList.begin(); it != sword.ItemList.end(); it++) {
+		(*it).update(frameTime);
+	}
 
 	if (input->wasKeyPressed(SPELL_KEY_1) || input->wasKeyPressed(player.getDpadDown())) 
 	{
@@ -136,14 +169,13 @@ void BobSlashStuff::update()
 
 	}
 
-	if ((input->wasKeyPressed(ATTACK_KEY) || input->wasKeyPressed(player.getcontrollerA()))) && playerWeapon.getReady() == true) 
+	if ((input->wasKeyPressed(ATTACK_KEY) || input->wasKeyPressed(player.getcontrollerA())) && !playerWeapon.getReady()) 
 	{
 
 		if (player.getDirection() == LEFT || player.getDirection() == RIGHT) 
 		{
 			playerWeapon.setX(player.getX() + (TEXTURE_SIZE)* player.getDirection());
 			playerWeapon.setY(player.getY());
-			playerWeapon.setReady(false);
 
 		}
 
@@ -151,15 +183,12 @@ void BobSlashStuff::update()
 		{
 			playerWeapon.setX(player.getX());
 			playerWeapon.setY(player.getY() + (TEXTURE_SIZE)* player.getDirection()/2);
-			playerWeapon.setReady(false);
 
 		}
-
-		if (playerWeapon.getReady() == false) 
-		{
-			playerWeapon.setActive(true);
-			playerWeapon.setVisible(true);
-		}
+		
+		playerWeapon.setReady(true);
+		playerWeapon.setActive(true);
+		playerWeapon.setVisible(true);
 
 	}
 
@@ -197,42 +226,68 @@ void BobSlashStuff::collisions()
 	//	NPC npc = *(*it);		
 
 	//}
+	for (std::vector<Enemy>::iterator it = EnemyList.begin(); it != EnemyList.end(); it++) {
+		if ((*it).collidesWith(player, collisionVector)) {
+			(*it).setVisible(false);
+			(*it).setActive(false);
+			player.damage(ENEMY_BASE_DAMAGE);
+		}
+
+		if ((*it).collidesWith(fireball, collisionVector)) {
+			(*it).setVisible(false);
+			(*it).setActive(false);
+			sword.ItemList.back().Drop(&(*it));
+
+		}
+	}
+
 	if (fireball.collidesWith(npc, collisionVector)) {
 		fireball.setActive(false);
 		fireball.setVisible(false);
 		npc.setActive(false);
 		npc.setVisible(false);
-		sword.Drop(&npc);
+		//sword.Drop(&npc);
+		sword.ItemList.back().Drop(&npc);
+
 	}
 
 	if (player.collidesWith(npc, collisionVector)) {
+
 		npcText.setFontColor(SETCOLOR_ARGB(255, 255, 255, 255)); //WHITE
+
 		if (player.getMoveState() == MOVE_STATE::Moving) {
+
 			switch (player.getDirection()) {
+
 				case UP:
 					if (player.getY() > npc.getY())
 						player.stopMoving();
 					break;
+
 				case DOWN:
 					if (player.getY() < npc.getY())
 						player.stopMoving();
 					break;
+
 				case LEFT:
 					if (player.getX() > npc.getX())
 						player.stopMoving();
 					break;
+
 				case RIGHT:
 					if (player.getX() < npc.getX())
 						player.stopMoving();
 					break;
+
 				default:
 					break;
-			}
 
+			}
 
 		}
 		else if (input->wasKeyPressed(INTERACT_KEY) && npc.getActive() == true) {
-			sword.Drop(&npc);
+			//sword.Drop(&npc);
+			sword.ItemList.back().Drop(&npc);
 			npc.setActive(false);
 			npc.setVisible(false);
 			return;
@@ -241,17 +296,31 @@ void BobSlashStuff::collisions()
 	}
 	else {
 		npcText.setFontColor(SETCOLOR_ARGB(0, 255, 255, 255));
+
+	}
+	
+	if (input->wasKeyPressed(INTERACT_KEY)) {
+		for (std::vector<Item>::iterator it = sword.ItemList.begin(); it != sword.ItemList.end(); it++) {
+			if ((*it).collidesWith(player, collisionVector)) {
+				(*it).PickUp(&player);
+				sword.ItemList.erase(it);
+				sword.ItemList.shrink_to_fit();
+				break;
+			}
+		}
 	}
 
-	if (player.collidesWith(sword, collisionVector) && input->wasKeyPressed(INTERACT_KEY)) {
-		sword.PickUp(&player);
-		
-	}
+
+	//if (player.collidesWith(sword, collisionVector) && input->wasKeyPressed(INTERACT_KEY)) {
+	//	sword.PickUp(&player);
+	//	
+	//}
 
 	if (playerWeapon.collidesWith(npc, collisionVector)) {
 		npc.setActive(false);
 		npc.setVisible(false);
 		return;
+
 	}
 
 }
@@ -280,9 +349,17 @@ void BobSlashStuff::render()
 	player.draw();
 	npc.draw();
 	fireball.draw();
-	sword.draw();
+	//sword.draw();
 	playerWeapon.draw();
-	enemy.draw();
+	//enemy.draw();
+
+	for (std::vector<Item>::iterator it = sword.ItemList.begin(); it != sword.ItemList.end(); it++) {
+		(*it).draw();
+	}
+
+	for (std::vector<Enemy>::iterator it = EnemyList.begin(); it != EnemyList.end(); it++) {
+		(*it).draw();
+	}
 
 	healthBar.setX((float)bobSlashStuffNS::PLAYER_HEALTH_BAR_X);
 	healthBar.set(player.getMana());

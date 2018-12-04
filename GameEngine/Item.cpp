@@ -21,6 +21,15 @@ Item::Item() : Entity()
 	collisionType = entityNS::BOX;
 }
 
+bool Item::initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM)
+{
+	return (Entity::initialize(gamePtr, width, height, ncols, textureM));
+}
+
+void Item::ItemAdd(Item item) {
+	ItemList.push_back(item);
+}
+
 void Item::update(float frameTime) {
 	Image::update(frameTime);
 

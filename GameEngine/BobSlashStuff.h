@@ -6,6 +6,7 @@
 #include "textureManager.h"
 #include "image.h"
 #include "bob.h"
+#include <math.h>
 #include "player.h"
 #include "PlayerWeapon.h"
 #include "Enemy.h"
@@ -58,7 +59,7 @@ private:
 
 	HealthBar healthBar;
 
-	TextureManager spriteSheet, playerSprites, npcSprites, fireballSprites, swordSprites, enemySprites;
+	TextureManager spriteSheet, playerSprites, npcSprites, fireballSprites, swordSprites, enemySprites, mageSprites;
 	Text npcText;
 
 	Item sword;
@@ -67,7 +68,9 @@ private:
 	Player player;
 	NPC npc;
 	Enemy enemy;
+	Enemy enemy2;
 	std::vector<NPC*> NPCList;
+	std::vector<Enemy> EnemyList;
 
 	char buffer[bobSlashStuffNS::BUF_SIZE]; //text buffer
 	float mapX;
