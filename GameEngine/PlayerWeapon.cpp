@@ -37,6 +37,7 @@ void PlayerWeapon::update(float frameTime) {
 			visible = false;                        // old torpedo off
 			active = false;
 		}
+	}
 
 		Image::update(frameTime);
 
