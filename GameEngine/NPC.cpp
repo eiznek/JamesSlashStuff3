@@ -30,7 +30,12 @@ NPC::~NPC()
 
 bool NPC::initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM)
 {
+	//NpcList.push_back(*this);
 	return (Entity::initialize(gamePtr, width, height, ncols, textureM));
+}
+
+void NPC::AddNPC(NPC npc) {
+	NpcList.push_back(npc);
 }
 
 void NPC::update(float frameTime) {

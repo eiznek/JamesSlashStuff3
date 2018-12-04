@@ -6,7 +6,8 @@
 #include "constants.h"
 #include "PlayerWeapon.h"
 #include <math.h>
-
+#include <vector>
+#include "Item.h"
 
 namespace PlayerNS
 {
@@ -77,8 +78,7 @@ public:
 	int getDpadDown() { return dpadDown; }
 	int getDpadLeft() { return dpadLeft; }
 	int getDpadRight() { return dpadRight; }
-
-
+	
 };
 
 #endif // !_PLAYER_H

@@ -36,18 +36,18 @@ void Item::update(float frameTime) {
 }
 
 void Item::Drop(Entity *entity) {
-	spriteData.x = entity->getX();
-	spriteData.y = entity->getY();
+	spriteData.x = entity->getCenterX();
+	spriteData.y = entity->getCenterY();
 	setActive(true);
 	setVisible(true);
 
 }
 
-void Item::PickUp(Player *player) {
-	setActive(false);
-	setVisible(false);
-
-}
+//void Item::PickUp(Player *player) {
+//	setActive(false);
+//	setVisible(false);
+//
+//}
 
 Item::~Item()
 {

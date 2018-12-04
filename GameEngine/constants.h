@@ -137,4 +137,8 @@ enum DASH_STATE {
 	Dashing = 0, NotDashing
 };
 
+enum ENTITY {
+	ENEMY_BADGUY = 1, ENEMY_MAGE, NPC_JAMES
+};
+
 #endif

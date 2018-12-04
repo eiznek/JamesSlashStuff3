@@ -64,11 +64,11 @@ void BobSlashStuff::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
 	}
 
-	enemy2.setX(GAME_WIDTH * 3 / 4);
-	enemy2.setY(GAME_HEIGHT / 2);
+	//enemy2.setX(GAME_WIDTH * 3 / 4);
+	//enemy2.setY(GAME_HEIGHT / 2);
 
-	EnemyList.push_back(enemy);
-	EnemyList.push_back(enemy2);
+	//EnemyList.push_back(enemy);
+	//EnemyList.push_back(enemy2);
 
 	//enemy.setHealth(STARTING_HEALTH);
 
@@ -84,7 +84,8 @@ void BobSlashStuff::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing NPC"));
 	}
 
-	NPCList.push_back(&npc);
+	//npc.AddNPC(npc);
+
 
 	if (fireballSprites.initialize(graphics, FIREBALL_IMAGE) == false) {
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error loading fireball sprite sheet"));
@@ -123,6 +124,38 @@ void BobSlashStuff::initialize(HWND hwnd)
 
 	healthBar.initialize(graphics, &spriteSheet, 0, bobSlashStuffNS::HEALTHBAR_Y, 3.0f, graphicsNS::WHITE);
 
+	for (int col = 0; col < MAP_WIDTH; col++) {
+
+		for (int row = 0; row < MAP_HEIGHT; row++) {
+			//if (entityMap[row][col] > 0) {
+			//}
+			switch (entityMap[row][col]) {
+			case ENEMY_BADGUY:
+				enemy.setX(col * TEXTURE_SIZE);
+				enemy.setY(row * TEXTURE_SIZE);
+				EnemyList.push_back(enemy);
+				break;
+				
+			case ENEMY_MAGE:
+				enemy2.setX(col * TEXTURE_SIZE);
+				enemy2.setY(row * TEXTURE_SIZE);
+				EnemyList.push_back(enemy2);
+				break;
+
+			case NPC_JAMES:
+				npc.setX(col * TEXTURE_SIZE);
+				npc.setY(row * TEXTURE_SIZE);
+				npc.NpcList.push_back(npc);
+				break;
+
+			default:
+				continue;
+
+			}
+
+		}
+	}
+
 	return;
 }
 
@@ -134,7 +167,7 @@ void BobSlashStuff::update()
 	player.update(frameTime);
 	fireball.update(frameTime);
 	//sword.update(frameTime);
-	npc.update(frameTime);
+	//npc.update(frameTime);
 	//enemy.update(frameTime);
 	playerWeapon.update(frameTime);
 
@@ -142,7 +175,15 @@ void BobSlashStuff::update()
 		(*it).update(frameTime);
 	}
 
+	for (std::vector<NPC>::iterator it = npc.NpcList.begin(); it != npc.NpcList.end(); it++) {
+		(*it).update(frameTime);
+	}
+
 	for (std::vector<Item>::iterator it = sword.ItemList.begin(); it != sword.ItemList.end(); it++) {
+		(*it).update(frameTime);
+	}
+
+	for (std::vector<Item>::iterator it = LootList.begin(); it != LootList.end(); it++) {
 		(*it).update(frameTime);
 	}
 
@@ -237,84 +278,86 @@ void BobSlashStuff::collisions()
 			(*it).setVisible(false);
 			(*it).setActive(false);
 			sword.ItemList.back().Drop(&(*it));
+			LootList.push_back(sword.ItemList.back());
+			sword.ItemList.pop_back();
 
 		}
 	}
 
-	if (fireball.collidesWith(npc, collisionVector)) {
-		fireball.setActive(false);
-		fireball.setVisible(false);
-		npc.setActive(false);
-		npc.setVisible(false);
-		//sword.Drop(&npc);
-		sword.ItemList.back().Drop(&npc);
+	for (std::vector<NPC>::iterator it = npc.NpcList.begin(); it != npc.NpcList.end(); it++) {
 
-	}
+		if ((*it).collidesWith(fireball, collisionVector)) {
+			fireball.setActive(false);
+			fireball.setVisible(false);
+			(*it).setActive(false);
+			(*it).setVisible(false);
+			sword.ItemList.back().Drop(&npc);
+			LootList.push_back(sword.ItemList.back());
+			sword.ItemList.pop_back();
 
-	if (player.collidesWith(npc, collisionVector)) {
+		}
 
-		npcText.setFontColor(SETCOLOR_ARGB(255, 255, 255, 255)); //WHITE
+		if ((*it).collidesWith(player, collisionVector)) {
+			npcText.setFontColor(SETCOLOR_ARGB(255, 255, 255, 255)); //WHITE
 
-		if (player.getMoveState() == MOVE_STATE::Moving) {
+			if (player.getMoveState() == MOVE_STATE::Moving) {
 
-			switch (player.getDirection()) {
+				switch (player.getDirection()) {
 
 				case UP:
-					if (player.getY() > npc.getY())
+					if (player.getY() > (*it).getY())
 						player.stopMoving();
 					break;
 
 				case DOWN:
-					if (player.getY() < npc.getY())
+					if (player.getY() < (*it).getY())
 						player.stopMoving();
 					break;
 
 				case LEFT:
-					if (player.getX() > npc.getX())
+					if (player.getX() > (*it).getX())
 						player.stopMoving();
 					break;
 
 				case RIGHT:
-					if (player.getX() < npc.getX())
+					if (player.getX() < (*it).getX())
 						player.stopMoving();
 					break;
 
 				default:
 					break;
 
+				}
+
 			}
+			else if (input->wasKeyPressed(INTERACT_KEY) && (*it).getActive() == true) {
+				//sword.Drop(&npc);
+				sword.ItemList.back().Drop(&(*it));
+				LootList.push_back(sword.ItemList.back());
+				sword.ItemList.pop_back();
 
+				(*it).setActive(false);
+				(*it).setVisible(false);
+				return;
+
+			}
 		}
-		else if (input->wasKeyPressed(INTERACT_KEY) && npc.getActive() == true) {
-			//sword.Drop(&npc);
-			sword.ItemList.back().Drop(&npc);
-			npc.setActive(false);
-			npc.setVisible(false);
-			return;
-
+		else {
+			npcText.setFontColor(SETCOLOR_ARGB(0, 255, 255, 255));
 		}
 	}
-	else {
-		npcText.setFontColor(SETCOLOR_ARGB(0, 255, 255, 255));
 
-	}
-	
-	if (input->wasKeyPressed(INTERACT_KEY)) {
-		for (std::vector<Item>::iterator it = sword.ItemList.begin(); it != sword.ItemList.end(); it++) {
+	for (std::vector<Item>::iterator it = LootList.begin(); it != LootList.end(); it++) {
+		if (input->wasKeyPressed(INTERACT_KEY)) {
 			if ((*it).collidesWith(player, collisionVector)) {
-				(*it).PickUp(&player);
-				sword.ItemList.erase(it);
-				sword.ItemList.shrink_to_fit();
+				PlayerInventory.push_back(*it);
+				LootList.erase(it);
+				LootList.shrink_to_fit();
 				break;
 			}
+
 		}
 	}
-
-
-	//if (player.collidesWith(sword, collisionVector) && input->wasKeyPressed(INTERACT_KEY)) {
-	//	sword.PickUp(&player);
-	//	
-	//}
 
 	if (playerWeapon.collidesWith(npc, collisionVector)) {
 		npc.setActive(false);
@@ -343,11 +386,12 @@ void BobSlashStuff::render()
 				tile.draw();
 
 			}
+
 		}
 	}
 
 	player.draw();
-	npc.draw();
+	//npc.draw();
 	fireball.draw();
 	//sword.draw();
 	playerWeapon.draw();
@@ -358,6 +402,14 @@ void BobSlashStuff::render()
 	}
 
 	for (std::vector<Enemy>::iterator it = EnemyList.begin(); it != EnemyList.end(); it++) {
+		(*it).draw();
+	}
+
+	for (std::vector<Item>::iterator it = LootList.begin(); it != LootList.end(); it++) {
+		(*it).draw();
+	}
+
+	for (std::vector<NPC>::iterator it = npc.NpcList.begin(); it != npc.NpcList.end(); it++) {
 		(*it).draw();
 	}
 

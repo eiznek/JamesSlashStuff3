@@ -21,7 +21,7 @@ public:
 	std::vector<Item> ItemList;
 
 	void update(float frameTime);
-	void PickUp(Player *player);
+	//void PickUp(Player *player);
 	void Drop(Entity *entity);
 	bool initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM);
 	void ItemAdd(Item item);
