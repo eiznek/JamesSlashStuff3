@@ -291,7 +291,7 @@ void BobSlashStuff::collisions()
 			fireball.setVisible(false);
 			(*it).setActive(false);
 			(*it).setVisible(false);
-			sword.ItemList.back().Drop(&npc);
+			sword.ItemList.back().Drop(&(*it));
 			LootList.push_back(sword.ItemList.back());
 			sword.ItemList.pop_back();
 
