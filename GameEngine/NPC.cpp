@@ -30,7 +30,6 @@ NPC::~NPC()
 
 bool NPC::initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM)
 {
-	//NpcList.push_back(*this);
 	return (Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
