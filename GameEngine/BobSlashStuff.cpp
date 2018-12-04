@@ -106,11 +106,6 @@ void BobSlashStuff::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing sword."));
 	}
 
-	sword.ItemAdd(sword); //for the npc
-	for (std::vector<Enemy>::iterator it = EnemyList.begin(); it != EnemyList.end(); it++) {
-		sword.ItemAdd(sword);
-	}
-
 	//sword.setVisible(true);
 	//sword.ItemAdd(sword);
 	//sword.setX(GAME_WIDTH * 3 / 4);
@@ -134,18 +129,21 @@ void BobSlashStuff::initialize(HWND hwnd)
 				enemy.setX(col * TEXTURE_SIZE);
 				enemy.setY(row * TEXTURE_SIZE);
 				EnemyList.push_back(enemy);
+				sword.ItemList.push_back(sword);
 				break;
 				
 			case ENEMY_MAGE:
 				enemy2.setX(col * TEXTURE_SIZE);
 				enemy2.setY(row * TEXTURE_SIZE);
 				EnemyList.push_back(enemy2);
+				sword.ItemList.push_back(sword);
 				break;
 
 			case NPC_JAMES:
 				npc.setX(col * TEXTURE_SIZE);
 				npc.setY(row * TEXTURE_SIZE);
 				npc.NpcList.push_back(npc);
+				sword.ItemList.push_back(sword);
 				break;
 
 			default:
@@ -291,7 +289,7 @@ void BobSlashStuff::collisions()
 			fireball.setVisible(false);
 			(*it).setActive(false);
 			(*it).setVisible(false);
-			sword.ItemList.back().Drop(&npc);
+			sword.ItemList.back().Drop(&(*it));
 			LootList.push_back(sword.ItemList.back());
 			sword.ItemList.pop_back();
 
