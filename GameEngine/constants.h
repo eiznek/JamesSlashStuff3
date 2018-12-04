@@ -102,7 +102,7 @@ const UCHAR UP_KEY_2 = 0x57; //W
 const UCHAR LEFT_KEY_2 = 0x41; //A
 const UCHAR DOWN_KEY_2 = 0x53; //S
 const UCHAR RIGHT_KEY_2 = 0x44; //D
-const UCHAR DASH_KEY = 0xA0; //L SHIFT
+const UCHAR DASH_KEY = VK_SHIFT; //L SHIFT
 
 //combat
 const UCHAR ATTACK_KEY = 0x43; // C; //may also be used to interact
@@ -125,9 +125,14 @@ const UCHAR SWAP_SPELLBAR_KEY_2 = VK_TAB; //TAB
 enum WEAPON {SWORD, TORPEDO, SHIP, PLANET};
 
 //bobslashstuff
-enum DIRECTION { UP = -2, LEFT, RIGHT = 1, DOWN };
+enum DIRECTION { 
+	UP = -2, LEFT, RIGHT = 1, DOWN 
+};
 enum MOVE_STATE {
 	Moving = 0, NotMoving
+};
+enum DASH_STATE {
+	Dashing = 0, NotDashing
 };
 
 #endif

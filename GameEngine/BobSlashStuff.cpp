@@ -136,7 +136,7 @@ void BobSlashStuff::update()
 
 	}
 
-	if ((input->wasKeyPressed(ATTACK_KEY) || input->wasKeyPressed(player.getcontrollerA()))) && playerWeapon.getReady() == true) 
+	if ((input->wasKeyPressed(ATTACK_KEY) || input->wasKeyPressed(player.getcontrollerA())) && playerWeapon.getReady() == true) 
 	{
 
 		if (player.getDirection() == LEFT || player.getDirection() == RIGHT) 
@@ -163,7 +163,7 @@ void BobSlashStuff::update()
 
 	}
 
-	if (input->wasKeyPressed(DASH_KEY) || input->wasKeyPressed(player.getcontrollerB())) 
+	if (input->wasKeyPressed(DASH_KEY) || player.getcontrollerB()) 
 	
 	{
 		if (player.getDirection() == UP || player.getDirection() == DOWN) { //move player toward direction faced in a fixed frame of time

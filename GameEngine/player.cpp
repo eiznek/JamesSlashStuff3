@@ -31,6 +31,7 @@ Player::Player() : Entity() {
 	moveSpeed = 1; //num tiles per second
 	animFrame = 0;
 	move_state = MOVE_STATE::NotMoving;
+	distDashedPerFrame = (TEXTURE_SIZE * DASH_DIST) / (DASH_TIME * FRAME_RATE);
 }
 
 Player::~Player() {
@@ -137,17 +138,18 @@ void Player::update(float frameTime) {
 		}
 
 		stopMoving();
-		//if (xMovement <= 0 && yMovement <= 0) {
-		//	stopMoving();
-		//	setCurrentFrame(animFrame);
-		//	setFrames(animFrame, animFrame);
-		//}
-
-			 
+ 
 	}
 
 	if (input->wasKeyPressed(ATTACK_KEY)) {
 		Attack();
+	}
+
+	if (input->wasKeyPressed(DASH_KEY)) {
+		//if (dash_state == DASH_STATE::Dashing) {
+		//	this->setActive(false); //disable collision
+		//}
+		Dash(frameTime);
 	}
 
 }
@@ -172,6 +174,23 @@ void Player::stopMoving() {
 //Could be unnecessary and most suitably implemented elsewhere instead. i.e. "BobSlashStuff.cpp"
 void Player::Attack() {
 
+}
+
+void Player::Dash(float frametime) {
+	dash_state = DASH_STATE::Dashing;
+	if (getDashTimeLeft() <= DASH_TIME && getDashTimeLeft() > 0) {
+		setDashTimeLeft(getDashTimeLeft() - frametime);
+		if (direction == LEFT || direction == RIGHT) {
+			this->setX(this->getX() + getDistDashedPerFrame());
+		}
+		else if (direction == UP || direction == DOWN) {
+			this->setY(this->getY() + getDistDashedPerFrame());
+		}
+	}
+
+	else if (getDashTimeLeft() <= 0) {
+		setDashTimeLeft(DASH_TIME);
+	}
 }
 
 void Player::drawController(int n)
