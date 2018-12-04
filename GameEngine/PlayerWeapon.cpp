@@ -27,8 +27,7 @@ PlayerWeapon::~PlayerWeapon()
 {
 }
 
-void PlayerWeapon::update(float frameTime)
-{
+void PlayerWeapon::update(float frameTime) {
 	if (isready == false) {
 		attacktimer -= frameTime;                     // time remaining until fire enabled
 
@@ -37,14 +36,11 @@ void PlayerWeapon::update(float frameTime)
 			setReady(true);
 			visible = false;                        // old torpedo off
 			active = false;
+
+			setCurrentFrame(PlayerWepNS::START_FRAME);
 		}
-	}
 
-	if (attacktimer <= 0)                           // if ready to fire
-	{
-		visible = false;                        // old torpedo off
-		active = false;
+		Image::update(frameTime);
 	}
-	Image::update(frameTime);
-
 }
+

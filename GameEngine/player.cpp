@@ -55,7 +55,7 @@ void Player::update(float frameTime) {
 	if (move_state == MOVE_STATE::NotMoving) {
 
 		//Move Up
-		if (input->isKeyDown(UP_KEY) || input->getGamepadDPadUp(0) || input->getGamepadThumbLY(0) > 20000) {
+		if (input->isKeyDown(UP_KEY) || input->getGamepadThumbLY(0) > THUMBSTICK_TILT) {
 			if (getY() <= 0 + TEXTURE_SIZE) {
 				yMovement = 0;
 				return;
@@ -71,7 +71,7 @@ void Player::update(float frameTime) {
 		}
 
 		//Move Down
-		else if (input->isKeyDown(DOWN_KEY) || input->getGamepadDPadDown(0) || input->getGamepadThumbLY(0) < -20000) {
+		else if (input->isKeyDown(DOWN_KEY) || input->getGamepadThumbLY(0) < -THUMBSTICK_TILT) {
 			if (getY() >= GAME_HEIGHT - TEXTURE_SIZE * 2) {
 				yMovement = 0;
 				return;
@@ -85,7 +85,7 @@ void Player::update(float frameTime) {
 		}
 
 		//Move Left
-		else if (input->isKeyDown(LEFT_KEY) || input->getGamepadDPadLeft(0) || input->getGamepadThumbLX(0) < -20000) {
+		else if (input->isKeyDown(LEFT_KEY) || input->getGamepadThumbLX(0) < -THUMBSTICK_TILT) {
 			if (getX() <= 0 + TEXTURE_SIZE) {
 				xMovement = 0;
 				return;
@@ -99,7 +99,7 @@ void Player::update(float frameTime) {
 		}
 
 		//Move Right
-		else if (input->isKeyDown(RIGHT_KEY) || input->getGamepadDPadRight(0) || input->getGamepadThumbLX(0) > 20000) {
+		else if (input->isKeyDown(RIGHT_KEY) || input->getGamepadThumbLX(0) > THUMBSTICK_TILT) {
 			if (getX() >= GAME_WIDTH - TEXTURE_SIZE * 2) {
 				xMovement = 0;
 				return;
@@ -169,34 +169,10 @@ void Player::stopMoving() {
 	move_state = MOVE_STATE::NotMoving;
 }
 
-//void Player::obstructed(float colX, float colY) {
-//
-//}
 
 //Player Attacking
 //Could be unnecessary and most suitably implemented elsewhere instead. i.e. "BobSlashStuff.cpp"
 void Player::Attack() {
-	//weapon.damage();
-	//Method 1, check for entity in tile
-
-	/* pseudo code
-	tile = getTile(direction); //get tile in the direction that player is facing
-	setFrames(FRAME_START_ATTACK, FRAME_END_ATTACK); //set animation frames for attacking
-	setCurrentFrame(FRAME_START_ATTACK);
-
-	if (tile.containsEntity()){
-		Entity target = tile.getEntity();
-		if (target.isHostile()) //checks if entity is hostile
-			target.damage(weapon); //damage Enemy.
-		else
-			target.talk(); //interact with NPC
-	}
-	else
-		return;
-
-	*/
-
-	//Method 2, Collision
 
 }
 
@@ -205,35 +181,20 @@ void Player::drawController(int n)
 	//controller.draw();
 	// get trigger and thumbstick positions
 	leftTrigger = input->getGamepadLeftTrigger(n);
-	//leftTriggerUndead = input->getGamepadLeftTriggerUndead(n);
 	rightTrigger = input->getGamepadRightTrigger(n);
-	//rightTriggerUndead = input->getGamepadRightTriggerUndead(n);
 	leftThumbX = input->getGamepadThumbLX(n);
-	//leftThumbXUndead = input->getGamepadThumbLXUndead(n);
 	leftThumbY = input->getGamepadThumbLY(n);
-	//leftThumbYUndead = input->getGamepadThumbLYUndead(n);
 	rightThumbX = input->getGamepadThumbRX(n);
-	//rightThumbXUndead = input->getGamepadThumbRXUndead(n);
 	rightThumbY = input->getGamepadThumbRY(n);
-	//rightThumbYUndead = input->getGamepadThumbRYUndead(n);
 	input->gamePadVibrateLeft(n, leftTrigger << 8, 0.1f);   // vibrate left
 	input->gamePadVibrateRight(n, rightTrigger << 8, 0.1f); // vibtate right
-
-	// Display button states
-	//if (input->getGamepadStart(n))
-	//if (input->getGamepadRightShoulder(n))
-	//if (input->getGamepadA(n))
-	//if (input->getGamepadB(n))
-	//if (input->getGamepadX(n))
-	//if (input->getGamepadY(n))
-	if (input->getGamepadDPadUp(n))
-	{
-
-	}
-	//if (input->getGamepadDPadRight(n))
-	//if (input->getGamepadDPadDown(n))
-	//if (input->getGamepadDPadLeft(n))
-	//if (input->getGamepadLeftShoulder(n))
-	//if (input->getGamepadBack(n))
+	controllerA = input->getGamepadA(n);
+	controllerB = input->getGamepadB(n);
+	controllerX = input->getGamepadX(n);
+	controllerY = input->getGamepadY(n);
+	dpadUp = input->getGamepadDPadUp(n);
+	dpadDown = input->getGamepadDPadDown(n);
+	dpadLeft = input->getGamepadDPadLeft(n);
+	dpadRight = input->getGamepadDPadRight(n);
 
 }

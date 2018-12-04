@@ -7,6 +7,7 @@
 #include "PlayerWeapon.h"
 #include <math.h>
 
+
 namespace PlayerNS
 {
 	const int   WIDTH = 32;                // image width (each frame)
@@ -34,7 +35,8 @@ private:
 	int leftTrigger, leftTriggerUndead, rightTrigger, rightTriggerUndead;
 	int leftThumbX, leftThumbXUndead, leftThumbY, leftThumbYUndead;
 	int rightThumbX, rightThumbXUndead, rightThumbY, rightThumbYUndead;
-
+	int controllerA, controllerB, controllerX, controllerY;
+	int dpadUp, dpadDown, dpadLeft, dpadRight;
 	//PlayerWeapon weapon;
 
 public:
@@ -58,6 +60,15 @@ public:
 	//void setMoveState(MOVE_STATE state) { move_state = state; }
 
 	void drawController(int n);
+
+	int getcontrollerA() { return controllerA; }
+	int getcontrollerB() { return controllerB; }
+	int getcontrollerX() { return controllerX; }
+	int getcontrollerY() { return controllerY; }
+	int getDpadUp() { return dpadUp; }
+	int getDpadDown() { return dpadDown; }
+	int getDpadLeft() { return dpadLeft; }
+	int getDpadRight() { return dpadRight; }
 
 
 };
