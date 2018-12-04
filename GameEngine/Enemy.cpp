@@ -39,6 +39,7 @@ bool Enemy::initialize(Game *gamePtr, int width, int height, int ncols,
 	return(Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
+
 //Update
 void Enemy::update(float frameTime)
 {
@@ -46,6 +47,13 @@ void Enemy::update(float frameTime)
 	//write vector code in here
 
 	/*
+	//get vector in direction of player
+	int dirx = playerX - enemyX;
+	int diry = playerX - enemyX;
+
+	//normalize vector
+	hyp*hyp =
+
 	//if player up
 	animframe = 0;
 	//if player down

@@ -192,7 +192,7 @@ void BobSlashStuff::update()
 
 	}
 
-	if (input->wasKeyPressed(DASH_KEY) || input->wasKeyPressed(player.getcontrollerB())) 
+	if (input->wasKeyPressed(DASH_KEY) || player.getcontrollerB()) 
 	
 	{
 		if (player.getDirection() == UP || player.getDirection() == DOWN) { //move player toward direction faced in a fixed frame of time
