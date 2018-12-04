@@ -48,6 +48,16 @@ void BobSlashStuff::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing player"));
 	}
 
+	if (enemySprites.initialize(graphics, ENEMY_IMAGE) == false) {
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error loading enemy sprite sheet"));
+	}
+
+	if (enemy.initialize(this, EnemyNS::WIDTH, EnemyNS::HEIGHT, 13, &enemySprites) == false) {
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy")); 
+	}
+
+	enemy.setHealth(STARTING_HEALTH);
+
 	player.setHealth(STARTING_HEALTH);
 	player.setMana(STARTING_MANA);
 
@@ -100,23 +110,26 @@ void BobSlashStuff::update()
 	fireball.update(frameTime);
 	sword.update(frameTime);
 	npc.update(frameTime);
+	enemy.update(frameTime);
 	playerWeapon.update(frameTime);
+
 	if (input->wasKeyPressed(SPELL_KEY_1)) {
 		fireball.fire(&player);
 		if (player.getMana() >= FIREBALL_COST_MANA && fireball.getActive() == false) {
 			fireball.fire(&player);
 			player.setMana(player.getMana() - FIREBALL_COST_MANA);
 		}
-		}
+	}
 
 	if (input->wasKeyPressed(ATTACK_KEY) && playerWeapon.getReady() == true) {
 		playerWeapon.setActive(true);
 		playerWeapon.setVisible(true);
 		playerWeapon.setReady(false);
-		if(player.getDirection() == LEFT || player.getDirection() == RIGHT){
+		if (player.getDirection() == LEFT || player.getDirection() == RIGHT) {
 			playerWeapon.setX(player.getX() + (TEXTURE_SIZE)* player.getDirection());
 			playerWeapon.setY(player.getY());
-
+		}
+	}
 	if (player.getHealth() <= 0) {
 		player.setActive(false);
 		player.setVisible(false);
@@ -163,24 +176,24 @@ void BobSlashStuff::collisions()
 		npcText.setFontColor(SETCOLOR_ARGB(255, 255, 255, 255)); //WHITE
 		if (player.getMoveState() == MOVE_STATE::Moving) {
 			switch (player.getDirection()) {
-			case UP:
-				if (player.getY() > npc.getY())
-					player.stopMoving();
-				break;
-			case DOWN:
-				if (player.getY() < npc.getY())
-					player.stopMoving();
-				break;
-			case LEFT:
-				if (player.getX() > npc.getX())
-					player.stopMoving();
-				break;
-			case RIGHT:
-				if (player.getX() < npc.getX())
-					player.stopMoving();
-				break;
-			default:
-				break;
+				case UP:
+					if (player.getY() > npc.getY())
+						player.stopMoving();
+					break;
+				case DOWN:
+					if (player.getY() < npc.getY())
+						player.stopMoving();
+					break;
+				case LEFT:
+					if (player.getX() > npc.getX())
+						player.stopMoving();
+					break;
+				case RIGHT:
+					if (player.getX() < npc.getX())
+						player.stopMoving();
+					break;
+				default:
+					break;
 			}
 
 		}
@@ -241,6 +254,7 @@ void BobSlashStuff::render()
 	fireball.draw();
 	sword.draw();
 	playerWeapon.draw();
+	enemy.draw();
 
 	healthBar.setX((float)bobSlashStuffNS::PLAYER_HEALTH_BAR_X);
 	healthBar.set(player.getMana());
@@ -264,6 +278,7 @@ void BobSlashStuff::releaseAll()
 	fireballSprites.onLostDevice();
 	swordSprites.onLostDevice();
 	npcText.onLostDevice();
+	enemySprites.onLostDevice();
 
 	Game::releaseAll();
 	return;
@@ -281,6 +296,7 @@ void BobSlashStuff::resetAll()
 	fireballSprites.onResetDevice();
 	swordSprites.onResetDevice();
 	npcText.onResetDevice();
+	enemySprites.onLostDevice();
 
 	Game::resetAll();
 	return;
