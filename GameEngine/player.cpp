@@ -31,6 +31,7 @@ Player::Player() : Entity() {
 	moveSpeed = 1; //num tiles per second
 	animFrame = 0;
 	move_state = MOVE_STATE::NotMoving;
+	dash_state = DASH_STATE::NotDashing;
 	distDashedPerFrame = (TEXTURE_SIZE * DASH_DIST) / (DASH_TIME * FRAME_RATE);
 }
 
@@ -179,14 +180,21 @@ void Player::Attack() {
 }
 
 void Player::Dash(float frametime) {
-	dash_state = DASH_STATE::Dashing;
-	if (getDashTimeLeft() <= DASH_TIME && getDashTimeLeft() > 0) {
+	if (dash_state == NotDashing || (getDashTimeLeft() <= DASH_TIME && getDashTimeLeft() > 0)) {
 		setDashTimeLeft(getDashTimeLeft() - frametime);
 		if (direction == LEFT || direction == RIGHT) {
-			this->setX(this->getX() + getDistDashedPerFrame());
+			setX(getX() + getDistDashedPerFrame());
+			setY(getY());
 		}
 		else if (direction == UP || direction == DOWN) {
-			this->setY(this->getY() + getDistDashedPerFrame());
+			setX(getX());
+			setY(getY() + getDistDashedPerFrame());
+		}
+	}
+	if (dash_state = Dashing) {
+		setActive(false);
+		if (getDashTimeLeft() <= 0) {
+			dash_state = NotDashing;
 		}
 	}
 
