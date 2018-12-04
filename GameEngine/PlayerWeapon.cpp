@@ -27,8 +27,7 @@ PlayerWeapon::~PlayerWeapon()
 {
 }
 
-void PlayerWeapon::update(float frameTime)
-{
+void PlayerWeapon::update(float frameTime) {
 	if (isready == false) {
 		attacktimer -= frameTime;                     // time remaining until fire enabled
 
@@ -44,3 +43,4 @@ void PlayerWeapon::update(float frameTime)
 		Image::update(frameTime);
 	}
 }
+
