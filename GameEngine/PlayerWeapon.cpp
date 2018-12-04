@@ -41,5 +41,5 @@ void PlayerWeapon::update(float frameTime) {
 
 		Image::update(frameTime);
 
-	}
 }
+

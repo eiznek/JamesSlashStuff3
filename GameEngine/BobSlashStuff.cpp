@@ -112,25 +112,19 @@ void BobSlashStuff::update()
 	npc.update(frameTime);
 	enemy.update(frameTime);
 	playerWeapon.update(frameTime);
-<<<<<<< HEAD
 	if (input->wasKeyPressed(SPELL_KEY_1) || input->wasKeyPressed(player.getDpadDown())) {
-=======
 
 	if (input->wasKeyPressed(SPELL_KEY_1)) {
->>>>>>> bd3fe45cda46d6a7812f711376b3f2fe0602c447
 		fireball.fire(&player);
 		if (player.getMana() >= FIREBALL_COST_MANA && fireball.getActive() == false) {
 			fireball.fire(&player);
 			player.setMana(player.getMana() - FIREBALL_COST_MANA);
 		}
 	}
-<<<<<<< HEAD
 
 	if (input->wasKeyPressed(SPELL_KEY_2) || input->wasKeyPressed(player.getDpadLeft())) {
 		//second spell
 	}
-=======
->>>>>>> bd3fe45cda46d6a7812f711376b3f2fe0602c447
 
 	if ((input->wasKeyPressed(ATTACK_KEY) || input->wasKeyPressed(player.getcontrollerA())) && playerWeapon.getReady() == true) {
 		playerWeapon.setActive(true);
@@ -140,7 +134,6 @@ void BobSlashStuff::update()
 			playerWeapon.setX(player.getX() + (TEXTURE_SIZE)* player.getDirection());
 			playerWeapon.setY(player.getY());
 		}
-<<<<<<< HEAD
 		else if (player.getDirection() == UP || player.getDirection() == RIGHT) {
 			playerWeapon.setX(player.getX());
 			playerWeapon.setY(player.getY() + (TEXTURE_SIZE)* player.getDirection());
@@ -150,13 +143,11 @@ void BobSlashStuff::update()
 			player.setActive(false);
 			player.setVisible(false);
 		}
-=======
 	}
 	if (player.getHealth() <= 0) {
 		player.setActive(false);
 		player.setVisible(false);
 	}
->>>>>>> bd3fe45cda46d6a7812f711376b3f2fe0602c447
 
 		if (input->wasKeyPressed(SPELL_KEY_1) || player.getDpadDown()) {
 			if (player.getMana() >= FIREBALL_COST_MANA && fireball.getActive() == false) {
