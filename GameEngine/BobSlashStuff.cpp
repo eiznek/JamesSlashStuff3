@@ -101,35 +101,56 @@ void BobSlashStuff::update()
 	sword.update(frameTime);
 	npc.update(frameTime);
 	playerWeapon.update(frameTime);
-	if (input->wasKeyPressed(SPELL_KEY_1)) {
+	if (input->wasKeyPressed(SPELL_KEY_1) || input->wasKeyPressed(player.getDpadDown())) {
 		fireball.fire(&player);
 		if (player.getMana() >= FIREBALL_COST_MANA && fireball.getActive() == false) {
 			fireball.fire(&player);
 			player.setMana(player.getMana() - FIREBALL_COST_MANA);
 		}
-		}
+	}
 
-	if (input->wasKeyPressed(ATTACK_KEY) && playerWeapon.getReady() == true) {
+	if (input->wasKeyPressed(SPELL_KEY_2) || input->wasKeyPressed(player.getDpadLeft())) {
+		//second spell
+	}
+
+	if ((input->wasKeyPressed(ATTACK_KEY) || input->wasKeyPressed(player.getcontrollerA())) && playerWeapon.getReady() == true) {
 		playerWeapon.setActive(true);
 		playerWeapon.setVisible(true);
 		playerWeapon.setReady(false);
-		if(player.getDirection() == LEFT || player.getDirection() == RIGHT){
+		if (player.getDirection() == LEFT || player.getDirection() == RIGHT) {
 			playerWeapon.setX(player.getX() + (TEXTURE_SIZE)* player.getDirection());
 			playerWeapon.setY(player.getY());
-
-	if (player.getHealth() <= 0) {
-		player.setActive(false);
-		player.setVisible(false);
-	}
-
-	if (input->wasKeyPressed(SPELL_KEY_1)) {
-		if (player.getMana() >= FIREBALL_COST_MANA && fireball.getActive() == false) {
-			fireball.fire(&player);
-			player.setMana(player.getMana() - FIREBALL_COST_MANA);
 		}
-		if (player.getDirection() == UP || player.getDirection() == DOWN) {
+		else if (player.getDirection() == UP || player.getDirection() == RIGHT) {
 			playerWeapon.setX(player.getX());
-			playerWeapon.setY(player.getY() + (TEXTURE_SIZE)* player.getDirection()/2);
+			playerWeapon.setY(player.getY() + (TEXTURE_SIZE)* player.getDirection());
+		}
+
+		if (player.getHealth() <= 0) {
+			player.setActive(false);
+			player.setVisible(false);
+		}
+
+		if (input->wasKeyPressed(SPELL_KEY_1) || player.getDpadDown()) {
+			if (player.getMana() >= FIREBALL_COST_MANA && fireball.getActive() == false) {
+				fireball.fire(&player);
+				player.setMana(player.getMana() - FIREBALL_COST_MANA);
+			}
+			if (player.getDirection() == UP || player.getDirection() == DOWN) {
+				playerWeapon.setX(player.getX());
+				playerWeapon.setY(player.getY() + (TEXTURE_SIZE)* player.getDirection() / 2);
+			}
+		}
+
+		if (input->wasKeyPressed(DASH_KEY) || input->wasKeyPressed(player.getcontrollerB())) {
+			if (player.getDirection() == UP || player.getDirection() == DOWN) { //move player toward direction faced in a fixed frame of time
+				playerWeapon.setX(player.getX());
+				player.setY(player.getY() + ((TEXTURE_SIZE)* player.getDirection() / 2) + DASH_DIST);
+			}
+			else if (player.getDirection() == LEFT || player.getDirection() == RIGHT) {
+				player.setY(player.getX() + ((TEXTURE_SIZE)* player.getDirection() / 2) + DASH_DIST);
+				playerWeapon.setY(player.getY());
+			}
 		}
 	}
 }
@@ -183,6 +204,7 @@ void BobSlashStuff::collisions()
 				break;
 			}
 
+
 		}
 		else if (input->wasKeyPressed(INTERACT_KEY) && npc.getActive() == true) {
 			sword.Drop(&npc);
@@ -191,7 +213,6 @@ void BobSlashStuff::collisions()
 			return;
 
 		}
-
 	}
 	else {
 		npcText.setFontColor(SETCOLOR_ARGB(0, 255, 255, 255));
@@ -208,11 +229,6 @@ void BobSlashStuff::collisions()
 		return;
 	}
 
-	//if(player.weapon.collideswith(npc,collisionVector){
-	//	if(input->wasKeyPressed(INTERACT_KEY)){
-	//		npc.setX(999);
-	//	}
-	//}
 }
 
 //=============================================================================

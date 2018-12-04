@@ -54,6 +54,9 @@ const int STARTING_SANITY = 100;
 const int FIREBALL_COST_MANA = 10;
 const int PLAYER_BASE_ATTACK = 20;
 const int PROJECTILE_SPEED = 10;
+const int THUMBSTICK_TILT = 20000;
+const int DASH_DIST = 4;
+const float DASH_TIME = 0.5f;
 
 //spacewar
 const float GRAVITY = 6.67428e-11f;             // gravitational constant
@@ -97,6 +100,7 @@ const UCHAR UP_KEY_2 = 0x57; //W
 const UCHAR LEFT_KEY_2 = 0x41; //A
 const UCHAR DOWN_KEY_2 = 0x53; //S
 const UCHAR RIGHT_KEY_2 = 0x44; //D
+const UCHAR DASH_KEY = 0xA0; //L SHIFT
 
 //combat
 const UCHAR ATTACK_KEY = 0x43; // C; //may also be used to interact
