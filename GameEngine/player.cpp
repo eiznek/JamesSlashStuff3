@@ -32,7 +32,8 @@ Player::Player() : Entity() {
 	animFrame = 0;
 	move_state = MOVE_STATE::NotMoving;
 	dash_state = DASH_STATE::NotDashing;
-	distDashedPerFrame = (TEXTURE_SIZE * DASH_DIST) / (DASH_TIME * FRAME_RATE);
+	dashCD = DASH_CD;
+	distDashedPerFrame = (TEXTURE_SIZE * DASH_DIST) /*/ (DASH_TIME * FRAME_RATE)*/;
 }
 
 Player::~Player() {
@@ -183,27 +184,29 @@ void Player::Attack() {
 }
 
 void Player::Dash(float frametime) {
-	if (dash_state == NotDashing || (getDashTimeLeft() <= DASH_TIME && getDashTimeLeft() > 0)) {
-		setDashTimeLeft(getDashTimeLeft() - frametime);
+	if (dash_state == NotDashing && dashCD == DASH_CD) {
+		dashCD -= frametime;
+		dash_state = Dashing;
+	}
+	else if (dash_state == Dashing && dashCD > 0 && dashCD < DASH_CD) {
+		setX(getX() - TEXTURE_SIZE);
+		dash_state = Dashing;
 		if (direction == LEFT || direction == RIGHT) {
-			setX(getX() + getDistDashedPerFrame());
+			setX(getX() + getDistDashedPerFrame() * direction);
 			setY(getY());
 		}
 		else if (direction == UP || direction == DOWN) {
 			setX(getX());
-			setY(getY() + getDistDashedPerFrame());
+			setY(getY() + getDistDashedPerFrame() * (direction/2));
 		}
-	}
-	if (dash_state = Dashing) {
 		setActive(false);
-		if (getDashTimeLeft() <= 0) {
-			dash_state = NotDashing;
-		}
+	}
+	else {
+		dash_state = NotDashing;
+		dashCD = DASH_CD;
+		setActive(true);
 	}
 
-	else if (getDashTimeLeft() <= 0) {
-		setDashTimeLeft(DASH_TIME);
-	}
 }
 
 void Player::drawController(int n)

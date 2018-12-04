@@ -6,8 +6,7 @@
 #include "constants.h"
 #include "PlayerWeapon.h"
 #include <math.h>
-#include <vector>
-#include "Item.h"
+
 
 namespace PlayerNS
 {
@@ -35,6 +34,7 @@ private:
 	int animFrame;
 	float distDashedPerFrame;
 	float dashTimeLeft;
+	float dashCD;
 	//controller
 	int leftTrigger, leftTriggerUndead, rightTrigger, rightTriggerUndead;
 	int leftThumbX, leftThumbXUndead, leftThumbY, leftThumbYUndead;
@@ -66,6 +66,7 @@ public:
 	float getDistDashedPerFrame() { return distDashedPerFrame; }
 	float getDashTimeLeft() { return dashTimeLeft; }
 	void setDashTimeLeft(float dtl) { dashTimeLeft = dtl; }
+	void setDashCD(float cd) { dashCD = cd; }
 	//void setMoveState(MOVE_STATE state) { move_state = state; }
 
 	void drawController(int n);
@@ -78,7 +79,8 @@ public:
 	int getDpadDown() { return dpadDown; }
 	int getDpadLeft() { return dpadLeft; }
 	int getDpadRight() { return dpadRight; }
-	
+
+
 };
 
 #endif // !_PLAYER_H

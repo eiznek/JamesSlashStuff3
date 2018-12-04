@@ -240,16 +240,14 @@ void BobSlashStuff::update()
 
 		if (input->wasKeyPressed(DASH_KEY) || player.getcontrollerB())
 		{
-			if (player.getDirection() == UP || player.getDirection() == DOWN) { //move player toward direction faced in a fixed frame of time
-				playerWeapon.setX(player.getX());
-				player.setY(player.getY() + ((TEXTURE_SIZE)* player.getDirection() / 2) - DASH_DIST);
-			}
-
-			else if (player.getDirection() == LEFT || player.getDirection() == RIGHT) {
-				player.setX(player.getX() + ((TEXTURE_SIZE)* player.getDirection()) + DASH_DIST);
-				playerWeapon.setY(player.getY());
-			}
-
+		//	if (player.getDirection() == UP || player.getDirection() == DOWN) { //move player toward direction faced in a fixed frame of time
+		//		playerWeapon.setX(player.getX());
+		//		player.setY(player.getY() + ((TEXTURE_SIZE)* player.getDirection() / 2) - DASH_DIST);
+		//	}
+		//	else if (player.getDirection() == LEFT || player.getDirection() == RIGHT) {
+		//		player.setX(player.getX() + ((TEXTURE_SIZE)* player.getDirection()) + DASH_DIST);
+		//		playerWeapon.setY(player.getY());
+		//	}
 		}
 
 	}
