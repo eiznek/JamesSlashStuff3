@@ -56,6 +56,9 @@ void Player::update(float frameTime) {
 
 	if (move_state == MOVE_STATE::NotMoving) {
 
+		if (!active)
+			return;
+
 		//Move Up
 		if (input->isKeyDown(UP_KEY) || input->getGamepadThumbLY(0) > THUMBSTICK_TILT) {
 			if (getY() <= 0 + TEXTURE_SIZE) {
