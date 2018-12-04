@@ -60,7 +60,7 @@ void Projectile::update(float frameTime)
 //=============================================================================
 void Projectile::fire(Player *player)
 {
-	if (fireTimer <= 0.0f)                       // if ready to fire
+	if (fireTimer <= 0.0f)                      // if ready to fire
 	{
 		if (player->getDirection() == LEFT || player->getDirection() == RIGHT)
 			velocity.x = player->getDirection();
@@ -76,9 +76,11 @@ void Projectile::fire(Player *player)
 		
 		spriteData.x = player->getCenterX() - spriteData.width / 2;
 		spriteData.y = player->getCenterY() - spriteData.height / 2;
-		visible = true;                         // make torpedo visible
+		visible = true;                         // make fireball visible
 		active = true;                          // enable collisions
 		fireTimer = projectileNS::FIRE_DELAY;      // delay firing
+
+		player->setMana(player->getMana() - FIREBALL_COST_MANA);
 	
 	}
 }

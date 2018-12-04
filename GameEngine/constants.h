@@ -57,7 +57,7 @@ const int PROJECTILE_SPEED = 10;
 const int THUMBSTICK_TILT = 20000;
 const int DASH_DIST = 4;
 const float DASH_TIME = 0.5f;
-const int ENEMY_BASE_DAMAGE = 10;
+const int ENEMY_BASE_DAMAGE = 20;
 
 //spacewar
 const float GRAVITY = 6.67428e-11f;             // gravitational constant
