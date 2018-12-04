@@ -51,13 +51,10 @@ public:
 
 	void Attack();
 	void stopMoving();
-<<<<<<< HEAD
 	void Dash(float frametime);
 
-=======
 	int getPlayerX();
 	int getPlayerY();
->>>>>>> 072958ba32140019647f14579ad58f3b44460c93
 	int getDistance() { return movement; }
 	int getDirection() { return direction; }
 	int getMana() { return mana; }
