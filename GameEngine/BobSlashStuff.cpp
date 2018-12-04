@@ -101,25 +101,11 @@ void BobSlashStuff::update()
 	sword.update(frameTime);
 	npc.update(frameTime);
 	playerWeapon.update(frameTime);
-	if (input->wasKeyPressed(SPELL_KEY_1)) {
-		fireball.fire(&player);
-		if (player.getMana() >= FIREBALL_COST_MANA && fireball.getActive() == false) {
-			fireball.fire(&player);
-			player.setMana(player.getMana() - FIREBALL_COST_MANA);
-		}
-		}
-
-	if (input->wasKeyPressed(ATTACK_KEY) && playerWeapon.getReady() == true) {
-		playerWeapon.setActive(true);
-		playerWeapon.setVisible(true);
-		playerWeapon.setReady(false);
-		if(player.getDirection() == LEFT || player.getDirection() == RIGHT){
-			playerWeapon.setX(player.getX() + (TEXTURE_SIZE)* player.getDirection());
-			playerWeapon.setY(player.getY());
 
 	if (player.getHealth() <= 0) {
 		player.setActive(false);
 		player.setVisible(false);
+
 	}
 
 	if (input->wasKeyPressed(SPELL_KEY_1)) {
@@ -127,10 +113,29 @@ void BobSlashStuff::update()
 			fireball.fire(&player);
 			player.setMana(player.getMana() - FIREBALL_COST_MANA);
 		}
+	}
+
+	if (input->wasKeyPressed(ATTACK_KEY) && playerWeapon.getReady() == true) {
+		if (player.getDirection() == LEFT || player.getDirection() == RIGHT) {
+			playerWeapon.setX(player.getX() + (TEXTURE_SIZE)* player.getDirection());
+			playerWeapon.setY(player.getY());
+			playerWeapon.setReady(false);
+
+		}
+
 		if (player.getDirection() == UP || player.getDirection() == DOWN) {
 			playerWeapon.setX(player.getX());
 			playerWeapon.setY(player.getY() + (TEXTURE_SIZE)* player.getDirection()/2);
+			playerWeapon.setReady(false);
+
 		}
+
+		if (playerWeapon.getReady() == false) {
+			playerWeapon.setActive(true);
+			playerWeapon.setVisible(true);
+		}
+
+
 	}
 }
 
