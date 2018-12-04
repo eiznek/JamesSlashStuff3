@@ -18,10 +18,10 @@ namespace EnemyNS
 class Enemy : public Entity 
 {
 private:
-	float   oldX, oldY, oldAngle;
-	float   rotation;  // current rotation rate (radians/second)
-	LARGE_INTEGER lastAttack;
-	LARGE_INTEGER tmrFreq;
+	float			oldX, oldY, oldAngle;
+	float			rotation;  // current rotation rate (radians/second)
+	LARGE_INTEGER	lastAttack;
+	LARGE_INTEGER	tmrFreq;
 
 public:
 	Enemy();
@@ -34,11 +34,12 @@ public:
 	void attackPlayer(Player& thePlayer, int level);
 	void repair();
 	bool Enemy::isMoving();
-
+	void chase(VECTOR2 pos);
 	// new functions
 	void setVelocityX(float v) { velocity.x = v; }
 	int getEnemyX();
 	int getEnemyY();
+
 	void setName(std::string name) { mobName = name; }
 	std::string getName() { return mobName; }
 

@@ -41,6 +41,8 @@ bool Player::initialize(Game *gamePtr, int width, int height, int ncols, Texture
 	return (Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
+int Player::getPlayerX() { return spriteData.x; }
+int Player::getPlayerY() { return spriteData.y; }
 
 void Player::update(float frameTime) {
 

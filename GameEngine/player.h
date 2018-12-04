@@ -46,7 +46,8 @@ public:
 
 	void Attack();
 	void stopMoving();
-
+	int getPlayerX();
+	int getPlayerY();
 	int getDistance() { return movement; }
 	int getDirection() { return direction; }
 	int getMana() { return mana; }

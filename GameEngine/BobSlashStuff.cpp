@@ -145,6 +145,16 @@ void BobSlashStuff::update()
 			playerWeapon.setY(player.getY() + (TEXTURE_SIZE)* player.getDirection()/2);
 		}
 	}
+	/*
+	float dirx = enemy.getX() - player.getX();
+	float diry = enemy.getY() - player.getY();
+	float hyp = sqrt(dirx * dirx + diry * diry);
+	dirx /= hyp;
+	diry /= hyp;
+
+	enemy.setX(dirx * MOVE_SPEED);
+	enemy.setY(diry * MOVE_SPEED);
+	*/
 }
 
 
@@ -170,6 +180,9 @@ void BobSlashStuff::collisions()
 		npc.setActive(false);
 		npc.setVisible(false);
 		sword.Drop(&npc);
+	}
+	if (enemy.collidesWith(player, collisionVector)) {
+
 	}
 
 	if (player.collidesWith(npc, collisionVector)) {
