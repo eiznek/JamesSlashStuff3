@@ -436,7 +436,7 @@ void BobSlashStuff::render()
 	//npc.draw();
 	fireball.draw();
 	//sword.draw();
-	playerWeapon.draw();
+	playerWeapon.draw(SETCOLOR_ARGB(255, 0, 0, 0));
 	//enemy.draw();
 
 	for (std::vector<Item>::iterator it = sword.ItemList.begin(); it != sword.ItemList.end(); it++) {
@@ -481,7 +481,7 @@ void BobSlashStuff::render()
 	gameOverText.print("YOU DIED", player.getX(), player.getY());
 
 	snprintf(buffer, sizeof(buffer), "%d", (int)ceil(waveCountdown));
-	countdownText.print(buffer, GAME_WIDTH / 2, GAME_HEIGHT * 1/8);
+	countdownText.print(buffer, GAME_WIDTH / 2 - bobSlashStuffNS::FONT_SIZE/2, GAME_HEIGHT * 1/8);
 	memset(buffer, 0, sizeof(buffer));
 
 	graphics->spriteEnd();                  // end drawing sprites
