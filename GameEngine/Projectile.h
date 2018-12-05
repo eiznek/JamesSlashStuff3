@@ -39,5 +39,6 @@ public:
 	void fire(Player *player);                // fire torpedo from ship
 
 	Enemy GetClosestEnemy(std::vector<Enemy> vec);
+	int EnemyListAlive(std::vector<Enemy> vec);
 };
 #endif
