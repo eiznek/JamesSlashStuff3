@@ -83,6 +83,10 @@ const float DASH_CD = 2.0f;
 const int ENEMY_BASE_DAMAGE = 20;
 const int ITEM_SLOT_1 = HP_POTION;
 const int ITEM_SLOT_2 = MP_POTION;
+const int SPAWN_PERCENT = 5;
+const int MAX_SPAWNS = 12;
+const int MANA_REGEN_RATE = 2;
+const int WAVE_DELAY = 5;
 
 //spacewar
 const float GRAVITY = 6.67428e-11f;             // gravitational constant
