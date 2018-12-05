@@ -67,6 +67,7 @@ void Projectile::update(float frameTime, std::vector<Enemy> vec, Player *player)
 	//	spriteData.y = GAME_HEIGHT;             // position off bottom screen edge
 }
 
+
 //=============================================================================
 // fire
 // Fires a torpedo from ship
@@ -98,6 +99,7 @@ void Projectile::fire(Player *player, std::vector<Enemy> vec)
 	}
 }
 
+/*
 Enemy Projectile::GetClosestEnemy(std::vector<Enemy> vec) {
 	for (std::vector<Enemy>::iterator it = vec.begin(); it != vec.end(); it++) {
 		if (it == vec.begin()) {
@@ -128,7 +130,7 @@ int Projectile::EnemyListAlive(std::vector<Enemy> vec) {
 	}
 	return count;
 }
-
+*/
 Projectile::~Projectile()
 {
 }

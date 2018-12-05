@@ -205,7 +205,7 @@ void BobSlashStuff::update()
 
 		}
 
-		if (input->wasKeyPressed(SPELL_KEY_1) || input->wasKeyPressed(player.getDpadDown()))
+		if (input->wasKeyPressed(SPELL_KEY_1) || input->getGamepadDPadDown(0))
 		{
 			if (player.getMana() >= FIREBALL_COST_MANA && !fireball.getActive()) {
 				fireball.fire(&player, EnemyList);
@@ -214,12 +214,12 @@ void BobSlashStuff::update()
 
 		}
 
-		if (input->wasKeyPressed(SPELL_KEY_2) || input->wasKeyPressed(player.getDpadLeft()))
+		if (input->wasKeyPressed(SPELL_KEY_2) || input->getGamepadDPadLeft(0))
 		{
 			//second spell
 		}
 
-		if ((input->wasKeyPressed(ATTACK_KEY) || input->wasKeyPressed(player.getcontrollerA())) && !playerWeapon.getReady())
+		if ((input->wasKeyPressed(ATTACK_KEY) || input->getGamepadA(0)) && !playerWeapon.getReady())
 		{
 
 			if (player.getDirection() == LEFT || player.getDirection() == RIGHT)
