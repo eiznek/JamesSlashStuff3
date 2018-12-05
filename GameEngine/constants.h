@@ -120,6 +120,7 @@ const char XGS_FILE[] = "audio\\Win\\SpaceWar.xgs";
 // key mappings
 // In this game simple constants are used for key mappings. If variables were used
 // it would be possible to save and restore key mappings from a data file.
+const UCHAR CONSOLE_KEY = '`';				// console key
 const UCHAR ESC_KEY      = VK_ESCAPE;       // escape key
 const UCHAR ALT_KEY      = VK_MENU;         // Alt key
 const UCHAR ENTER_KEY    = VK_RETURN;       // Enter key

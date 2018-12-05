@@ -6,6 +6,7 @@
 #include "textureManager.h"
 #include "image.h"
 #include "bob.h"
+#include <string>
 #include <math.h>
 #include "player.h"
 #include "PlayerWeapon.h"
@@ -126,6 +127,8 @@ public:
 	void ai();          // "
 	void collisions();  // "
 	void render();      // "
+	//void consoleCommand();   //process console commands
+	void waveStart();		 // start a new wave
 	void releaseAll();
 	void resetAll();
 	void NextWave();

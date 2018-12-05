@@ -173,7 +173,50 @@ HRESULT Graphics::loadTexture(const char *filename, COLOR_ARGB transcolor,
     }
     return result;
 }
+//Create vertex buffer
+HRESULT Graphics::createVertexBuffer(VertexC verts[], UINT size, LP_VERTEXBUFFER &vertexBuffer)
+{
+	// Standard Windows return value
+	HRESULT result = E_FAIL;
 
+	// Create a vertex buffer
+	result = device3d->CreateVertexBuffer(size, D3DUSAGE_WRITEONLY, D3DFVF_VERTEX,
+		D3DPOOL_DEFAULT, &vertexBuffer, NULL);
+	if (FAILED(result))
+		return result;
+
+	void *ptr;
+	// must lock buffer before data can be transferred in
+	result = vertexBuffer->Lock(0, size, (void**)&ptr, 0);
+	if (FAILED(result))
+		return result;
+	memcpy(ptr, verts, size);   // copy vertex data into buffer
+	vertexBuffer->Unlock();     // unlock buffer
+
+	return result;
+}
+
+//Draw Quad(for console box)
+bool Graphics::drawQuad(LP_VERTEXBUFFER vertexBuffer)
+{
+	HRESULT result = E_FAIL;    // standard Windows return value
+
+	if (vertexBuffer == NULL)
+		return false;
+
+	device3d->SetRenderState(D3DRS_ALPHABLENDENABLE, true); // enable alpha blend
+
+	device3d->SetStreamSource(0, vertexBuffer, 0, sizeof(VertexC));
+	device3d->SetFVF(D3DFVF_VERTEX);
+	result = device3d->DrawPrimitive(D3DPT_TRIANGLEFAN, 0, 2);
+
+	device3d->SetRenderState(D3DRS_ALPHABLENDENABLE, false); // alpha blend off
+
+	if (FAILED(result))
+		return false;
+
+	return true;
+}
 //=============================================================================
 // Display the backbuffer
 //=============================================================================

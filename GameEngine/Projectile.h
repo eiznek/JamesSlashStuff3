@@ -27,6 +27,7 @@ class Projectile : public Entity
 private:
 	float fireTimer;
 	Enemy closestEnemy;
+	bool isHoming;
 
 public:
 	Projectile();

@@ -122,6 +122,10 @@ public:
     // Clear the specified key press
     void clearKeyPress(UCHAR vkey);
 
+	// Clear last character entered
+	void clearCharIn() { charIn = 0; }
+
+
     // Clear specified input buffers where what is any combination of
     // KEYS_DOWN, KEYS_PRESSED, MOUSE, TEXT_IN or KEYS_MOUSE_TEXT.
     // Use OR '|' operator to combine parmeters.

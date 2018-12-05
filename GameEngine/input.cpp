@@ -201,6 +201,7 @@ void Input::clear(UCHAR what)
     }
     if(what & inputNS::TEXT_IN)
         clearTextIn();
+		clearCharIn();
 }
 
 //=============================================================================
