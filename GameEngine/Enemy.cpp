@@ -44,6 +44,10 @@ bool Enemy::initialize(Game *gamePtr, int width, int height, int ncols,
 void Enemy::update(float frameTime)
 {
 	Entity::update(frameTime);
+
+	spriteData.x += frameTime * velocity.x;     // move along X 
+	spriteData.y += frameTime * velocity.y;		// move along Y
+	
 	//write vector code in here
 
 	/*
@@ -63,15 +67,23 @@ void Enemy::update(float frameTime)
 	//if player right
 	animframe = 39;
 
+	
+
 	*/
 }
 
-//X and Y coordinates
-int Enemy::getEnemyX() { return spriteData.x; }
-int Enemy::getEnemyY() { return spriteData.y; }
+void Enemy::chase(float XPos, float YPos)
+{
+	velocity.x = XPos;		//directional points - vectors
+	velocity.y = YPos;		
+	/*
+	float xDistance = player.getX() - spriteData.;
+	float yDistance = player.getY() - enemy.getY();
+	float hypotenuse = sqrt((xDistance * xDistance) + (yDistance * yDistance));
 
-//attack player
-void Enemy::attackPlayer(Player& thePlayer, int level) {
-	int temp = 1 + level;
-	thePlayer.setHealth(thePlayer.getHealth() - temp);
+	if (hypotenuse < 400) {
+
+		YPos += frameTime * 200 * (yDistance / hypotenuse);
+		XPos += frameTime * 200 * (xDistance / hypotenuse);
+	}*/
 }
