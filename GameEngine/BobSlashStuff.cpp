@@ -150,7 +150,7 @@ void BobSlashStuff::initialize(HWND hwnd)
 void BobSlashStuff::update()
 {
 	player.update(frameTime);
-	fireball.update(frameTime);
+	fireball.update(frameTime, EnemyList, &player);
 	//sword.update(frameTime);
 	//npc.update(frameTime);
 	//enemy.update(frameTime);
@@ -231,21 +231,21 @@ void BobSlashStuff::update()
 
 		}
 
-		if (input->wasKeyPressed(SPELL_KEY_1) || input->wasKeyPressed(player.getDpadDown()))
+		if (input->wasKeyPressed(SPELL_KEY_1) || input->getGamepadDPadDown(0))
 		{
 			if (player.getMana() >= FIREBALL_COST_MANA && !fireball.getActive()) {
-				fireball.fire(&player);
+				fireball.fire(&player, EnemyList);
 
 			}
 
 		}
 
-		if (input->wasKeyPressed(SPELL_KEY_2) || input->wasKeyPressed(player.getDpadLeft()))
+		if (input->wasKeyPressed(SPELL_KEY_2) || input->getGamepadDPadLeft(0))
 		{
 			//second spell
 		}
 
-		if ((input->wasKeyPressed(ATTACK_KEY) || input->wasKeyPressed(player.getcontrollerA())) && !playerWeapon.getReady())
+		if ((input->wasKeyPressed(ATTACK_KEY) || input->getGamepadA(0)) && !playerWeapon.getReady())
 		{
 
 			if (player.getDirection() == LEFT || player.getDirection() == RIGHT)

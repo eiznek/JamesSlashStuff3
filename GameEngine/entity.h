@@ -178,6 +178,17 @@ class Entity : public Image
 
     // Adds the gravitational force to the velocity vector of this entity
     void gravityForce(Entity *other, float frameTime);
+
+	float CALC_MAGNITUDE_SQUARED(float x1, float y1, float x2, float y2) {
+		//sqrt (x2-x1)^2 + (y2-y1)^2
+		return ((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1));
+	}
+
+	float CALC_ANGLE_TO_ENEMY(float x1, float y1, float x2, float y2) {
+		//tan x = y2-y1/x2-x1
+		return (atan2(y2 - y1, x2 - x1));
+	}
+
 };
 
 #endif
