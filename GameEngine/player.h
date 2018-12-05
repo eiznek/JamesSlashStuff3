@@ -22,7 +22,7 @@ class Player: public Entity {
 private:
 	int direction;
 	int movement;
-	int mana;
+	float mana;
 	int sanity;
 	float xMovement;
 	float yMovement;
@@ -59,8 +59,8 @@ public:
 	int getPlayerY();
 	int getDistance() { return movement; }
 	int getDirection() { return direction; }
-	int getMana() { return mana; }
-	void setMana(int amt) { mana = amt; }
+	float getMana() { return mana; }
+	void setMana(float amt) { mana = amt; }
 	//void obstructed(float colX, float colY);
 	int getSanity() { return sanity; }
 	bool getMoveState() { return move_state; }

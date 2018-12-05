@@ -18,6 +18,7 @@
 #include "Text.h"
 #include "HUD.h"
 #include <vector>
+#include <time.h>
 
 namespace bobSlashStuffNS {
 	const char FONT[] = "Arial Bold";  // font
@@ -33,7 +34,7 @@ namespace bobSlashStuffNS {
 	const int g = 13; //GRASS
 	const int g2 = 12; //GRASS 2
 
-	const char tileMap[MAP_HEIGHT][MAP_WIDTH] = {
+	const int tileMap[MAP_HEIGHT][MAP_WIDTH] = {
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, g, g2, g, g, g, g, g, g, g, g, g, g, g2, g, g, g, g, g, 0,
 		0, g, g2, g, g, g, g2, g2, g, g, g, g2, g, g, g2, g, g, g, g, 0,
@@ -54,23 +55,23 @@ namespace bobSlashStuffNS {
 	//ENEMY BADGUY = 1
 	//ENEMY MAGE = 2
 	//NPC James = 3
-	const char entityMap[MAP_HEIGHT][MAP_WIDTH] = {
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 3, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	};
+	//const char entityMap[MAP_HEIGHT][MAP_WIDTH] = {
+	//	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	//	0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	//	0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 3, 0, 0, 0,
+	//	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	//	0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	//	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	//	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	//	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	//	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0,
+	//	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	//	0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	//	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+	//	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	//	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	//	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	//};
 
 };
 
@@ -88,6 +89,7 @@ private:
 	TextureManager spriteSheet, playerSprites, npcSprites, fireballSprites, swordSprites, enemySprites, mageSprites, healthpotSprites;
 	Text npcText;
 	Text gameOverText;
+	Text countdownText;
 
 	Item sword, healthpot;
 	PlayerWeapon playerWeapon;
@@ -101,10 +103,14 @@ private:
 	std::vector<Item> LootList;
 	std::vector<Item> PlayerInventory;
 
+	int entityMap[bobSlashStuffNS::MAP_HEIGHT][bobSlashStuffNS::MAP_WIDTH];
+	bool waveCleared;
+
 	char buffer[bobSlashStuffNS::BUF_SIZE]; //text buffer
 	float mapX;
 	float mapY;
 	bool menuOn;
+	float waveCountdown;
 
 
 public:
@@ -125,6 +131,7 @@ public:
 	void waveStart();		 // start a new wave
 	void releaseAll();
 	void resetAll();
+	void NextWave();
 
 
 };

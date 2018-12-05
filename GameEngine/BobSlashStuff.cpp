@@ -35,6 +35,9 @@ void BobSlashStuff::initialize(HWND hwnd)
 	gameOverText.initialize(graphics, bobSlashStuffNS::FONT_SIZE, false, false, bobSlashStuffNS::FONT);
 	gameOverText.setFontColor(SETCOLOR_ARGB(0, 255, 255, 255));
 
+	countdownText.initialize(graphics, bobSlashStuffNS::FONT_SIZE, false, false, bobSlashStuffNS::FONT);
+	countdownText.setFontColor(SETCOLOR_ARGB(0, 255, 255, 255));
+
 	if (spriteSheet.initialize(graphics, TILE_MAP_IMAGE) == false) // Init Tile Sheet
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error loading tile sheet"));
 
@@ -136,40 +139,7 @@ void BobSlashStuff::initialize(HWND hwnd)
 	manaBar.initialize(graphics, &spriteSheet, 0, bobSlashStuffNS::HEALTHBAR_Y + TEXTURE_SIZE, 4.0f, graphicsNS::BLUE);
 	manaBarBg.initialize(graphics, &spriteSheet, 0, bobSlashStuffNS::HEALTHBAR_Y + TEXTURE_SIZE, 4.0f, graphicsNS::BLACK);
 
-	for (int col = 0; col < MAP_WIDTH; col++) {
-
-		for (int row = 0; row < MAP_HEIGHT; row++) {
-			//if (entityMap[row][col] > 0) {
-			//}
-			switch (entityMap[row][col]) {
-			case ENEMY_BADGUY:
-				enemy.setX(col * TEXTURE_SIZE);
-				enemy.setY(row * TEXTURE_SIZE);
-				EnemyList.push_back(enemy);
-				sword.ItemList.push_back(sword);
-				break;
-
-			case ENEMY_MAGE:
-				enemy2.setX(col * TEXTURE_SIZE);
-				enemy2.setY(row * TEXTURE_SIZE);
-				EnemyList.push_back(enemy2);
-				sword.ItemList.push_back(sword);
-				break;
-
-			case NPC_JAMES:
-				npc.setX(col * TEXTURE_SIZE);
-				npc.setY(row * TEXTURE_SIZE);
-				npc.NpcList.push_back(npc);
-				healthpot.ItemList.push_back(healthpot);
-				break;
-
-			default:
-				continue;
-
-			}
-
-		}
-	}
+	waveCountdown = WAVE_DELAY;
 
 	return;
 }
@@ -186,36 +156,55 @@ void BobSlashStuff::update()
 	//enemy.update(frameTime);
 	playerWeapon.update(frameTime);
 
+	waveCleared = true;
 	for (std::vector<Enemy>::iterator it = EnemyList.begin(); it != EnemyList.end(); it++) {
-		(*it).update(frameTime);
+		it->update(frameTime);
+		if (it->getActive())
+			waveCleared = false;
+	}
+
+	if (waveCleared) {
+		countdownText.setFontColor(SETCOLOR_ARGB(255, 255, 255, 255));
+		waveCountdown -= frameTime;
+	}
+
+	if (waveCountdown <= 0 && waveCleared) {
+		NextWave();
 	}
 
 	for (std::vector<NPC>::iterator it = npc.NpcList.begin(); it != npc.NpcList.end(); it++) {
-		(*it).update(frameTime);
+		it->update(frameTime);
 	}
 
 	for (std::vector<Item>::iterator it = sword.ItemList.begin(); it != sword.ItemList.end(); it++) {
-		(*it).update(frameTime);
+		it->update(frameTime);
 	}
 
 	for (std::vector<Item>::iterator it = healthpot.ItemList.begin(); it != healthpot.ItemList.end(); it++) {
-		(*it).update(frameTime);
+		it->update(frameTime);
 	}
 
 	for (std::vector<Item>::iterator it = LootList.begin(); it != LootList.end(); it++) {
-		(*it).update(frameTime);
-	}
-
-
-	if (player.getHealth() <= 0)
-	{
-		player.setActive(false);
-		player.setVisible(false);
-		gameOverText.setFontColor(SETCOLOR_ARGB(255, 255, 0, 0)); //RED
-
+		it->update(frameTime);
 	}
 
 	if (player.getActive()) {
+		if (player.getHealth() <= 0)
+		{
+			player.setActive(false);
+			player.setVisible(false);
+			gameOverText.setFontColor(SETCOLOR_ARGB(255, 255, 0, 0)); //RED
+
+		}
+
+		if (player.getMana() < STARTING_MANA) {
+			player.setMana(player.getMana() + frameTime * MANA_REGEN_RATE);
+
+			if (player.getMana() > STARTING_MANA)
+				player.setMana(STARTING_MANA);
+
+		}
+
 		if (input->wasKeyPressed(SPELL_KEY_1) || input->wasKeyPressed(player.getDpadDown()))
 		{
 			if (player.getMana() >= FIREBALL_COST_MANA && !fireball.getActive()) {
@@ -253,22 +242,10 @@ void BobSlashStuff::update()
 
 		}
 
-		if (input->wasKeyPressed(DASH_KEY) || player.getcontrollerB())
-		{
-		//	if (player.getDirection() == UP || player.getDirection() == DOWN) { //move player toward direction faced in a fixed frame of time
-		//		playerWeapon.setX(player.getX());
-		//		player.setY(player.getY() + ((TEXTURE_SIZE)* player.getDirection() / 2) - DASH_DIST);
-		//	}
-		//	else if (player.getDirection() == LEFT || player.getDirection() == RIGHT) {
-		//		player.setX(player.getX() + ((TEXTURE_SIZE)* player.getDirection()) + DASH_DIST);
-		//		playerWeapon.setY(player.getY());
-		//	}
-		}
-
 		if (input->wasKeyPressed(ITEM_KEY_1)) {
 
 			for (std::vector<Item>::iterator it = PlayerInventory.begin(); it != PlayerInventory.end(); it++) {
-				if ((*it).getID() == ITEM_SLOT_1) {
+				if (it->getID() == ITEM_SLOT_1) {
 					player.setHealth(STARTING_HEALTH);
 					PlayerInventory.erase(it);
 					break;
@@ -308,8 +285,9 @@ void BobSlashStuff::collisions()
 
 	//}
 	for (std::vector<Enemy>::iterator it = EnemyList.begin(); it != EnemyList.end(); it++) {
-		if ((*it).collidesWith(player, collisionVector)) {
-			player.damage(ENEMY_BASE_DAMAGE);
+		if (it->collidesWith(player, collisionVector)) {
+			if (!waveCleared)
+				player.damage(ENEMY_BASE_DAMAGE);
 			//knockback
 			if (player.getDirection() == LEFT || player.getDirection() == RIGHT) {
 				player.stopMoving();
@@ -322,9 +300,10 @@ void BobSlashStuff::collisions()
 
 		}
 
-		if ((*it).collidesWith(fireball, collisionVector)) {
-			(*it).setVisible(false);
-			(*it).setActive(false);
+		if (it->collidesWith(fireball, collisionVector)) {
+			it->setVisible(false);
+			it->setActive(false);
+			//EnemyList.erase(it);
 			fireball.setActive(false);
 			fireball.setVisible(false);
 			sword.ItemList.back().Drop(&(*it));
@@ -333,12 +312,13 @@ void BobSlashStuff::collisions()
 
 		}
 
-		if ((*it).collidesWith(playerWeapon, collisionVector)) {
-			(*it).setVisible(false);
-			(*it).setActive(false);
+		if (it->collidesWith(playerWeapon, collisionVector)) {
+			it->setVisible(false);
+			it->setActive(false);
 			sword.ItemList.back().Drop(&(*it));
 			LootList.push_back(sword.ItemList.back());
 			sword.ItemList.pop_back();
+			//EnemyList.erase(it);
 
 		}
 
@@ -346,18 +326,18 @@ void BobSlashStuff::collisions()
 
 	for (std::vector<NPC>::iterator it = npc.NpcList.begin(); it != npc.NpcList.end(); it++) {
 
-		if ((*it).collidesWith(fireball, collisionVector)) {
+		if (it->collidesWith(fireball, collisionVector)) {
 			fireball.setActive(false);
 			fireball.setVisible(false);
-			(*it).setActive(false);
-			(*it).setVisible(false);
+			it->setActive(false);
+			it->setVisible(false);
 			healthpot.ItemList.back().Drop(&(*it));
 			LootList.push_back(healthpot.ItemList.back());
 			healthpot.ItemList.pop_back();
 
 		}
 
-		if ((*it).collidesWith(player, collisionVector)) {
+		if (it->collidesWith(player, collisionVector)) {
 			npcText.setFontColor(SETCOLOR_ARGB(255, 255, 255, 255)); //WHITE
 
 			if (player.getMoveState() == MOVE_STATE::Moving) {
@@ -365,22 +345,22 @@ void BobSlashStuff::collisions()
 				switch (player.getDirection()) {
 
 				case UP:
-					if (player.getY() > (*it).getY())
+					if (player.getY() > it->getY())
 						player.stopMoving();
 					break;
 
 				case DOWN:
-					if (player.getY() < (*it).getY())
+					if (player.getY() < it->getY())
 						player.stopMoving();
 					break;
 
 				case LEFT:
-					if (player.getX() > (*it).getX())
+					if (player.getX() > it->getX())
 						player.stopMoving();
 					break;
 
 				case RIGHT:
-					if (player.getX() < (*it).getX())
+					if (player.getX() < it->getX())
 						player.stopMoving();
 					break;
 
@@ -390,21 +370,21 @@ void BobSlashStuff::collisions()
 				}
 
 			}
-			else if (input->wasKeyPressed(INTERACT_KEY) && (*it).getActive() == true) {
+			else if (input->wasKeyPressed(INTERACT_KEY) && it->getActive() == true) {
 				//sword.Drop(&npc);
-				healthpot.ItemList.back().Drop(&(*it));
+				healthpot.ItemList.back().Drop(&*it);
 				LootList.push_back(healthpot.ItemList.back());
 				healthpot.ItemList.pop_back();
 
-				(*it).setActive(false);
-				(*it).setVisible(false);
+				it->setActive(false);
+				it->setVisible(false);
 				return;
 
 			}
 
-			if ((*it).collidesWith(playerWeapon, collisionVector)) {
-				(*it).setVisible(false);
-				(*it).setActive(false);
+			if (it->collidesWith(playerWeapon, collisionVector)) {
+				it->setVisible(false);
+				it->setActive(false);
 				healthpot.ItemList.back().Drop(&(*it));
 				LootList.push_back(healthpot.ItemList.back());
 				healthpot.ItemList.pop_back();
@@ -419,10 +399,10 @@ void BobSlashStuff::collisions()
 
 	for (std::vector<Item>::iterator it = LootList.begin(); it != LootList.end(); it++) {
 		if (input->wasKeyPressed(INTERACT_KEY)) {
-			if ((*it).collidesWith(player, collisionVector)) {
+			if (it->collidesWith(player, collisionVector)) {
 				PlayerInventory.push_back(*it);
+				//SAFE_DELETE(*it);
 				LootList.erase(it);
-				LootList.shrink_to_fit();
 				break;
 			}
 
@@ -460,23 +440,23 @@ void BobSlashStuff::render()
 	//enemy.draw();
 
 	for (std::vector<Item>::iterator it = sword.ItemList.begin(); it != sword.ItemList.end(); it++) {
-		(*it).draw();
+		it->draw();
 	}
 
 	for (std::vector<Item>::iterator it = healthpot.ItemList.begin(); it != healthpot.ItemList.end(); it++) {
-		(*it).draw();
+		it->draw();
 	}
 
 	for (std::vector<Enemy>::iterator it = EnemyList.begin(); it != EnemyList.end(); it++) {
-		(*it).draw();
+		it->draw();
 	}
 
 	for (std::vector<Item>::iterator it = LootList.begin(); it != LootList.end(); it++) {
-		(*it).draw();
+		it->draw();
 	}
 
 	for (std::vector<NPC>::iterator it = npc.NpcList.begin(); it != npc.NpcList.end(); it++) {
-		(*it).draw();
+		it->draw();
 	}
 
 	//bar backgrounds
@@ -499,6 +479,10 @@ void BobSlashStuff::render()
 	npcText.print("herro" , npc.getX() - TEXTURE_SIZE, npc.getY() - TEXTURE_SIZE * 2);
 	//gameOverText.print("YOU DIED", GAME_WIDTH/2, GAME_HEIGHT/2);
 	gameOverText.print("YOU DIED", player.getX(), player.getY());
+
+	snprintf(buffer, sizeof(buffer), "%d", (int)ceil(waveCountdown));
+	countdownText.print(buffer, GAME_WIDTH / 2, GAME_HEIGHT * 1/8);
+	memset(buffer, 0, sizeof(buffer));
 
 	graphics->spriteEnd();                  // end drawing sprites
 }
@@ -537,4 +521,88 @@ void BobSlashStuff::resetAll()
 
 	Game::resetAll();
 	return;
+}
+
+void BobSlashStuff::NextWave() {
+	srand(time(0));
+	int x = 0;
+
+	//if (!sword.ItemList.empty()){
+	//	for (std::vector<Item>::iterator it = sword.ItemList.begin(); it != sword.ItemList.end(); it++) {
+	//		//SAFE_DELETE(*it);
+	//		delete(&*it);
+	//	}
+	//}
+
+	//if (!healthpot.ItemList.empty()){
+	//	for (std::vector<Item>::iterator it = healthpot.ItemList.begin(); it != healthpot.ItemList.end(); it++) {
+	//		delete(&*it);
+	//	}
+	//}
+
+	//if (!EnemyList.empty()){
+	//	for (std::vector<Enemy>::iterator it = EnemyList.begin(); it != EnemyList.end(); it++) {
+	//		delete(&*it);
+	//	}
+	//}
+
+	//if (!npc.NpcList.empty()){
+	//	for (std::vector<NPC>::iterator it = npc.NpcList.begin(); it != npc.NpcList.end(); it++) {
+	//		delete(&*it);
+	//	}
+	//}
+
+	EnemyList.clear();
+	npc.NpcList.clear();
+	sword.ItemList.clear();
+	healthpot.ItemList.clear();
+
+	for (int col = 0; col < MAP_WIDTH; col++) {
+
+		for (int row = 0; row < MAP_HEIGHT; row++) {
+
+			int spawn = 0;
+			if (x < MAX_SPAWNS) {
+				if ((rand() % 100) < SPAWN_PERCENT && tileMap[row][col] != 0) {
+					spawn = rand() % sizeof(ENTITY);
+					x++;
+				}
+			}
+
+			entityMap[row][col] = spawn;
+
+			switch (entityMap[row][col]) {
+			case ENEMY_BADGUY:
+				enemy.setX(col * TEXTURE_SIZE);
+				enemy.setY(row * TEXTURE_SIZE);
+				EnemyList.push_back(enemy);
+				sword.ItemList.push_back(sword);
+				break;
+
+			case ENEMY_MAGE:
+				enemy2.setX(col * TEXTURE_SIZE);
+				enemy2.setY(row * TEXTURE_SIZE);
+				EnemyList.push_back(enemy2);
+				sword.ItemList.push_back(sword);
+				break;
+
+			case NPC_JAMES:
+				npc.setX(col * TEXTURE_SIZE);
+				npc.setY(row * TEXTURE_SIZE);
+				npc.NpcList.push_back(npc);
+				healthpot.ItemList.push_back(healthpot);
+				break;
+
+			default:
+				continue;
+
+			}
+
+		}
+
+		countdownText.setFontColor(SETCOLOR_ARGB(0, 255, 255, 255));
+		waveCleared = false;
+		waveCountdown = WAVE_DELAY;
+
+	}
 }

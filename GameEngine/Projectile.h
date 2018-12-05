@@ -6,6 +6,7 @@
 #include "constants.h"
 #include "player.h"
 #include "d3dx9math.h"
+#include "Enemy.h"
 
 namespace projectileNS
 {
@@ -25,6 +26,8 @@ class Projectile : public Entity
 {
 private:
 	float fireTimer;
+	Enemy closestEnemy;
+	bool isHoming;
 
 public:
 	Projectile();
@@ -36,5 +39,7 @@ public:
 	// new member functions
 	void fire(Player *player);                // fire torpedo from ship
 
+	Enemy GetClosestEnemy(std::vector<Enemy> vec);
+	int EnemyListAlive(std::vector<Enemy> vec);
 };
 #endif
