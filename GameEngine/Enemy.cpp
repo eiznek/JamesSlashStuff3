@@ -77,13 +77,14 @@ void Enemy::chase(float XPos, float YPos)
 	velocity.x = XPos;		//directional points - vectors
 	velocity.y = YPos;		
 	/*
-	float xDistance = player.getX() - spriteData.;
+	float xDistance = player.getX() - enemy.getX();
 	float yDistance = player.getY() - enemy.getY();
-	float hypotenuse = sqrt((xDistance * xDistance) + (yDistance * yDistance));
+	float hypSqr = (xDistance * xDistance) + (yDistance * yDistance);
+	hypSqr = hypSqr * hypSqr;
 
-	if (hypotenuse < 400) {
+	if (hypSqr < GAME_WIDTH) {
 
-		YPos += frameTime * 200 * (yDistance / hypotenuse);
-		XPos += frameTime * 200 * (xDistance / hypotenuse);
+			YPos += frameTime * ENEMY_SPEED * (yDistance / hypSqr);
+			XPos += frameTime * ENEMY_SPEED * (xDistance / hypSqr);
 	}*/
 }
