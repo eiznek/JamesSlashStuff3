@@ -9,7 +9,7 @@ using namespace bobSlashStuffNS;
 //=============================================================================
 BobSlashStuff::BobSlashStuff()
 {
-	mapX = 0;
+	mapX = 0; //for scrolling
 	mapY = 0;
 }
 
@@ -108,6 +108,8 @@ void BobSlashStuff::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing sword."));
 	}
 
+	sword.setID(ITEM_SWORD);
+
 	if (healthpotSprites.initialize(graphics, HEALTHPOT_IMAGE) == false) {
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error loading Health Pot sprite sheet"));
 	}
@@ -115,6 +117,8 @@ void BobSlashStuff::initialize(HWND hwnd)
 	if (healthpot.initialize(this, itemNS::WIDTH, itemNS::HEIGHT, itemNS::TEXTURE_COLS, &healthpotSprites) == false) {
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing healthpot."));
 	}
+
+	healthpot.setID(HP_POTION);
 
 	//sword.setVisible(true);
 	//sword.ItemAdd(sword);
@@ -156,7 +160,7 @@ void BobSlashStuff::initialize(HWND hwnd)
 				npc.setX(col * TEXTURE_SIZE);
 				npc.setY(row * TEXTURE_SIZE);
 				npc.NpcList.push_back(npc);
-				sword.ItemList.push_back(sword);
+				healthpot.ItemList.push_back(healthpot);
 				break;
 
 			default:
@@ -191,6 +195,10 @@ void BobSlashStuff::update()
 	}
 
 	for (std::vector<Item>::iterator it = sword.ItemList.begin(); it != sword.ItemList.end(); it++) {
+		(*it).update(frameTime);
+	}
+
+	for (std::vector<Item>::iterator it = healthpot.ItemList.begin(); it != healthpot.ItemList.end(); it++) {
 		(*it).update(frameTime);
 	}
 
@@ -257,6 +265,18 @@ void BobSlashStuff::update()
 		//	}
 		}
 
+		if (input->wasKeyPressed(ITEM_KEY_1)) {
+
+			for (std::vector<Item>::iterator it = PlayerInventory.begin(); it != PlayerInventory.end(); it++) {
+				if ((*it).getID() == ITEM_SLOT_1) {
+					player.setHealth(STARTING_HEALTH);
+					PlayerInventory.erase(it);
+					break;
+				}
+
+			}
+		}
+
 	}
 	/*
 	float dirx = enemy.getX() - player.getX();
@@ -289,9 +309,8 @@ void BobSlashStuff::collisions()
 	//}
 	for (std::vector<Enemy>::iterator it = EnemyList.begin(); it != EnemyList.end(); it++) {
 		if ((*it).collidesWith(player, collisionVector)) {
-			(*it).setVisible(false);
-			(*it).setActive(false);
 			player.damage(ENEMY_BASE_DAMAGE);
+			//knockback
 			if (player.getDirection() == LEFT || player.getDirection() == RIGHT) {
 				player.stopMoving();
 				player.setX(player.getX() + TEXTURE_SIZE * -player.getDirection());
@@ -313,8 +332,15 @@ void BobSlashStuff::collisions()
 			sword.ItemList.pop_back();
 
 		}
-	}
-	if (enemy.collidesWith(player, collisionVector)) {
+
+		if ((*it).collidesWith(playerWeapon, collisionVector)) {
+			(*it).setVisible(false);
+			(*it).setActive(false);
+			sword.ItemList.back().Drop(&(*it));
+			LootList.push_back(sword.ItemList.back());
+			sword.ItemList.pop_back();
+
+		}
 
 	}
 
@@ -325,9 +351,9 @@ void BobSlashStuff::collisions()
 			fireball.setVisible(false);
 			(*it).setActive(false);
 			(*it).setVisible(false);
-			sword.ItemList.back().Drop(&(*it));
-			LootList.push_back(sword.ItemList.back());
-			sword.ItemList.pop_back();
+			healthpot.ItemList.back().Drop(&(*it));
+			LootList.push_back(healthpot.ItemList.back());
+			healthpot.ItemList.pop_back();
 
 		}
 
@@ -366,15 +392,25 @@ void BobSlashStuff::collisions()
 			}
 			else if (input->wasKeyPressed(INTERACT_KEY) && (*it).getActive() == true) {
 				//sword.Drop(&npc);
-				sword.ItemList.back().Drop(&(*it));
-				LootList.push_back(sword.ItemList.back());
-				sword.ItemList.pop_back();
+				healthpot.ItemList.back().Drop(&(*it));
+				LootList.push_back(healthpot.ItemList.back());
+				healthpot.ItemList.pop_back();
 
 				(*it).setActive(false);
 				(*it).setVisible(false);
 				return;
 
 			}
+
+			if ((*it).collidesWith(playerWeapon, collisionVector)) {
+				(*it).setVisible(false);
+				(*it).setActive(false);
+				healthpot.ItemList.back().Drop(&(*it));
+				LootList.push_back(healthpot.ItemList.back());
+				healthpot.ItemList.pop_back();
+
+			}
+
 		}
 		else {
 			npcText.setFontColor(SETCOLOR_ARGB(0, 255, 255, 255));
@@ -392,14 +428,6 @@ void BobSlashStuff::collisions()
 
 		}
 	}
-
-	if (playerWeapon.collidesWith(npc, collisionVector)) {
-		npc.setActive(false);
-		npc.setVisible(false);
-		return;
-
-	}
-
 }
 
 //=============================================================================
@@ -432,6 +460,10 @@ void BobSlashStuff::render()
 	//enemy.draw();
 
 	for (std::vector<Item>::iterator it = sword.ItemList.begin(); it != sword.ItemList.end(); it++) {
+		(*it).draw();
+	}
+
+	for (std::vector<Item>::iterator it = healthpot.ItemList.begin(); it != healthpot.ItemList.end(); it++) {
 		(*it).draw();
 	}
 

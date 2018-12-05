@@ -4,6 +4,7 @@
 
 #include "entity.h"
 #include "constants.h"
+#include "Item.h"
 #include "PlayerWeapon.h"
 #include <math.h>
 

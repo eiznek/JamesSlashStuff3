@@ -15,6 +15,8 @@ namespace itemNS
 class Item :
 	public Entity
 {
+private:
+	int id;
 public:
 	Item();
 	~Item();
@@ -25,6 +27,8 @@ public:
 	void Drop(Entity *entity);
 	bool initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM);
 	void ItemAdd(Item item);
+	void setID(int id) { this->id = id; }
+	int getID() { return id; }
 
 };
 

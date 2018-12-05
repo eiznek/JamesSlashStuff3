@@ -40,6 +40,28 @@ const int SCREEN_HEIGHT = GAME_HEIGHT / TEXTURE_SIZE + 2;
 const int PLAYER_X_OFFSET = (GAME_WIDTH / 2 - TEXTURE_SIZE) / TEXTURE_SIZE;
 const int PLAYER_Y_OFFSET = (GAME_HEIGHT / 2 - TEXTURE_SIZE) / (TEXTURE_SIZE / 2);
 
+// weapon types
+enum WEAPON { SWORD, TORPEDO, SHIP, PLANET };
+
+//bobslashstuff
+enum DIRECTION {
+	UP = -2, LEFT, RIGHT = 1, DOWN
+};
+enum MOVE_STATE {
+	Moving = 0, NotMoving
+};
+enum DASH_STATE {
+	Dashing = 0, NotDashing
+};
+
+enum ENTITY {
+	ENEMY_BADGUY = 1, ENEMY_MAGE, NPC_JAMES
+};
+
+enum ITEM {
+	ITEM_SWORD, HP_POTION, MP_POTION
+};
+
 // game
 const double PI = 3.14159265;
 const float FRAME_RATE = 200.0f;                // the target frame rate (frames/sec)
@@ -59,6 +81,8 @@ const int DASH_DIST = 2;
 const float DASH_TIME = 0.5f;
 const float DASH_CD = 2.0f;
 const int ENEMY_BASE_DAMAGE = 20;
+const int ITEM_SLOT_1 = HP_POTION;
+const int ITEM_SLOT_2 = MP_POTION;
 
 //spacewar
 const float GRAVITY = 6.67428e-11f;             // gravitational constant
@@ -102,10 +126,10 @@ const UCHAR UP_KEY = VK_UP; //UP ARROW
 const UCHAR LEFT_KEY = VK_LEFT; //LEFT ARROW
 const UCHAR DOWN_KEY = VK_DOWN; //DOWN ARROW
 const UCHAR RIGHT_KEY = VK_RIGHT; //RIGHT ARROW
-const UCHAR UP_KEY_2 = 0x57; //W
-const UCHAR LEFT_KEY_2 = 0x41; //A
-const UCHAR DOWN_KEY_2 = 0x53; //S
-const UCHAR RIGHT_KEY_2 = 0x44; //D
+//const UCHAR UP_KEY_2 = 0x57; //W
+//const UCHAR LEFT_KEY_2 = 0x41; //A
+//const UCHAR DOWN_KEY_2 = 0x53; //S
+//const UCHAR RIGHT_KEY_2 = 0x44; //D
 const UCHAR DASH_KEY = VK_SHIFT; //L SHIFT
 
 //combat
@@ -114,8 +138,8 @@ const UCHAR SPELL_KEY_1 = 0x5A; //Z
 const UCHAR SPELL_KEY_2 = 0x58; //X
 
 //const UCHAR SPELL_KEY_3 = 
-const UCHAR ITEM_KEY_1 = VK_LCONTROL; //Left CTRL
-const UCHAR ITEM_KEY_2 = VK_LSHIFT; //Left SHIFT
+const UCHAR ITEM_KEY_1 = 0x41; //A
+const UCHAR ITEM_KEY_2 = 0x53; //S
 const UCHAR SPELL_KEY_1_ALT = 0x31; //1
 const UCHAR SPELL_KEY_2_ALT = 0x32; //2
 const UCHAR SPELL_KEY_3_ALT = 0x33; //3
@@ -123,24 +147,5 @@ const UCHAR ITEM_KEY_1_ALT = 0x45; //E
 const UCHAR ITEM_KEY_2_ALT = 0x52; //R
 const UCHAR SWAP_SPELLBAR_KEY = VK_LMENU; //Left ALT
 const UCHAR SWAP_SPELLBAR_KEY_2 = VK_TAB; //TAB
-
-//spacewar
-// weapon types
-enum WEAPON {SWORD, TORPEDO, SHIP, PLANET};
-
-//bobslashstuff
-enum DIRECTION { 
-	UP = -2, LEFT, RIGHT = 1, DOWN 
-};
-enum MOVE_STATE {
-	Moving = 0, NotMoving
-};
-enum DASH_STATE {
-	Dashing = 0, NotDashing
-};
-
-enum ENTITY {
-	ENEMY_BADGUY = 1, ENEMY_MAGE, NPC_JAMES
-};
 
 #endif

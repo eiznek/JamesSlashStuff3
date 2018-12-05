@@ -9,6 +9,10 @@ PlayerWeapon::PlayerWeapon()
 	spriteData.height = PlayerWepNS::HEIGHT;
 	spriteData.rect.bottom = PlayerWepNS::HEIGHT;    // rectangle to select parts of an image
 	spriteData.rect.right = PlayerWepNS::WIDTH;
+	edge.top = 0;             // ROTATED_BOX collision edges
+	edge.bottom = PlayerWepNS::HEIGHT;
+	edge.left = 0;
+	edge.right = PlayerWepNS::WIDTH;
 	cols = PlayerWepNS::TEXTURE_COLS;
 	frameDelay = PlayerWepNS::ANIMATION_DELAY;
 	startFrame = PlayerWepNS::START_FRAME;       // first frame of ship animation
