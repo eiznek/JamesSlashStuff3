@@ -8,6 +8,7 @@
 #define WIN32_LEAN_AND_MEAN
 
 #include <windows.h>
+#include <cmath>
 
 //-----------------------------------------------
 // Useful macros
@@ -153,9 +154,5 @@ const UCHAR ITEM_KEY_2_ALT = 0x52; //R
 const UCHAR SWAP_SPELLBAR_KEY = VK_LMENU; //Left ALT
 const UCHAR SWAP_SPELLBAR_KEY_2 = VK_TAB; //TAB
 
-const float CALC_MAGNITUDE_SQUARED(float x1, float y1, float x2, float y2) {
-	//sqrt (x2-x1)^2 + (y2-y1)^2
-	return ((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1));
-}
 
 #endif

@@ -150,7 +150,7 @@ void BobSlashStuff::initialize(HWND hwnd)
 void BobSlashStuff::update()
 {
 	player.update(frameTime);
-	fireball.update(frameTime);
+	fireball.update(frameTime, EnemyList, &player);
 	//sword.update(frameTime);
 	//npc.update(frameTime);
 	//enemy.update(frameTime);
@@ -208,7 +208,7 @@ void BobSlashStuff::update()
 		if (input->wasKeyPressed(SPELL_KEY_1) || input->wasKeyPressed(player.getDpadDown()))
 		{
 			if (player.getMana() >= FIREBALL_COST_MANA && !fireball.getActive()) {
-				fireball.fire(&player);
+				fireball.fire(&player, EnemyList);
 
 			}
 

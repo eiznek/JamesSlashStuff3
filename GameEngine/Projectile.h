@@ -33,11 +33,11 @@ public:
 	Projectile();
 	~Projectile();
 
-	void update(float frameTime);
+	void update(float frameTime, std::vector<Enemy> vec, Player *player);
 	float getMass()    const { return projectileNS::MASS; }
 
 	// new member functions
-	void fire(Player *player);                // fire torpedo from ship
+	void fire(Player *player, std::vector<Enemy> vec);                // fire torpedo from ship
 
 	Enemy GetClosestEnemy(std::vector<Enemy> vec);
 	int EnemyListAlive(std::vector<Enemy> vec);
