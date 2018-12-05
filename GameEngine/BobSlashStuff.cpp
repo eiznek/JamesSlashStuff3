@@ -157,7 +157,20 @@ void BobSlashStuff::update()
 	playerWeapon.update(frameTime);
 
 	waveCleared = true;
+
+	enemy.chase(XPos, YPos);
 	for (std::vector<Enemy>::iterator it = EnemyList.begin(); it != EnemyList.end(); it++) {
+		float xDistance = player.getX() - enemy.getX();
+		float yDistance = player.getY() - enemy.getY();
+		float hypSqr = (xDistance * xDistance) + (yDistance * yDistance);
+		hypSqr = hypSqr * hypSqr;
+
+		if (hypSqr < 400) {
+
+			YPos += frameTime * 200 * (yDistance / hypSqr);
+			XPos += frameTime * 200 * (xDistance / hypSqr);
+		}
+
 		it->update(frameTime);
 		if (it->getActive())
 			waveCleared = false;
@@ -171,6 +184,20 @@ void BobSlashStuff::update()
 	if (waveCountdown <= 0 && waveCleared) {
 		NextWave();
 	}
+	/*
+	//chase enemy 1
+	float xDistance = player.getX() - enemy.getX();
+	float yDistance = player.getY() - enemy.getY();
+	float hypSqr = (xDistance * xDistance) + (yDistance * yDistance);
+	hypSqr = hypSqr * hypSqr;
+
+	if (hypSqr < 400) {
+
+		YPos += frameTime * 200 * (yDistance / hypSqr);
+		XPos += frameTime * 200 * (xDistance / hypSqr);
+		enemy.chase(XPos, YPos);
+	}
+	*/
 
 	for (std::vector<NPC>::iterator it = npc.NpcList.begin(); it != npc.NpcList.end(); it++) {
 		it->update(frameTime);
@@ -194,7 +221,6 @@ void BobSlashStuff::update()
 			player.setActive(false);
 			player.setVisible(false);
 			gameOverText.setFontColor(SETCOLOR_ARGB(255, 255, 0, 0)); //RED
-
 		}
 
 		if (player.getMana() < STARTING_MANA) {
@@ -255,16 +281,6 @@ void BobSlashStuff::update()
 		}
 
 	}
-	/*
-	float dirx = enemy.getX() - player.getX();
-	float diry = enemy.getY() - player.getY();
-	float hyp = sqrt(dirx * dirx + diry * diry);
-	dirx /= hyp;
-	diry /= hyp;
-
-	enemy.setX(dirx * MOVE_SPEED);
-	enemy.setY(diry * MOVE_SPEED);
-	*/
 }
 
 
@@ -297,7 +313,6 @@ void BobSlashStuff::collisions()
 				player.stopMoving();
 				player.setY(player.getY() + TEXTURE_SIZE * -player.getDirection()/2);
 			}
-
 		}
 
 		if (it->collidesWith(fireball, collisionVector)) {

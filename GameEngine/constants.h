@@ -77,6 +77,7 @@ const int STARTING_SANITY = 100;
 const int FIREBALL_COST_MANA = 10;
 const int PLAYER_BASE_ATTACK = 20;
 const int PROJECTILE_SPEED = 10;
+const int ENEMY_SPEED = 10;
 const int THUMBSTICK_TILT = 20000;
 const int DASH_DIST = 4;
 const float DASH_TIME = 0.5f;

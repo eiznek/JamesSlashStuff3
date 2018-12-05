@@ -111,7 +111,7 @@ private:
 	float mapY;
 	bool menuOn;
 	float waveCountdown;
-
+	float XPos, YPos;
 
 public:
 	//Constructor

@@ -35,7 +35,7 @@ void Projectile::update(float frameTime, std::vector<Enemy> vec, Player *player)
 
 	if (fireTimer < 0)                           // if ready to fire
 	{
-		visible = false;                        // old torpedo off
+		visible = false;                        // old fire off
 		active = false;
 	}
 
@@ -69,7 +69,7 @@ void Projectile::update(float frameTime, std::vector<Enemy> vec, Player *player)
 
 
 //=============================================================================
-// fire
+// fireball
 // Fires a torpedo from ship
 //=============================================================================
 void Projectile::fire(Player *player, std::vector<Enemy> vec)

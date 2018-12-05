@@ -4,7 +4,6 @@
 
 #include "entity.h"
 #include "constants.h"
-#include "player.h"
 #include <math.h>
 
 namespace EnemyNS
@@ -13,6 +12,8 @@ namespace EnemyNS
 	const int   HEIGHT = 64;               // image height
 	const int   X = GAME_WIDTH * 1 / 4 - TEXTURE_SIZE; // location on screen
 	const int   Y = GAME_WIDTH * 1 / 4 - TEXTURE_SIZE;
+	const float SPEED = TEXTURE_SIZE * ENEMY_SPEED;
+	const float Enemy_DELAY = 1.0f;
 }
 
 class Enemy : public Entity 
@@ -31,14 +32,10 @@ public:
 	virtual bool initialize(Game *gamePtr, int width, int height, int ncols,
 		TextureManager *textureM);
 	void update(float frameTime);
-	void attackPlayer(Player& thePlayer, int level);
-	void repair();
 	bool Enemy::isMoving();
-	void chase(VECTOR2 pos);
+	void chase(float XPos, float YPos);
 	// new functions
 	void setVelocityX(float v) { velocity.x = v; }
-	int getEnemyX();
-	int getEnemyY();
 
 	void setName(std::string name) { mobName = name; }
 	std::string getName() { return mobName; }

@@ -28,8 +28,7 @@ private:
 	float yMovement;
 	MOVE_STATE move_state;
 	DASH_STATE dash_state;
-	int oldX;
-	int oldY;
+	int oldX, oldY, oldAngle;
 	int moveTimer;
 	int moveSpeed;
 	int animFrame;
@@ -55,8 +54,6 @@ public:
 	void stopMoving();
 	void Dash(float frametime);
 
-	int getPlayerX();
-	int getPlayerY();
 	int getDistance() { return movement; }
 	int getDirection() { return direction; }
 	float getMana() { return mana; }

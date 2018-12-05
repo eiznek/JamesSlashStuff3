@@ -44,9 +44,6 @@ bool Player::initialize(Game *gamePtr, int width, int height, int ncols, Texture
 	return (Entity::initialize(gamePtr, width, height, ncols, textureM));
 }
 
-int Player::getPlayerX() { return spriteData.x; }
-int Player::getPlayerY() { return spriteData.y; }
-
 void Player::update(float frameTime) {
 
 	Entity::update(frameTime);
@@ -122,11 +119,10 @@ void Player::update(float frameTime) {
 			move_state = MOVE_STATE::Moving;
 			oldX = getX();
 			oldY = getY();
-
 		}
 
 		setCurrentFrame(animFrame);
-		setFrames(animFrame, animFrame + cols - 1);
+		setFrames(animFrame, animFrame + cols + 1); // was minus
 
 	}
 
