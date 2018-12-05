@@ -84,11 +84,11 @@ private:
 	HealthBar healthBarBg;
 	HealthBar manaBarBg;
 
-	TextureManager spriteSheet, playerSprites, npcSprites, fireballSprites, swordSprites, enemySprites, mageSprites;
+	TextureManager spriteSheet, playerSprites, npcSprites, fireballSprites, swordSprites, enemySprites, mageSprites, healthpotSprites;
 	Text npcText;
 	Text gameOverText;
 
-	Item sword;
+	Item sword, healthpot;
 	PlayerWeapon playerWeapon;
 	Projectile fireball;
 	Player player;
