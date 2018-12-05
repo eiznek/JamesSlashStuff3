@@ -18,6 +18,7 @@ Projectile::Projectile() : Entity()
 	fireTimer = 0.0f;
 	mass = projectileNS::MASS;
 	collisionType = entityNS::CIRCLE;
+	isHoming = false;
 }
 
 //=============================================================================
@@ -62,17 +63,22 @@ void Projectile::fire(Player *player)
 {
 	if (fireTimer <= 0.0f)                      // if ready to fire
 	{
-		if (player->getDirection() == LEFT || player->getDirection() == RIGHT)
-			velocity.x = player->getDirection();
-		else
-			velocity.x = 0;
-		if (player->getDirection() == UP || player->getDirection() == DOWN)
-			velocity.y = player->getDirection();
-		else
-			velocity.y = 0;
+		if (isHoming == false) {
+			if (player->getDirection() == LEFT || player->getDirection() == RIGHT)
+				velocity.x = player->getDirection();
+			else
+				velocity.x = 0;
+			if (player->getDirection() == UP || player->getDirection() == DOWN)
+				velocity.y = player->getDirection();
+			else
+				velocity.y = 0;
 
-		D3DXVec2Normalize(&velocity, &velocity);
-		velocity = velocity * projectileNS::SPEED;
+			D3DXVec2Normalize(&velocity, &velocity);
+			velocity = velocity * projectileNS::SPEED;
+		}
+		else { //homing
+			
+		}
 		
 		spriteData.x = player->getCenterX() - spriteData.width / 2;
 		spriteData.y = player->getCenterY() - spriteData.height / 2;
@@ -91,13 +97,13 @@ Enemy Projectile::GetClosestEnemy(std::vector<Enemy> vec) {
 			closestEnemy = *it;
 		}
 		else {
-			if (EnemyListAlive(vec) > 0) { //if number of enemies > 0;
+			//if (EnemyListAlive(vec) > 0) { //if number of enemies > 0 this line shd be settled in update with if(ishoming)
 				//compare magnitude between it and player
 				if (CALC_MAGNITUDE_SQUARED(it->getX(), getX(), it->getY(), getY()) >
 					CALC_MAGNITUDE_SQUARED(closestEnemy.getX(), getX(), closestEnemy.getY(), getY())) {
 					closestEnemy = *it;
 				}
-			}
+			//}
 			//i dont think need else. the projectile shd just continue flying.
 			//cant be sure though
 		}
@@ -108,6 +114,12 @@ int Projectile::EnemyListAlive(std::vector<Enemy> vec) {
 	int count = 0;
 	for (std::vector<Enemy>::iterator it = vec.begin(); it != vec.end(); it++) {
 		//if it is alive, count++ 
+	}
+	if (count > 0) {
+		isHoming = true;
+	}
+	else {
+		isHoming = false;
 	}
 }
 
