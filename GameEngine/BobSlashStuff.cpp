@@ -136,7 +136,7 @@ void BobSlashStuff::update()
 
 	}
 
-	if ((input->wasKeyPressed(ATTACK_KEY) || input->wasKeyPressed(player.getcontrollerA()))) && playerWeapon.getReady() == true) 
+	if ((input->wasKeyPressed(ATTACK_KEY) || input->wasKeyPressed(player.getcontrollerA())) && playerWeapon.getReady() == true) 
 	{
 
 		if (player.getDirection() == LEFT || player.getDirection() == RIGHT) 
@@ -177,7 +177,16 @@ void BobSlashStuff::update()
 		}
 
 	}
+	/*
+	float dirx = enemy.getX() - player.getX();
+	float diry = enemy.getY() - player.getY();
+	float hyp = sqrt(dirx * dirx + diry * diry);
+	dirx /= hyp;
+	diry /= hyp;
 
+	enemy.setX(dirx * MOVE_SPEED);
+	enemy.setY(diry * MOVE_SPEED);
+	*/
 }
 
 
@@ -203,6 +212,9 @@ void BobSlashStuff::collisions()
 		npc.setActive(false);
 		npc.setVisible(false);
 		sword.Drop(&npc);
+	}
+	if (enemy.collidesWith(player, collisionVector)) {
+
 	}
 
 	if (player.collidesWith(npc, collisionVector)) {
