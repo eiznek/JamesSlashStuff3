@@ -55,6 +55,7 @@ void Projectile::update(float frameTime)
 	//	spriteData.y = GAME_HEIGHT;             // position off bottom screen edge
 }
 
+
 //=============================================================================
 // fire
 // Fires a torpedo from ship
@@ -91,6 +92,7 @@ void Projectile::fire(Player *player)
 	}
 }
 
+/*
 Enemy Projectile::GetClosestEnemy(std::vector<Enemy> vec) {
 	for (std::vector<Enemy>::iterator it = vec.begin(); it != vec.end(); it++) {
 		if (it == vec.begin()) {
@@ -122,7 +124,7 @@ int Projectile::EnemyListAlive(std::vector<Enemy> vec) {
 		isHoming = false;
 	}
 }
-
+*/
 Projectile::~Projectile()
 {
 }
