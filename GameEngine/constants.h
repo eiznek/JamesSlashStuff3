@@ -1,9 +1,9 @@
 // Programming 2D Games
-// Copyright (c) 2011 by: 
+// Copyright (c) 2011 by:
 // Charles Kelly
 // Chapter 6 constants.h v1.0
 
-#ifndef _CONSTANTS_H            // Prevent multiple definitions if this 
+#ifndef _CONSTANTS_H            // Prevent multiple definitions if this
 #define _CONSTANTS_H            // file is included in more than one place
 #define WIN32_LEAN_AND_MEAN
 
@@ -96,7 +96,7 @@ const float MASS_SHIP = 5.0f;
 
 // graphic images
 //spacewar
-const char NEBULA_IMAGE[] =   "pictures\\orion.jpg";     // photo source NASA/courtesy of nasaimages.org 
+const char NEBULA_IMAGE[] =   "pictures\\orion.jpg";     // photo source NASA/courtesy of nasaimages.org
 const char TEXTURES_IMAGE[] = "pictures\\textures.png";  // game textures
 //bobslashstuff
 const char TILE_MAP_IMAGE[] = "pictures\\maintiles\\tileSheet.png";
@@ -143,7 +143,7 @@ const UCHAR ATTACK_KEY = 0x43; // C; //may also be used to interact
 const UCHAR SPELL_KEY_1 = 0x5A; //Z
 const UCHAR SPELL_KEY_2 = 0x58; //X
 
-//const UCHAR SPELL_KEY_3 = 
+//const UCHAR SPELL_KEY_3 =
 const UCHAR ITEM_KEY_1 = 0x41; //A
 const UCHAR ITEM_KEY_2 = 0x53; //S
 const UCHAR SPELL_KEY_1_ALT = 0x31; //1
@@ -153,15 +153,6 @@ const UCHAR ITEM_KEY_1_ALT = 0x45; //E
 const UCHAR ITEM_KEY_2_ALT = 0x52; //R
 const UCHAR SWAP_SPELLBAR_KEY = VK_LMENU; //Left ALT
 const UCHAR SWAP_SPELLBAR_KEY_2 = VK_TAB; //TAB
-<<<<<<< HEAD
 
 
-=======
-/*
-const float CALC_MAGNITUDE_SQUARED(float x1, float y1, float x2, float y2) {
-	//sqrt (x2-x1)^2 + (y2-y1)^2
-	return ((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1));
-}
-*/
->>>>>>> 4ec95dab5ae11e14905c8ca783e8cc5722554810
 #endif
