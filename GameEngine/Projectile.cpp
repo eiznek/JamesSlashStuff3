@@ -85,6 +85,32 @@ void Projectile::fire(Player *player)
 	}
 }
 
+Enemy Projectile::GetClosestEnemy(std::vector<Enemy> vec) {
+	for (std::vector<Enemy>::iterator it = vec.begin(); it != vec.end(); it++) {
+		if (it == vec.begin()) {
+			closestEnemy = *it;
+		}
+		else {
+			if (EnemyListAlive(vec) > 0) { //if number of enemies > 0;
+				//compare magnitude between it and player
+				if (CALC_MAGNITUDE_SQUARED(it->getX(), getX(), it->getY(), getY()) >
+					CALC_MAGNITUDE_SQUARED(closestEnemy.getX(), getX(), closestEnemy.getY(), getY())) {
+					closestEnemy = *it;
+				}
+			}
+			//i dont think need else. the projectile shd just continue flying.
+			//cant be sure though
+		}
+	}
+}
+
+int Projectile::EnemyListAlive(std::vector<Enemy> vec) {
+	int count = 0;
+	for (std::vector<Enemy>::iterator it = vec.begin(); it != vec.end(); it++) {
+		//if it is alive, count++ 
+	}
+}
+
 Projectile::~Projectile()
 {
 }
