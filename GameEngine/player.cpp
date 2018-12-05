@@ -153,11 +153,19 @@ void Player::update(float frameTime) {
 	}
 
 	if (input->wasKeyPressed(DASH_KEY)) {
-		//if (dash_state == DASH_STATE::Dashing) {
-		//	this->setActive(false); //disable collision
-		//}
-		Dash(frameTime);
+		if (dash_state == NotDashing) {
+			Dash(frameTime);
+		}
 	}
+	//this is the cooldown for dashing
+	if (dashCD > 0 && dash_state == Dashing) { //this is essential to ^^
+		dashCD -= frameTime;
+	}
+	else { //dashCD <= 0
+		dash_state = NotDashing;
+		dashCD = DASH_CD;
+	}
+
 
 }
 
@@ -184,29 +192,17 @@ void Player::Attack() {
 }
 
 void Player::Dash(float frametime) {
-	if (dash_state == NotDashing && dashCD == DASH_CD) {
-		dashCD -= frametime;
-		dash_state = Dashing;
+	dash_state = Dashing;
+	if (direction == LEFT || direction == RIGHT) {
+		setX(getX() + getDistDashedPerFrame() * direction);
+		setY(getY());
+		//play anim
 	}
-	else if (dash_state == Dashing && dashCD > 0 && dashCD < DASH_CD) {
-		setX(getX() - TEXTURE_SIZE);
-		dash_state = Dashing;
-		if (direction == LEFT || direction == RIGHT) {
-			setX(getX() + getDistDashedPerFrame() * direction);
-			setY(getY());
-		}
-		else if (direction == UP || direction == DOWN) {
-			setX(getX());
-			setY(getY() + getDistDashedPerFrame() * (direction/2));
-		}
-		setActive(false);
+	else if (direction == UP || direction == DOWN) {
+		setX(getX());
+		setY(getY() + getDistDashedPerFrame() * (direction/2));
+		//play anim
 	}
-	else {
-		dash_state = NotDashing;
-		dashCD = DASH_CD;
-		setActive(true);
-	}
-
 }
 
 void Player::drawController(int n)
