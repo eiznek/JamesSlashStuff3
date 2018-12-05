@@ -98,8 +98,7 @@ void BobSlashStuff::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing projectile."));
 	}
 	fireball.setFrames(projectileNS::START_FRAME, projectileNS::END_FRAME);
-	fireball.setCurrentFrame(projectileNS::START_FRAME);
-
+	fireball.setCurrentFrame(projectileNS::START_FRAME);	
 
 	if (swordSprites.initialize(graphics, WOODEN_SWORD_IMAGE) == false) {
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error loading sword sprites."));
@@ -107,6 +106,14 @@ void BobSlashStuff::initialize(HWND hwnd)
 
 	if (sword.initialize(this, itemNS::WIDTH, itemNS::HEIGHT, itemNS::TEXTURE_COLS, &swordSprites) == false) {
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing sword."));
+	}
+
+	if (healthpotSprites.initialize(graphics, HEALTHPOT_IMAGE) == false) {
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error loading Health Pot sprite sheet"));
+	}
+
+	if (healthpot.initialize(this, itemNS::WIDTH, itemNS::HEIGHT, itemNS::TEXTURE_COLS, &healthpotSprites) == false) {
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing healthpot."));
 	}
 
 	//sword.setVisible(true);

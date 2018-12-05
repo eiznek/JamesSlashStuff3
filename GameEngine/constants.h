@@ -76,6 +76,7 @@ const char NPC_IMAGE[] = "pictures\\npcSprites.png";
 const char FIREBALL_IMAGE[] = "pictures\\fireball.png";
 const char WOODEN_SWORD_IMAGE[] = "pictures\\Wooden_Sword.png";
 const char ENEMY_IMAGE[] = "pictures\\Skeleton_Walk.png";
+const char HEALTHPOT_IMAGE[] = "pictures\\healthpot.png";
 const char ENEMY_BOW_IMAGE[] = "pictures\\Skeleton_bow.png";
 const char MAGE_IMAGE[] = "pictures\\Mage_Eyes.png";
 const int TEXTURE_SHEET_COLS = 30;
