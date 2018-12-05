@@ -15,6 +15,7 @@ Game::Game()
     input = new Input();        // initialize keyboard input immediately
     // additional initialization is handled in later call to input->initialize()
     paused = false;             // game is not paused
+	//console = NULL;
     graphics = NULL;
     initialized = false;
 }
@@ -213,6 +214,16 @@ void Game::run(HWND hwnd)
         input->vibrateControllers(frameTime); // handle controller vibration
     }
     renderGame();                   // draw all game items
+
+	//check for console key
+	if (input->getCharIn() == CONSOLE_KEY)
+	{
+		input->clearCharIn();       // clear last char
+		//console->showHide();
+		//paused = console->getVisible(); // pause game when console is visible
+	}
+
+	//consoleCommand();
     input->readControllers();       // read state of controllers
 
     // if Alt+Enter toggle fullscreen/window
