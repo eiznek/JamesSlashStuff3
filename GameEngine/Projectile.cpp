@@ -99,7 +99,7 @@ void Projectile::fire(Player *player, std::vector<Enemy> vec)
 	}
 }
 
-/*
+
 Enemy Projectile::GetClosestEnemy(std::vector<Enemy> vec) {
 	for (std::vector<Enemy>::iterator it = vec.begin(); it != vec.end(); it++) {
 		if (it == vec.begin()) {
@@ -130,7 +130,7 @@ int Projectile::EnemyListAlive(std::vector<Enemy> vec) {
 	}
 	return count;
 }
-*/
+
 Projectile::~Projectile()
 {
 }
