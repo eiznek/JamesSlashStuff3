@@ -85,6 +85,21 @@ void Projectile::fire(Player *player)
 	}
 }
 
+Enemy Projectile::GetClosestEnemy(std::vector<Enemy> vec) {
+	for (std::vector<Enemy>::iterator it = vec.begin(); it != vec.end(); it++) {
+		if (it == vec.begin()) {
+			closestEnemy = *it;
+		}
+		else {
+			//compare magnitude between it and player
+			if (CALC_MAGNITUDE_SQUARED(it->getX(), getX(), it->getY(), getY()) > 
+				CALC_MAGNITUDE_SQUARED(closestEnemy.getX(), getX(), closestEnemy.getY(), getY())) {
+				closestEnemy = *it;
+			}
+		}
+	}
+}
+
 Projectile::~Projectile()
 {
 }
