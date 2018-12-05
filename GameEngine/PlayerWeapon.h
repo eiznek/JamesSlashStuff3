@@ -12,7 +12,7 @@ namespace PlayerWepNS
 	const float ATTACK_DELAY = 1.0f;
 	const int   TEXTURE_COLS = 4;
 	const int   START_FRAME = 0;
-	const int   END_FRAME = 3;
+	const int   END_FRAME = 0;
 	const float ANIMATION_DELAY = 0.1f; // time between frames
 }
 
@@ -32,6 +32,7 @@ public:
 	float getTimer() { return attacktimer; }
 	bool getReady() { return isready; }
 	void setReady(bool isr) { isready = isr; }
+	void attack();
 	//void damage(Player *player);
 
 };

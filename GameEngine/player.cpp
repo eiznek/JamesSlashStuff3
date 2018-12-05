@@ -31,6 +31,9 @@ Player::Player() : Entity() {
 	moveSpeed = 1; //num tiles per second
 	animFrame = 0;
 	move_state = MOVE_STATE::NotMoving;
+	dash_state = DASH_STATE::NotDashing;
+	dashCD = DASH_CD;
+	distDashedPerFrame = (TEXTURE_SIZE * DASH_DIST) /*/ (DASH_TIME * FRAME_RATE)*/;
 }
 
 Player::~Player() {
@@ -53,6 +56,9 @@ void Player::update(float frameTime) {
 	drawController(3);
 
 	if (move_state == MOVE_STATE::NotMoving) {
+
+		if (!active)
+			return;
 
 		//Move Up
 		if (input->isKeyDown(UP_KEY) || input->getGamepadThumbLY(0) > THUMBSTICK_TILT) {
@@ -139,17 +145,18 @@ void Player::update(float frameTime) {
 		}
 
 		stopMoving();
-		//if (xMovement <= 0 && yMovement <= 0) {
-		//	stopMoving();
-		//	setCurrentFrame(animFrame);
-		//	setFrames(animFrame, animFrame);
-		//}
-
-			 
+ 
 	}
 
 	if (input->wasKeyPressed(ATTACK_KEY)) {
 		Attack();
+	}
+
+	if (input->wasKeyPressed(DASH_KEY)) {
+		//if (dash_state == DASH_STATE::Dashing) {
+		//	this->setActive(false); //disable collision
+		//}
+		Dash(frameTime);
 	}
 
 }
@@ -173,6 +180,32 @@ void Player::stopMoving() {
 //Player Attacking
 //Could be unnecessary and most suitably implemented elsewhere instead. i.e. "BobSlashStuff.cpp"
 void Player::Attack() {
+
+}
+
+void Player::Dash(float frametime) {
+	if (dash_state == NotDashing && dashCD == DASH_CD) {
+		dashCD -= frametime;
+		dash_state = Dashing;
+	}
+	else if (dash_state == Dashing && dashCD > 0 && dashCD < DASH_CD) {
+		setX(getX() - TEXTURE_SIZE);
+		dash_state = Dashing;
+		if (direction == LEFT || direction == RIGHT) {
+			setX(getX() + getDistDashedPerFrame() * direction);
+			setY(getY());
+		}
+		else if (direction == UP || direction == DOWN) {
+			setX(getX());
+			setY(getY() + getDistDashedPerFrame() * (direction/2));
+		}
+		setActive(false);
+	}
+	else {
+		dash_state = NotDashing;
+		dashCD = DASH_CD;
+		setActive(true);
+	}
 
 }
 

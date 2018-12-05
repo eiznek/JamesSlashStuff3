@@ -28,19 +28,26 @@ PlayerWeapon::~PlayerWeapon()
 }
 
 void PlayerWeapon::update(float frameTime) {
-	if (isready == false) {
+
+	if (isready == true && attacktimer > 0)
 		attacktimer -= frameTime;                     // time remaining until fire enabled
 
-		if (attacktimer <= 0)                           // if ready to fire
-		{
-			setReady(true);
-			visible = false;                        // old torpedo off
-			active = false;
+	if (attacktimer <= 0)                           
+	{
+		isready = false;
+		setCurrentFrame(PlayerWepNS::START_FRAME);
+		setActive(false);
+		setVisible(false);
+		attacktimer = PlayerWepNS::ATTACK_DELAY;
 
-			setCurrentFrame(PlayerWepNS::START_FRAME);
-		}
-
-		Image::update(frameTime);
 	}
+
+	Image::update(frameTime);
+
 }
+
+void PlayerWeapon::attack() {
+	
+}
+
 

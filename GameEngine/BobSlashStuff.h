@@ -6,6 +6,7 @@
 #include "textureManager.h"
 #include "image.h"
 #include "bob.h"
+#include <math.h>
 #include "player.h"
 #include "PlayerWeapon.h"
 #include "Enemy.h"
@@ -31,7 +32,7 @@ namespace bobSlashStuffNS {
 	const int g = 13; //GRASS
 	const int g2 = 12; //GRASS 2
 
-	const int tileMap[MAP_HEIGHT][MAP_WIDTH] = {
+	const char tileMap[MAP_HEIGHT][MAP_WIDTH] = {
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, g, g2, g, g, g, g, g, g, g, g, g, g, g2, g, g, g, g, g, 0,
 		0, g, g2, g, g, g, g2, g2, g, g, g, g2, g, g, g2, g, g, g, g, 0,
@@ -48,6 +49,28 @@ namespace bobSlashStuffNS {
 		0, g, g, g, g, g, g, g, g, g, g, g, g, g2, g, g, g, g, g, 0,
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 	};
+
+	//ENEMY BADGUY = 1
+	//ENEMY MAGE = 2
+	//NPC James = 3
+	const char entityMap[MAP_HEIGHT][MAP_WIDTH] = {
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 3, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	};
+
 };
 
 class BobSlashStuff : public Game
@@ -57,9 +80,13 @@ private:
 	Image menu;
 
 	HealthBar healthBar;
+	HealthBar manaBar;
+	HealthBar healthBarBg;
+	HealthBar manaBarBg;
 
-	TextureManager spriteSheet, playerSprites, npcSprites, fireballSprites, swordSprites, enemySprites;
+	TextureManager spriteSheet, playerSprites, npcSprites, fireballSprites, swordSprites, enemySprites, mageSprites;
 	Text npcText;
+	Text gameOverText;
 
 	Item sword;
 	PlayerWeapon playerWeapon;
@@ -67,7 +94,11 @@ private:
 	Player player;
 	NPC npc;
 	Enemy enemy;
-	std::vector<NPC*> NPCList;
+	Enemy enemy2;
+
+	std::vector<Enemy> EnemyList;
+	std::vector<Item> LootList;
+	std::vector<Item> PlayerInventory;
 
 	char buffer[bobSlashStuffNS::BUF_SIZE]; //text buffer
 	float mapX;

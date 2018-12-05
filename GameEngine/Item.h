@@ -1,6 +1,7 @@
 #pragma once
 #include "entity.h"
 #include "player.h"
+#include <vector>
 
 namespace itemNS
 {
@@ -17,10 +18,13 @@ class Item :
 public:
 	Item();
 	~Item();
+	std::vector<Item> ItemList;
 
 	void update(float frameTime);
-	void PickUp(Player *player);
+	//void PickUp(Player *player);
 	void Drop(Entity *entity);
+	bool initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM);
+	void ItemAdd(Item item);
 
 };
 

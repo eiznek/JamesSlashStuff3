@@ -55,8 +55,10 @@ const int FIREBALL_COST_MANA = 10;
 const int PLAYER_BASE_ATTACK = 20;
 const int PROJECTILE_SPEED = 10;
 const int THUMBSTICK_TILT = 20000;
-const int DASH_DIST = 4;
+const int DASH_DIST = 2;
 const float DASH_TIME = 0.5f;
+const float DASH_CD = 2.0f;
+const int ENEMY_BASE_DAMAGE = 20;
 
 //spacewar
 const float GRAVITY = 6.67428e-11f;             // gravitational constant
@@ -103,7 +105,7 @@ const UCHAR UP_KEY_2 = 0x57; //W
 const UCHAR LEFT_KEY_2 = 0x41; //A
 const UCHAR DOWN_KEY_2 = 0x53; //S
 const UCHAR RIGHT_KEY_2 = 0x44; //D
-const UCHAR DASH_KEY = 0xA0; //L SHIFT
+const UCHAR DASH_KEY = VK_SHIFT; //L SHIFT
 
 //combat
 const UCHAR ATTACK_KEY = 0x43; // C; //may also be used to interact
@@ -126,9 +128,18 @@ const UCHAR SWAP_SPELLBAR_KEY_2 = VK_TAB; //TAB
 enum WEAPON {SWORD, TORPEDO, SHIP, PLANET};
 
 //bobslashstuff
-enum DIRECTION { UP = -2, LEFT, RIGHT = 1, DOWN };
+enum DIRECTION { 
+	UP = -2, LEFT, RIGHT = 1, DOWN 
+};
 enum MOVE_STATE {
 	Moving = 0, NotMoving
+};
+enum DASH_STATE {
+	Dashing = 0, NotDashing
+};
+
+enum ENTITY {
+	ENEMY_BADGUY = 1, ENEMY_MAGE, NPC_JAMES
 };
 
 #endif

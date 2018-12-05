@@ -26,11 +26,15 @@ private:
 	float xMovement;
 	float yMovement;
 	MOVE_STATE move_state;
+	DASH_STATE dash_state;
 	int oldX;
 	int oldY;
 	int moveTimer;
 	int moveSpeed;
 	int animFrame;
+	float distDashedPerFrame;
+	float dashTimeLeft;
+	float dashCD;
 	//controller
 	int leftTrigger, leftTriggerUndead, rightTrigger, rightTriggerUndead;
 	int leftThumbX, leftThumbXUndead, leftThumbY, leftThumbYUndead;
@@ -48,6 +52,8 @@ public:
 
 	void Attack();
 	void stopMoving();
+	void Dash(float frametime);
+
 	int getPlayerX();
 	int getPlayerY();
 	int getDistance() { return movement; }
@@ -57,6 +63,10 @@ public:
 	//void obstructed(float colX, float colY);
 	int getSanity() { return sanity; }
 	bool getMoveState() { return move_state; }
+	float getDistDashedPerFrame() { return distDashedPerFrame; }
+	float getDashTimeLeft() { return dashTimeLeft; }
+	void setDashTimeLeft(float dtl) { dashTimeLeft = dtl; }
+	void setDashCD(float cd) { dashCD = cd; }
 	//void setMoveState(MOVE_STATE state) { move_state = state; }
 
 	void drawController(int n);

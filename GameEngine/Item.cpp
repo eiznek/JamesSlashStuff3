@@ -21,24 +21,33 @@ Item::Item() : Entity()
 	collisionType = entityNS::BOX;
 }
 
+bool Item::initialize(Game *gamePtr, int width, int height, int ncols, TextureManager *textureM)
+{
+	return (Entity::initialize(gamePtr, width, height, ncols, textureM));
+}
+
+void Item::ItemAdd(Item item) {
+	ItemList.push_back(item);
+}
+
 void Item::update(float frameTime) {
 	Image::update(frameTime);
 
 }
 
 void Item::Drop(Entity *entity) {
-	spriteData.x = entity->getX();
-	spriteData.y = entity->getY();
+	spriteData.x = entity->getCenterX();
+	spriteData.y = entity->getCenterY();
 	setActive(true);
 	setVisible(true);
 
 }
 
-void Item::PickUp(Player *player) {
-	setActive(false);
-	setVisible(false);
-
-}
+//void Item::PickUp(Player *player) {
+//	setActive(false);
+//	setVisible(false);
+//
+//}
 
 Item::~Item()
 {
