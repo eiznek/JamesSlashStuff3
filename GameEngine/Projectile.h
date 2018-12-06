@@ -39,7 +39,7 @@ public:
 	// new member functions
 	void fire(Player *player, std::vector<Enemy> vec);                // fire torpedo from ship
 
-	Enemy GetClosestEnemy(std::vector<Enemy> vec);
-	int EnemyListAlive(std::vector<Enemy> vec);
+	//Enemy GetClosestEnemy(std::vector<Enemy> vec);
+	//int EnemyListAlive(std::vector<Enemy> vec);
 };
 #endif

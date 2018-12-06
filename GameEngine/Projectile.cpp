@@ -40,8 +40,8 @@ void Projectile::update(float frameTime, std::vector<Enemy> vec, Player *player)
 	}
 
 	Image::update(frameTime);
-
-	if (isHoming == false && EnemyListAlive(vec) > 0) {
+	//if (isHoming == false && EnemyListAlive(vec) > 0) {
+	if (isHoming == false ) {
 		spriteData.x += frameTime * velocity.x;     // move along X 
 		spriteData.y += frameTime * velocity.y;     // move along Y
 	}

@@ -158,17 +158,18 @@ void BobSlashStuff::update()
 
 	waveCleared = true;
 
-	enemy.chase(XPos, YPos);
+	
 	for (std::vector<Enemy>::iterator it = EnemyList.begin(); it != EnemyList.end(); it++) {
 		float xDistance = player.getX() - enemy.getX();
 		float yDistance = player.getY() - enemy.getY();
 		float hypSqr = (xDistance * xDistance) + (yDistance * yDistance);
 		hypSqr = hypSqr * hypSqr;
 
-		if (hypSqr < 400) {
+		if (hypSqr < GAME_WIDTH) {
 
-			YPos += frameTime * 200 * (yDistance / hypSqr);
-			XPos += frameTime * 200 * (xDistance / hypSqr);
+			YPos += frameTime * ENEMY_SPEED * (yDistance / hypSqr);
+			XPos += frameTime * ENEMY_SPEED * (xDistance / hypSqr);
+			enemy.chase(XPos, YPos);
 		}
 
 		it->update(frameTime);
