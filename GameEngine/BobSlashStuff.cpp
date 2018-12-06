@@ -231,7 +231,7 @@ void BobSlashStuff::update()
 
 		}
 
-		if (input->wasKeyPressed(SPELL_KEY_1) || input->getGamepadDPadDown(0))
+		if (input->wasKeyPressed(SPELL_KEY_1) || input->getGamepadX(0))
 		{
 			if (player.getMana() >= FIREBALL_COST_MANA && !fireball.getActive()) {
 				fireball.fire(&player, EnemyList);
@@ -240,7 +240,7 @@ void BobSlashStuff::update()
 
 		}
 
-		if (input->wasKeyPressed(SPELL_KEY_2) || input->getGamepadDPadLeft(0))
+		if (input->wasKeyPressed(SPELL_KEY_2) )
 		{
 			//second spell
 		}
@@ -268,7 +268,7 @@ void BobSlashStuff::update()
 
 		}
 
-		if (input->wasKeyPressed(ITEM_KEY_1)) {
+		if (input->wasKeyPressed(ITEM_KEY_1) || input->wasKeyPressed(input->getGamepadB(0))) {
 
 			for (std::vector<Item>::iterator it = PlayerInventory.begin(); it != PlayerInventory.end(); it++) {
 				if (it->getID() == ITEM_SLOT_1) {
@@ -277,6 +277,12 @@ void BobSlashStuff::update()
 					break;
 				}
 
+			}
+		}
+
+		if (input->wasKeyPressed(DASH_KEY) || input->wasKeyPressed(0x0200)) {
+			if (player.getDashState() == NotDashing) {
+				player.Dash(frameTime);
 			}
 		}
 
@@ -385,7 +391,7 @@ void BobSlashStuff::collisions()
 				}
 
 			}
-			else if (input->wasKeyPressed(INTERACT_KEY) && it->getActive() == true) {
+			else if ((input->wasKeyPressed(INTERACT_KEY) || input->wasKeyPressed(0x2000)) && it->getActive() == true) {
 				//sword.Drop(&npc);
 				healthpot.ItemList.back().Drop(&*it);
 				LootList.push_back(healthpot.ItemList.back());
