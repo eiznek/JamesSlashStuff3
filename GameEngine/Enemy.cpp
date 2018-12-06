@@ -12,10 +12,10 @@ Enemy::Enemy() : Entity() {
 	edge.bottom = 32;
 	edge.left = 0;
 	edge.right = 32;
-	velocity.x = 0;
-	velocity.y = 0;
+	velocity.x = 1;
+	velocity.y = 1;
 	frameDelay = 0.3f;
-	startFrame = 0;     // first frame of animation
+	startFrame = 26;     // first frame of animation
 	endFrame = cols - 1;     // last frame of animation
 	currentFrame = startFrame;
 	radius = WIDTH / 2.0;
@@ -48,8 +48,29 @@ void Enemy::update(float frameTime)
 	spriteData.x += frameTime * velocity.x;     // move along X 
 	spriteData.y += frameTime * velocity.y;		// move along Y
 	
+	if (spriteData.x > GAME_WIDTH - EnemyNS::WIDTH)              // if off right screen edge
+	{
+		spriteData.x = GAME_WIDTH - EnemyNS::WIDTH;
+		velocity.x = -velocity.x;
+	}
+	else if (spriteData.x < 0)     // else if off left screen edge
+	{
+		spriteData.x = 0;
+		velocity.x = -velocity.x;
+	}
+	else if (spriteData.y > GAME_HEIGHT - EnemyNS::HEIGHT)             // if off bottom screen edge
+	{
+		spriteData.y = GAME_HEIGHT - EnemyNS::HEIGHT;
+		velocity.x = -velocity.x;
+	}
+    else if (spriteData.y < 0)    // else if off top screen edge
+	{
+        spriteData.y = 0;             // position off bottom screen edge
+		velocity.y = -velocity.y;
+	}
 	//write vector code in here
 
+	//chasing
 	/*
 	//get vector in direction of player
 	int dirx = playerX - enemyX;
@@ -67,7 +88,14 @@ void Enemy::update(float frameTime)
 	//if player right
 	animframe = 39;
 
-	
+	//tracking to shoot player
+	if (isFollow) {
+	spriteData.angle = (float)atan2((EnemyY-spriteData.y), (EnemyX - spriteData.x));
+	}
+
+	else {
+			spriteData.angle += angleRate * frameTime;
+	}
 
 	*/
 }

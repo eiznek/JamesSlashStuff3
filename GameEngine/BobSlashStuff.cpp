@@ -153,13 +153,14 @@ void BobSlashStuff::update()
 	fireball.update(frameTime, EnemyList, &player);
 	//sword.update(frameTime);
 	//npc.update(frameTime);
-	//enemy.update(frameTime);
+	enemy.update(frameTime);
 	playerWeapon.update(frameTime);
 
 	waveCleared = true;
 
 	
 	for (std::vector<Enemy>::iterator it = EnemyList.begin(); it != EnemyList.end(); it++) {
+		//chase
 		float xDistance = player.getX() - enemy.getX();
 		float yDistance = player.getY() - enemy.getY();
 		float hypSqr = (xDistance * xDistance) + (yDistance * yDistance);
@@ -185,20 +186,6 @@ void BobSlashStuff::update()
 	if (waveCountdown <= 0 && waveCleared) {
 		NextWave();
 	}
-	/*
-	//chase enemy 1
-	float xDistance = player.getX() - enemy.getX();
-	float yDistance = player.getY() - enemy.getY();
-	float hypSqr = (xDistance * xDistance) + (yDistance * yDistance);
-	hypSqr = hypSqr * hypSqr;
-
-	if (hypSqr < 400) {
-
-		YPos += frameTime * 200 * (yDistance / hypSqr);
-		XPos += frameTime * 200 * (xDistance / hypSqr);
-		enemy.chase(XPos, YPos);
-	}
-	*/
 
 	for (std::vector<NPC>::iterator it = npc.NpcList.begin(); it != npc.NpcList.end(); it++) {
 		it->update(frameTime);

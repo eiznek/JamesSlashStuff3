@@ -19,6 +19,7 @@ namespace EnemyNS
 class Enemy : public Entity 
 {
 private:
+	int direction;
 	float			oldX, oldY, oldAngle;
 	float			rotation;  // current rotation rate (radians/second)
 	LARGE_INTEGER	lastAttack;
