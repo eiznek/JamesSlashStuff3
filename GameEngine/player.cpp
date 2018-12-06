@@ -148,11 +148,12 @@ void Player::update(float frameTime) {
 		Attack();
 	}
 
-	//if (input->wasKeyPressed(DASH_KEY) || input->wasKeyPressed(GAMEPAD_RIGHT_SHOULDER)) {
-	//	if (dash_state == NotDashing) {
-	//		Dash(frameTime);
-	//	}
-	//}
+	if (input->wasKeyPressed(DASH_KEY) || input->getGamepadRightShoulder(0)) {
+		if (dash_state == NotDashing) {
+			Dash(frameTime);
+		}
+	}
+
 	//this is the cooldown for dashing
 	if (dashCD > 0 && dash_state == Dashing) { //this is essential to ^^
 		dashCD -= frameTime;

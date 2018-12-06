@@ -269,7 +269,7 @@ void BobSlashStuff::update()
 
 		}
 
-		if (input->wasKeyPressed(ITEM_KEY_1) || input->wasKeyPressed(input->getGamepadB(0))) {
+		if (input->wasKeyPressed(ITEM_KEY_1) || input->getGamepadB(0)) {
 
 			for (std::vector<Item>::iterator it = PlayerInventory.begin(); it != PlayerInventory.end(); it++) {
 				if (it->getID() == ITEM_SLOT_1) {
