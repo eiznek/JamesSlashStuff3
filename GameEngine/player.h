@@ -65,6 +65,7 @@ public:
 	float getDashTimeLeft() { return dashTimeLeft; }
 	void setDashTimeLeft(float dtl) { dashTimeLeft = dtl; }
 	void setDashCD(float cd) { dashCD = cd; }
+	DASH_STATE getDashState() { return dash_state; }
 	//void setMoveState(MOVE_STATE state) { move_state = state; }
 
 	void drawController(int n);
