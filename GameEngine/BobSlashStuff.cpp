@@ -139,7 +139,10 @@ void BobSlashStuff::initialize(HWND hwnd)
 	manaBar.initialize(graphics, &spriteSheet, 0, bobSlashStuffNS::HEALTHBAR_Y + TEXTURE_SIZE, 4.0f, graphicsNS::BLUE);
 	manaBarBg.initialize(graphics, &spriteSheet, 0, bobSlashStuffNS::HEALTHBAR_Y + TEXTURE_SIZE, 4.0f, graphicsNS::BLACK);
 
+	healthBarColor = graphicsNS::RED;
 	waveCountdown = WAVE_DELAY;
+	healthBarTimer = HEALTHBAR_FLASH_DELAY;
+	gameOver = false;
 
 	return;
 }
@@ -158,6 +161,44 @@ void BobSlashStuff::update()
 
 	waveCleared = true;
 
+	if (input->isKeyDown(ENTER_KEY) && gameOver) {
+		NextWave();
+		player.setX(PlayerNS::X);
+		player.setY(PlayerNS::Y);
+		player.setHealth(STARTING_HEALTH);
+		player.setMana(STARTING_MANA);
+		player.setActive(true);
+		player.setVisible(true);
+		gameOverText.setFontColor(SETCOLOR_ARGB(0, 0, 0, 0));
+		gameOver = false;
+		PlayerInventory.clear();
+
+	}
+
+
+	if (healthBarColor == graphicsNS::WHITE) {
+		healthBarTimer -= frameTime;
+		if (healthBarTimer <= 0) {
+			healthBarColor = graphicsNS::RED;
+			healthBarTimer = HEALTHBAR_FLASH_DELAY;
+		}
+	}
+
+	else if (healthBarColor == graphicsNS::LIME) {
+		healthBarTimer -= frameTime;
+		if (healthBarTimer <= 0) {
+			healthBarColor = graphicsNS::RED;
+			healthBarTimer = HEALTHBAR_FLASH_DELAY;
+		}
+	}
+	//if (!healthBar.getVisible()) {
+	//	healthBarTimer -= frameTime;
+	//	if (healthBarTimer <= 0) {
+	//		healthBar.setVisible(true);
+	//		healthBarTimer = HEALTHBAR_FLASH_DELAY;
+	//	}
+
+	//}
 	
 	for (std::vector<Enemy>::iterator it = EnemyList.begin(); it != EnemyList.end(); it++) {
 		//chase
@@ -204,11 +245,12 @@ void BobSlashStuff::update()
 	}
 
 	if (player.getActive()) {
-		if (player.getHealth() <= 0)
+		if (player.getHealth() <= 0 && !gameOver)
 		{
 			player.setActive(false);
 			player.setVisible(false);
 			gameOverText.setFontColor(SETCOLOR_ARGB(255, 255, 0, 0)); //RED
+			gameOver = true;
 		}
 
 		if (player.getMana() < STARTING_MANA) {
@@ -261,6 +303,7 @@ void BobSlashStuff::update()
 			for (std::vector<Item>::iterator it = PlayerInventory.begin(); it != PlayerInventory.end(); it++) {
 				if (it->getID() == ITEM_SLOT_1) {
 					player.setHealth(STARTING_HEALTH);
+					healthBarColor = graphicsNS::LIME;
 					PlayerInventory.erase(it);
 					break;
 				}
@@ -295,9 +338,13 @@ void BobSlashStuff::collisions()
 
 	//}
 	for (std::vector<Enemy>::iterator it = EnemyList.begin(); it != EnemyList.end(); it++) {
+		if (waveCleared)
+			break;
+
 		if (it->collidesWith(player, collisionVector)) {
-			if (!waveCleared)
-				player.damage(ENEMY_BASE_DAMAGE);
+			player.damage(ENEMY_BASE_DAMAGE);
+			healthBarColor = graphicsNS::WHITE;
+			//healthBar.setVisible(false);
 			//knockback
 			if (player.getDirection() == LEFT || player.getDirection() == RIGHT) {
 				player.stopMoving();
@@ -478,7 +525,8 @@ void BobSlashStuff::render()
 	//hp and mp bars
 	healthBar.setX((float)bobSlashStuffNS::PLAYER_HEALTH_BAR_X);
 	healthBar.set(player.getHealth());
-	healthBar.draw(graphicsNS::RED);
+	healthBar.draw(healthBarColor);
+	//healthBar.draw(graphicsNS::RED);
 
 	manaBar.setX((float)bobSlashStuffNS::PLAYER_HEALTH_BAR_X);
 	manaBar.set(player.getMana());
@@ -565,6 +613,7 @@ void BobSlashStuff::NextWave() {
 	npc.NpcList.clear();
 	sword.ItemList.clear();
 	healthpot.ItemList.clear();
+	LootList.clear();
 
 	for (int col = 0; col < MAP_WIDTH; col++) {
 

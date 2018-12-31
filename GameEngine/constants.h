@@ -79,7 +79,7 @@ const int PLAYER_BASE_ATTACK = 20;
 const int PROJECTILE_SPEED = 10;
 const int ENEMY_SPEED = 10;
 const int THUMBSTICK_TILT = 20000;
-const int DASH_DIST = 4;
+const int DASH_DIST = 1;
 const float DASH_TIME = 0.5f;
 const float DASH_CD = 2.0f;
 const int ENEMY_BASE_DAMAGE = 20;
@@ -88,7 +88,8 @@ const int ITEM_SLOT_2 = MP_POTION;
 const int SPAWN_PERCENT = 5;
 const int MAX_SPAWNS = 12;
 const int MANA_REGEN_RATE = 2;
-const int WAVE_DELAY = 5;
+const int WAVE_DELAY = 3;
+const float HEALTHBAR_FLASH_DELAY = 0.1f;
 
 //spacewar
 const float GRAVITY = 6.67428e-11f;             // gravitational constant

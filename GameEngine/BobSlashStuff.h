@@ -111,6 +111,9 @@ private:
 	float mapY;
 	bool menuOn;
 	float waveCountdown;
+	float healthBarTimer;
+	DWORD healthBarColor;
+	bool gameOver;
 	float XPos, YPos;
 
 public:
